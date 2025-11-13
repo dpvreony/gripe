@@ -8,7 +8,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics.Tracing;
 using System.IO;
+using System.IO.Abstractions;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Language;
 using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Logging;
@@ -23,23 +25,28 @@ using Microsoft.Build.Locator;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.MSBuild;
+using Whipstaff.CommandLine;
 
 namespace Dhgms.GripeWithRoslyn.DotNetTool
 {
     /// <summary>
     /// Job to carry out analysis.
     /// </summary>
-    public sealed class Job
+    public sealed class Job : AbstractCommandLineHandler<CommandLineArgModel, JobLogMessageActionsWrapper>
     {
-        private readonly JobLogMessageActionsWrapper _logMessageActionsWrapper;
+        private readonly IFileSystem _fileSystem;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Job"/> class.
         /// </summary>
         /// <param name="logMessageActionsWrapper">Log Message Actions Wrapper instance.</param>
-        public Job(JobLogMessageActionsWrapper logMessageActionsWrapper)
+        /// <param name="fileSystem">File System abstraction.</param>
+        public Job(JobLogMessageActionsWrapper logMessageActionsWrapper, IFileSystem fileSystem)
+            : base(logMessageActionsWrapper)
         {
-            _logMessageActionsWrapper = logMessageActionsWrapper;
+            ArgumentNullException.ThrowIfNull(fileSystem);
+
+            _fileSystem = fileSystem;
         }
 
         /// <summary>
@@ -50,9 +57,9 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// <returns>0 for success, 1 for failure.</returns>
         public async Task<int> DoAnalysis(
             VisualStudioInstance instance,
-            FileInfo solutionPath)
+            IFileInfo solutionPath)
         {
-            _logMessageActionsWrapper.UsingMsBuildAtPath(instance.MSBuildPath);
+            LogMessageActionsWrapper.UsingMsBuildAtPath(instance.MSBuildPath);
 
             // NOTE: Be sure to register an instance with the MSBuildLocator
             //       before calling MSBuildWorkspace.Create()
@@ -65,17 +72,17 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
             {
                 // Print message for WorkspaceFailed event to help diagnosing project load failures.
                 // TODO: add subscription handler.
-                workspace.WorkspaceFailed += (o, e) => _logMessageActionsWrapper.WorkspaceFailed(e);
+                workspace.WorkspaceFailed += (o, e) => LogMessageActionsWrapper.WorkspaceFailed(e);
 
-                _logMessageActionsWrapper.StartingLoadOfSolution(solutionFullPath);
+                LogMessageActionsWrapper.StartingLoadOfSolution(solutionFullPath);
 
                 // Attach progress reporter so we print projects as they are loaded.
                 var solution = await workspace.OpenSolutionAsync(solutionFullPath, new ConsoleProgressReporter());
-                _logMessageActionsWrapper.FinishedLoadOfSolution(solutionFullPath);
+                LogMessageActionsWrapper.FinishedLoadOfSolution(solutionFullPath);
 
                 var analyzers = GetDiagnosticAnalyzers();
 
-                _logMessageActionsWrapper.StartingAnalysisOfProjects();
+                LogMessageActionsWrapper.StartingAnalysisOfProjects();
                 var diagnosticCount = new DiagnosticCountModel();
                 var groupedDiagnosticCounts = new ConcurrentDictionary<string, int>();
                 foreach (var project in solution.Projects)
@@ -95,12 +102,8 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
             return hasIssues ? 1 : 0;
         }
 
-        /// <summary>
-        /// Handle the command line arguments.
-        /// </summary>
-        /// <param name="commandLineArgModel">Command Line Argument Model.</param>
-        /// <returns>0 for success, non-zero for failure.</returns>
-        public async Task<int> HandleCommand(CommandLineArgModel commandLineArgModel)
+        /// <inheritdoc/>
+        protected override async Task<int> OnHandleCommand(CommandLineArgModel commandLineArgModel, CancellationToken cancellationToken)
         {
             // Attempt to set the version of MSBuild.
             var visualStudioInstances = MSBuildLocator.QueryVisualStudioInstances().ToArray();
@@ -113,7 +116,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
             switch (count)
             {
                 case 0:
-                    _logMessageActionsWrapper.NoMsBuildInstanceFound();
+                    LogMessageActionsWrapper.NoMsBuildInstanceFound();
                     return 1;
                 case 1:
                     instance = visualStudioInstances[0];
@@ -123,7 +126,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
                         // check if instance name matches
                         if (!instance.Name.Equals(specificMsBuildInstance, StringComparison.OrdinalIgnoreCase))
                         {
-                            _logMessageActionsWrapper.RequestedMsBuildInstanceNotFound(specificMsBuildInstance!);
+                            LogMessageActionsWrapper.RequestedMsBuildInstanceNotFound(specificMsBuildInstance!);
                             return 2;
                         }
                     }
@@ -158,12 +161,12 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
                 return false;
             }
 
-            _logMessageActionsWrapper.StartingAnalysisOfProject(project.FilePath);
+            LogMessageActionsWrapper.StartingAnalysisOfProject(project.FilePath);
             var compilation = await project.GetCompilationAsync().ConfigureAwait(false);
             if (compilation == null)
             {
                 // TODO: warn about failure to get compilation object.
-                _logMessageActionsWrapper.FailedToGetCompilationObjectForProject(project.FilePath);
+                LogMessageActionsWrapper.FailedToGetCompilationObjectForProject(project.FilePath);
                 return true;
             }
 
@@ -214,13 +217,13 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         {
             foreach (var groupedDiagnosticCount in groupedDiagnosticCounts)
             {
-                _logMessageActionsWrapper.GroupedDiagnosticCount(groupedDiagnosticCount.Key, groupedDiagnosticCount.Value);
+                LogMessageActionsWrapper.GroupedDiagnosticCount(groupedDiagnosticCount.Key, groupedDiagnosticCount.Value);
             }
         }
 
         private void OutputDiagnosticCounts(DiagnosticCountModel diagnosticCount)
         {
-            _logMessageActionsWrapper.DiagnosticCount(diagnosticCount);
+            LogMessageActionsWrapper.DiagnosticCount(diagnosticCount);
         }
 
         private void OutputDiagnostics(ImmutableArray<Diagnostic> diagnostics, DiagnosticCountModel diagnosticCount, ConcurrentDictionary<string, int> groupedDiagnosticCounts)
@@ -241,19 +244,19 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
                 {
                     case DiagnosticSeverity.Error:
                         diagnosticCount.ErrorCount.Increment();
-                        _logMessageActionsWrapper.DiagnosticError(message);
+                        LogMessageActionsWrapper.DiagnosticError(message);
                         break;
                     case DiagnosticSeverity.Hidden:
                         diagnosticCount.HiddenCount.Increment();
-                        _logMessageActionsWrapper.DiagnosticHidden(message);
+                        LogMessageActionsWrapper.DiagnosticHidden(message);
                         break;
                     case DiagnosticSeverity.Info:
                         diagnosticCount.InformationCount.Increment();
-                        _logMessageActionsWrapper.DiagnosticInfo(message);
+                        LogMessageActionsWrapper.DiagnosticInfo(message);
                         break;
                     case DiagnosticSeverity.Warning:
                         diagnosticCount.WarningCount.Increment();
-                        _logMessageActionsWrapper.DiagnosticWarning(message);
+                        LogMessageActionsWrapper.DiagnosticWarning(message);
                         break;
                 }
             }

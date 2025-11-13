@@ -2,17 +2,19 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
+using System;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Logging;
+using Whipstaff.Core.Logging;
+using Whipstaff.Core.Logging.MessageActionWrappers;
 
 namespace Dhgms.GripeWithRoslyn.DotNetTool
 {
     /// <summary>
     /// Log Message Actions wrapper for <see cref="Job"/>.
     /// </summary>
-    public sealed class JobLogMessageActionsWrapper
+    public sealed class JobLogMessageActionsWrapper : ILogMessageActionsWrapper<Job>, IWrapLogMessageActionUnhandledException
     {
-        private readonly ILogger<Job> _logger;
         private readonly JobLogMessageActions _logMessageActions;
 
         /// <summary>
@@ -22,8 +24,16 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// <param name="logMessageActions">Log Message actions instance.</param>
         public JobLogMessageActionsWrapper(ILogger<Job> logger, JobLogMessageActions logMessageActions)
         {
-            _logger = logger;
+            ArgumentNullException.ThrowIfNull(logger);
+            ArgumentNullException.ThrowIfNull(logMessageActions);
+            Logger = logger;
             _logMessageActions = logMessageActions;
+        }
+
+        /// <inheritdoc/>
+        public ILogger<Job> Logger
+        {
+            get;
         }
 
         /// <summary>
@@ -32,7 +42,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// <param name="instanceMsBuildPath">Path of the MS Build instance.</param>
         public void UsingMsBuildAtPath(string instanceMsBuildPath)
         {
-            _logMessageActions.UsingMsBuildAtPath(_logger, instanceMsBuildPath);
+            _logMessageActions.UsingMsBuildAtPath(Logger, instanceMsBuildPath);
         }
 
         /// <summary>
@@ -41,7 +51,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// <param name="solutionFullPath">Path of the solution.</param>
         public void StartingLoadOfSolution(string solutionFullPath)
         {
-            _logMessageActions.StartingLoadOfSolution(_logger, solutionFullPath);
+            _logMessageActions.StartingLoadOfSolution(Logger, solutionFullPath);
         }
 
         /// <summary>
@@ -50,7 +60,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// <param name="solutionFullPath">Path of the solution.</param>
         public void FinishedLoadOfSolution(string solutionFullPath)
         {
-            _logMessageActions.FinishedLoadOfSolution(_logger, solutionFullPath);
+            _logMessageActions.FinishedLoadOfSolution(Logger, solutionFullPath);
         }
 
         /// <summary>
@@ -58,7 +68,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// </summary>
         public void StartingAnalysisOfProjects()
         {
-            _logMessageActions.StartingAnalysisOfProjects(_logger);
+            _logMessageActions.StartingAnalysisOfProjects(Logger);
         }
 
         /// <summary>
@@ -67,7 +77,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// <param name="projectFilePath">Path of the project.</param>
         public void StartingAnalysisOfProject(string projectFilePath)
         {
-            _logMessageActions.StartingAnalysisOfProject(_logger, projectFilePath);
+            _logMessageActions.StartingAnalysisOfProject(Logger, projectFilePath);
         }
 
         /// <summary>
@@ -76,7 +86,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// <param name="projectFilePath">Path of the project.</param>
         public void FailedToGetCompilationObjectForProject(string projectFilePath)
         {
-            _logMessageActions.FailedToGetCompilationObjectForProject(_logger, projectFilePath);
+            _logMessageActions.FailedToGetCompilationObjectForProject(Logger, projectFilePath);
         }
 
         /// <summary>
@@ -84,7 +94,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// </summary>
         public void NoMsBuildInstanceFound()
         {
-            _logMessageActions.NoMsBuildInstanceFound(_logger);
+            _logMessageActions.NoMsBuildInstanceFound(Logger);
         }
 
         /// <summary>
@@ -93,7 +103,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// <param name="specificMsBuildInstance">Name of specific MS Build instance.</param>
         public void RequestedMsBuildInstanceNotFound(string specificMsBuildInstance)
         {
-            _logMessageActions.RequestedMsBuildInstanceNotFound(_logger, specificMsBuildInstance);
+            _logMessageActions.RequestedMsBuildInstanceNotFound(Logger, specificMsBuildInstance);
         }
 
         /// <summary>
@@ -102,7 +112,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// <param name="count">Number of instances.</param>
         public void MultipleMsBuildInstancesFound(int count)
         {
-            _logMessageActions.MultipleMsBuildInstancesFound(_logger, count);
+            _logMessageActions.MultipleMsBuildInstancesFound(Logger, count);
         }
 
         /// <summary>
@@ -112,7 +122,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// <param name="instancePath">Path where the instance is located.</param>
         public void FoundMsBuildInstance(string instanceName, string instancePath)
         {
-            _logMessageActions.FoundMsBuildInstance(_logger, instanceName, instancePath);
+            _logMessageActions.FoundMsBuildInstance(Logger, instanceName, instancePath);
         }
 
         /// <summary>
@@ -121,7 +131,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// <param name="e">Workspace Diagnostic Event Args.</param>
         public void WorkspaceFailed(WorkspaceDiagnosticEventArgs e)
         {
-            _logMessageActions.WorkspaceFailed(_logger, e);
+            _logMessageActions.WorkspaceFailed(Logger, e);
         }
 
         /// <summary>
@@ -130,7 +140,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// <param name="message">Message from the diagnostic.</param>
         public void DiagnosticError(string message)
         {
-            _logMessageActions.DiagnosticError(_logger, message);
+            _logMessageActions.DiagnosticError(Logger, message);
         }
 
         /// <summary>
@@ -139,7 +149,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// <param name="message">Message from the diagnostic.</param>
         public void DiagnosticHidden(string message)
         {
-            _logMessageActions.DiagnosticHidden(_logger, message);
+            _logMessageActions.DiagnosticHidden(Logger, message);
         }
 
         /// <summary>
@@ -148,7 +158,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// <param name="message">Message from the diagnostic.</param>
         public void DiagnosticInfo(string message)
         {
-            _logMessageActions.DiagnosticInfo(_logger, message);
+            _logMessageActions.DiagnosticInfo(Logger, message);
         }
 
         /// <summary>
@@ -157,7 +167,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// <param name="message">Message from the diagnostic.</param>
         public void DiagnosticWarning(string message)
         {
-            _logMessageActions.DiagnosticWarning(_logger, message);
+            _logMessageActions.DiagnosticWarning(Logger, message);
         }
 
         /// <summary>
@@ -166,7 +176,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// <param name="diagnosticCount">Count model for what diagnostics were reported.</param>
         public void DiagnosticCount(DiagnosticCountModel diagnosticCount)
         {
-            _logMessageActions.DiagnosticCount(_logger, diagnosticCount);
+            _logMessageActions.DiagnosticCount(Logger, diagnosticCount);
         }
 
         /// <summary>
@@ -176,7 +186,13 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// <param name="count">Number of times the diagnostic was reported.</param>
         public void GroupedDiagnosticCount(string id, int count)
         {
-            _logMessageActions.GroupedDiagnosticCount(_logger, id, count);
+            _logMessageActions.GroupedDiagnosticCount(Logger, id, count);
+        }
+
+        /// <inheritdoc />
+        public void UnhandledException(Exception exception)
+        {
+            _logMessageActions.UnhandledException(Logger, exception);
         }
     }
 }

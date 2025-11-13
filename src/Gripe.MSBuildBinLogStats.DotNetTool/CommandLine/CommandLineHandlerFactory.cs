@@ -22,13 +22,11 @@ namespace Gripe.MSBuildBinLogStats.DotNetTool.CommandLine
 
 #pragma warning disable CA1861 // Avoid constant arrays as arguments
             var assemblyOption = new Option<FileInfo>(
-                    [
-                        "--binlog-path",
-                        "-bl"
-                    ],
-                    "Path to the MSBuild bin log to parse.")
+                    "--binlog-path",
+                    "-bl")
                 {
-                    IsRequired = true
+                    Description = "Path to the MSBuild bin log to parse.",
+                    Required = true
                 }.SpecificFileExtensionOnly(
                     fileSystem,
                     ".binlog")

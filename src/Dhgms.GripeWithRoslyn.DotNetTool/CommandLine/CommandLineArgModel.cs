@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for full license information.
 
 using System.IO;
+using System.IO.Abstractions;
 
 namespace Dhgms.GripeWithRoslyn.DotNetTool.CommandLine
 {
@@ -16,7 +17,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool.CommandLine
         /// </summary>
         /// <param name="solutionPath">Solution to analyze.</param>
         /// <param name="msBuildInstanceName">Name of the MS Build instance to use, if any.</param>
-        public CommandLineArgModel(FileInfo solutionPath, string? msBuildInstanceName)
+        public CommandLineArgModel(IFileInfo solutionPath, string? msBuildInstanceName)
         {
             SolutionPath = solutionPath;
             MsBuildInstanceName = msBuildInstanceName;
@@ -25,7 +26,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool.CommandLine
         /// <summary>
         /// Gets the solution to analyze.
         /// </summary>
-        public FileInfo SolutionPath { get; }
+        public IFileInfo SolutionPath { get; }
 
         /// <summary>
         /// Gets the name of the MS Build instance to use, if any.
