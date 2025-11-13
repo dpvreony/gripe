@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO.Abstractions;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Gripe.MSBuildBinLogStats.DotNetTool.CommandLine;
 using Microsoft.Build.Logging.StructuredLogger;
@@ -36,7 +37,7 @@ namespace Gripe.MSBuildBinLogStats.DotNetTool
         }
 
         /// <inheritdoc/>
-        protected override Task<int> OnHandleCommand(CommandLineArgModel commandLineArgModel)
+        protected override Task<int> OnHandleCommand(CommandLineArgModel commandLineArgModel, CancellationToken cancellationToken)
         {
             ArgumentNullException.ThrowIfNull(commandLineArgModel);
 

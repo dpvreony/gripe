@@ -2,10 +2,12 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
+using System.IO.Abstractions;
 using System.Threading.Tasks;
 using Dhgms.GripeWithRoslyn.DotNetTool.CommandLine;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Whipstaff.CommandLine.Hosting;
 
 namespace Dhgms.GripeWithRoslyn.DotNetTool
 {
@@ -19,30 +21,20 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         /// </summary>
         /// <param name="args">Command line arguments.</param>
         /// <returns>0 for success, 1 for failure.</returns>
-        public static async Task<int> Main(string[] args)
+        public static Task<int> Main(string[] args)
         {
-            try
-            {
-                var serviceProvider = new ServiceCollection()
-                    .AddLogging((loggingBuilder) => loggingBuilder
-                        .SetMinimumLevel(LogLevel.Information)
-                        .AddConsole())
-                    .BuildServiceProvider();
-
-                var logger = serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger<Job>();
-
-                var job = new Job(new JobLogMessageActionsWrapper(logger, new JobLogMessageActions()));
-
-                return await CommandLineArgumentHelpers.GetResultFromRootCommand<CommandLineArgModel, CommandLineArgModelBinder>(
-                        args,
-                        CommandLineArgumentHelpers.GetRootCommandAndBinder,
-                        job.HandleCommand)
-                    .ConfigureAwait(false);
-            }
-            catch
-            {
-                return int.MaxValue;
-            }
+            return HostRunner.RunSimpleCliJob<
+                Job,
+                CommandLineArgModel,
+                CommandLineArgModelBinder,
+                CommandLineHandlerFactory>(
+                args,
+                (fileSystem, logger) => new Job(
+                    new JobLogMessageActionsWrapper(
+                        logger,
+                        new JobLogMessageActions()),
+                    fileSystem),
+                new FileSystem());
         }
     }
 }

@@ -31,6 +31,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         private readonly Action<ILogger, string, Exception?> _diagnosticWarning;
         private readonly Action<ILogger, int, int, int, int, Exception?> _diagnosticCount;
         private readonly Action<ILogger, string, int, Exception?> _groupedDiagnosticCount;
+        private readonly Action<ILogger, Exception?> _unhandledException;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JobLogMessageActions"/> class.
@@ -121,6 +122,11 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
                 LogLevel.Information,
                 new EventId(15, nameof(DiagnosticCount)),
                 "Diagnostic Id: {Id}, Count- {Count}.");
+
+            _unhandledException = LoggerMessage.Define(
+                LogLevel.Error,
+                new EventId(16, nameof(UnhandledException)),
+                "Unhandled Exception.");
         }
 
         /// <summary>
@@ -249,6 +255,11 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
         internal void GroupedDiagnosticCount(ILogger<Job> logger, string id, int count)
         {
             _groupedDiagnosticCount(logger, id, count, null);
+        }
+
+        internal void UnhandledException(ILogger<Job> logger, Exception exception)
+        {
+            _unhandledException(logger, exception);
         }
     }
 }

@@ -2,60 +2,25 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
-using System;
 using System.CommandLine;
-using System.CommandLine.Parsing;
-using System.IO;
+using System.IO.Abstractions;
 using System.Linq;
 
 namespace Dhgms.GripeWithRoslyn.DotNetTool.CommandLine
 {
     internal static class ArgumentExtensions
     {
-        internal static Argument<FileInfo> SpecificFileExtensionOnly(this Argument<FileInfo> argument, string extension)
+        internal static Argument<IFileInfo> AcceptExistingOnly(this Argument<IFileInfo> argument, IFileSystem fileSystem)
         {
-            argument.AddValidator(result => FileHasSupportedExtension(result, extension));
-            return argument;
-        }
-
-        internal static Argument<FileInfo> SpecificFileExtensionOnly(this Argument<FileInfo> argument, string[] extensions)
-        {
-            argument.AddValidator(result => FileHasSupportedExtension(result, extensions));
-            return argument;
-        }
-
-        internal static void FileHasSupportedExtension(ArgumentResult result, string extension)
-        {
-            for (var i = 0; i < result.Tokens.Count; i++)
+            argument.Validators.Add(result =>
             {
-                var token = result.Tokens[i];
-
-                var tokenExtension = Path.GetExtension(token.Value);
-
-                if (string.IsNullOrWhiteSpace(tokenExtension)
-                    || !tokenExtension.Equals(extension, StringComparison.OrdinalIgnoreCase))
+                var filePath = result.Tokens.Single().Value;
+                if (!fileSystem.File.Exists(filePath))
                 {
-                    result.ErrorMessage = $"Filename does not have a supported extension of \"{extension}\".";
-                    return;
+                    result.AddError($"The file '{filePath}' does not exist.");
                 }
-            }
-        }
-
-        internal static void FileHasSupportedExtension(ArgumentResult result, string[] extensions)
-        {
-            for (var i = 0; i < result.Tokens.Count; i++)
-            {
-                var token = result.Tokens[i];
-
-                var tokenExtension = Path.GetExtension(token.Value);
-
-                if (string.IsNullOrWhiteSpace(tokenExtension)
-                    || !extensions.Any(extension => tokenExtension.Equals(extension, StringComparison.OrdinalIgnoreCase)))
-                {
-                    result.ErrorMessage = $"Filename does not have a supported extension of \"{string.Join(",", extensions)}\".";
-                    return;
-                }
-            }
+            });
+            return argument;
         }
     }
 }

@@ -3,17 +3,17 @@
 // See the LICENSE file in the project root for full license information.
 
 using System.CommandLine;
-using System.CommandLine.Binding;
-using System.IO;
+using System.IO.Abstractions;
+using Whipstaff.CommandLine;
 
 namespace Dhgms.GripeWithRoslyn.DotNetTool.CommandLine
 {
     /// <summary>
     /// Binding logic for the command line arguments.
     /// </summary>
-    public sealed class CommandLineArgModelBinder : BinderBase<CommandLineArgModel>
+    public sealed class CommandLineArgModelBinder : IBinderBase<CommandLineArgModel>
     {
-        private readonly Argument<FileInfo> _solutionArgument;
+        private readonly Argument<IFileInfo> _solutionArgument;
         private readonly Argument<string?> _msBuildInstanceNameArgument;
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool.CommandLine
         /// <param name="solutionArgument">Solution argument to parse and bind against.</param>
         /// <param name="msBuildInstanceNameArgument">MSBuild Instance Name argument to parse and bind against.</param>
         public CommandLineArgModelBinder(
-            Argument<FileInfo> solutionArgument,
+            Argument<IFileInfo> solutionArgument,
             Argument<string?> msBuildInstanceNameArgument)
         {
             _solutionArgument = solutionArgument;
@@ -30,10 +30,10 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool.CommandLine
         }
 
         /// <inheritdoc/>
-        protected override CommandLineArgModel GetBoundValue(BindingContext bindingContext)
+        public CommandLineArgModel GetBoundValue(ParseResult parseResult)
         {
-            var solution = bindingContext.ParseResult.GetValueForArgument(_solutionArgument);
-            var msBuildInstanceName = bindingContext.ParseResult.GetValueForArgument(_msBuildInstanceNameArgument);
+            var solution = parseResult.GetRequiredValue(_solutionArgument);
+            var msBuildInstanceName = parseResult.GetRequiredValue(_msBuildInstanceNameArgument);
             return new CommandLineArgModel(solution, msBuildInstanceName);
         }
     }
