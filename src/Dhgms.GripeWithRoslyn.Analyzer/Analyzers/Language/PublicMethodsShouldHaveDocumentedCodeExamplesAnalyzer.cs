@@ -91,7 +91,7 @@ namespace Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Language
             }
 
             // Report a diagnostic that no <example> exists
-            object[] messageArgs = [methodSymbol.Name];
+            object[] messageArgs = [methodSymbol.GetFullName(false)];
             var diagnostic = Diagnostic.Create(_rule, methodSymbol.Locations[0], messageArgs: messageArgs);
             context.ReportDiagnostic(diagnostic);
         }
