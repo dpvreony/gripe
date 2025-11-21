@@ -61,6 +61,15 @@ namespace Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Language
                 return;
             }
 
+            if (methodSymbol.MethodKind is MethodKind.PropertyGet or MethodKind.PropertySet)
+            {
+                // treat property getters/setters separately
+                // as the documentation should be on the property itself
+                // and needs to be dealt with in another analyzer
+                // so you can mature your codebase step by step.
+                return;
+            }
+
             if (methodSymbol.IsDefinedByOverridenMethodOrInterface())
             {
                 return;
