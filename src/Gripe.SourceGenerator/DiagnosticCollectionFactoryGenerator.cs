@@ -85,27 +85,27 @@ namespace Gripe.SourceGenerator
         {
             var results = new List<INamedTypeSymbol>();
 
-            ProcessNamespace(compilation.GlobalNamespace);
+            ProcessNamespace(compilation.GlobalNamespace, diagnosticAnalyzerSymbol, results);
 
             return results.ToImmutableArray();
         }
 
-        private static void ProcessNamespace(INamespaceSymbol ns)
+        private static void ProcessNamespace(INamespaceSymbol ns, INamedTypeSymbol diagnosticAnalyzerSymbol, IList<INamedTypeSymbol> results)
         {
             foreach (var member in ns.GetMembers())
             {
                 if (member is INamespaceSymbol childNs)
                 {
-                    ProcessNamespace(childNs);
+                    ProcessNamespace(childNs, diagnosticAnalyzerSymbol, results);
                 }
                 else if (member is INamedTypeSymbol namedType)
                 {
-                    ProcessNamedType(namedType);
+                    ProcessNamedType(namedType, diagnosticAnalyzerSymbol, results);
                 }
             }
         }
 
-        private static void ProcessNamedType(INamedTypeSymbol namedType, INamedTypeSymbol diagnosticAnalyzerSymbol)
+        private static void ProcessNamedType(INamedTypeSymbol namedType, INamedTypeSymbol diagnosticAnalyzerSymbol, IList<INamedTypeSymbol> results)
         {
             // Check declared accessibility is public.
             if (namedType.DeclaredAccessibility == Accessibility.Public)
@@ -119,7 +119,7 @@ namespace Gripe.SourceGenerator
             // Recurse into nested types.
             foreach (var nested in namedType.GetTypeMembers())
             {
-                ProcessNamedType(nested);
+                ProcessNamedType(nested, diagnosticAnalyzerSymbol, results);
             }
         }
 
