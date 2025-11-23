@@ -38,8 +38,6 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.Analyzers.Language
         }
     }";
 
-            var a = MethodBase.GetCurrentMethod().DeclaringType;
-
             var expected = new DiagnosticResult
             {
                 Id = DiagnosticIdsHelper.UseTypeofInsteadOfMethodBaseGetCurrentMethodDeclaringType,

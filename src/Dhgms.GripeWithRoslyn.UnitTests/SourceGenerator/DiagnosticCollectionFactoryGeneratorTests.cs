@@ -20,5 +20,14 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.SourceGenerator
             : base(output)
         {
         }
+
+        /// <inheritdoc/>
+        protected override string[] GetExpectedSources()
+        {
+            return
+            [
+                "DiagnosticAnalyzerCollectionFactory.g.cs",
+            ];
+        }
     }
 }

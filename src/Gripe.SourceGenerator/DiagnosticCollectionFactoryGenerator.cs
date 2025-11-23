@@ -29,8 +29,7 @@ namespace Gripe.SourceGenerator
         {
             var compilationReferences = compilation.References;
             var compilationReferenceArray = compilationReferences.ToImmutableArray();
-            var analyzerRef = compilationReferenceArray.FirstOrDefault(x =>
-                x.Display is "Dhgms.GripeWithRoslynAnalyzer");
+            var analyzerRef = compilationReferenceArray.FirstOrDefault(x => x.Display is "Dhgms.GripeWithRoslyn.Analyzer");
 
             if (analyzerRef == null)
             {
@@ -78,7 +77,7 @@ namespace Gripe.SourceGenerator
             sb.AppendLine("// End of generated list.");
 
             var sourceText = SourceText.From(sb.ToString(), Encoding.UTF8);
-            spc.AddSource("DiagnosticAnalyzerCollection.g.cs", sourceText);
+            spc.AddSource("DiagnosticAnalyzerCollectionFactory.g.cs", sourceText);
         }
 
         private static ImmutableArray<INamedTypeSymbol> FindPublicDiagnosticAnalyzers(Compilation compilation, INamedTypeSymbol diagnosticAnalyzerSymbol)
@@ -108,12 +107,16 @@ namespace Gripe.SourceGenerator
         private static void ProcessNamedType(INamedTypeSymbol namedType, INamedTypeSymbol diagnosticAnalyzerSymbol, IList<INamedTypeSymbol> results)
         {
             // Check declared accessibility is public.
-            if (namedType.DeclaredAccessibility == Accessibility.Public)
-            {
-                if (InheritsFrom(namedType, diagnosticAnalyzerSymbol))
+            if (namedType is
                 {
-                    results.Add(namedType);
+                    DeclaredAccessibility: Accessibility.Public,
+                    IsAbstract: false,
+                    IsGenericType: false
                 }
+
+                && InheritsFrom(namedType, diagnosticAnalyzerSymbol))
+            {
+                results.Add(namedType);
             }
 
             // Recurse into nested types.
