@@ -29,7 +29,12 @@ namespace Gripe.SourceGenerator
 
         private static void Execute(SourceProductionContext spc, Compilation compilation, ImmutableArray<MetadataReference> metadataReferences)
         {
-            var analyzerRef = metadataReferences.FirstOrDefault(x => x.Display?.EndsWith("\\Dhgms.GripeWithRoslyn.Analyzer.dll", StringComparison.Ordinal) ?? false);
+            // the secondary equals check is because the test environment loads compilation references without a path.
+            var analyzerRef = metadataReferences.FirstOrDefault(x =>
+                x.Display != null
+                && (
+                    x.Display!.EndsWith("\\Dhgms.GripeWithRoslyn.Analyzer.dll", StringComparison.Ordinal)
+                    || x.Display!.Equals("Dhgms.GripeWithRoslyn.Analyzer", StringComparison.Ordinal)));
 
             if (analyzerRef == null)
             {
