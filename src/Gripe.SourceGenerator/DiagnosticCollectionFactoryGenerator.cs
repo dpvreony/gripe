@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -15,21 +16,20 @@ namespace Gripe.SourceGenerator
     /// <summary>
     /// Source generator to integrate analyzers into the dotnet tool.
     /// </summary>
+    [Generator]
     public sealed class DiagnosticCollectionFactoryGenerator : IIncrementalGenerator
     {
         /// <inheritdoc/>
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
-            var trigger = context.CompilationProvider;
+            var trigger = context.CompilationProvider.Combine(context.MetadataReferencesProvider.Collect());
 
-            context.RegisterSourceOutput(trigger, static (spc, compilation) => Execute(spc, compilation));
+            context.RegisterImplementationSourceOutput(trigger, static (spc, trigger) => Execute(spc, trigger.Left, trigger.Right));
         }
 
-        private static void Execute(SourceProductionContext spc, Compilation compilation)
+        private static void Execute(SourceProductionContext spc, Compilation compilation, ImmutableArray<MetadataReference> metadataReferences)
         {
-            var compilationReferences = compilation.References;
-            var compilationReferenceArray = compilationReferences.ToImmutableArray();
-            var analyzerRef = compilationReferenceArray.FirstOrDefault(x => x.Display is "Dhgms.GripeWithRoslyn.Analyzer");
+            var analyzerRef = metadataReferences.FirstOrDefault(x => x.Display?.EndsWith("\\Dhgms.GripeWithRoslyn.Analyzer.dll", StringComparison.Ordinal) ?? false);
 
             if (analyzerRef == null)
             {
@@ -84,7 +84,8 @@ namespace Gripe.SourceGenerator
 
             var classDeclaration = SyntaxFactory.ClassDeclaration("DiagnosticAnalyzerCollectionFactory")
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.StaticKeyword))
-                .AddMembers(methodDeclaration);
+                .AddMembers(methodDeclaration)
+                .WithLeadingTrivia(GenerateSummaryComment("Factory class for getting the Diagnostic Analyzers."));
             return classDeclaration;
         }
 
@@ -110,7 +111,8 @@ namespace Gripe.SourceGenerator
                     methodReturn,
                     methodIdentifier)
                 .WithModifiers(methodModifiers)
-                .WithBody(methodBody);
+                .WithBody(methodBody)
+                .WithLeadingTrivia(GenerateMethodSummaryComment("Gets an enumerable for the Diagnostic Analyzers.", null, "Enumerable representing the collection of Analyzers."));
             return methodDeclaration;
         }
 
@@ -202,6 +204,34 @@ namespace Gripe.SourceGenerator
                 true,
                 warningLevel,
                 "Model Generation");
+        }
+
+        private static SyntaxTriviaList GenerateSummaryComment(string summaryText)
+        {
+            var template = "/// <summary>\n" +
+                           $"/// {summaryText}\n" +
+                           "/// </summary>\n";
+
+            return SyntaxFactory.ParseLeadingTrivia(template);
+        }
+
+        private static SyntaxTriviaList GenerateMethodSummaryComment(string summaryText, IEnumerable<(string ParamName, string ParamText)>? parameters, string returnValueText)
+        {
+            var sb = new StringBuilder("/// <summary>")
+                .AppendLine()
+                .Append("/// ").AppendLine(summaryText)
+                .AppendLine("/// </summary>");
+
+            if (parameters != null)
+            {
+                foreach (var parameter in parameters)
+                {
+                    sb.Append("/// <param name=\"").Append(parameter.ParamName).Append("\">").Append(parameter.ParamText).AppendLine("</param>");
+                }
+            }
+
+            sb.Append("/// <returns>").Append(returnValueText).AppendLine("</returns>");
+            return SyntaxFactory.ParseLeadingTrivia(sb.ToString());
         }
     }
 }

@@ -47,7 +47,7 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.SourceGenerator
                 // MSBuildProjectDirectory
                 var project =
                     await workspace.OpenProjectAsync(
-                        "../../../../Dhgms.GripeWithRoslyn.Testing/Dhgms.GripeWithRoslyn.Testing.csproj");
+                        "../../../../Dhgms.GripeWithRoslyn.DotNetTool/Dhgms.GripeWithRoslyn.DotNetTool.csproj");
                 var compilation = await project.GetCompilationAsync();
                 if (compilation == null)
                 {
