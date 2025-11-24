@@ -29,7 +29,7 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.Helpers
         {
             var operations = codeAction.GetOperationsAsync(CancellationToken.None).Result;
             var solution = operations.OfType<ApplyChangesOperation>().Single().ChangedSolution;
-            return solution.GetDocument(document.Id);
+            return solution.GetDocument(document.Id)!;
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.Helpers
         /// <returns>The compiler diagnostics that were found in the code.</returns>
         public static IEnumerable<Diagnostic> GetCompilerDiagnostics(Document document)
         {
-            return document.GetSemanticModelAsync().Result.GetDiagnostics();
+            return document.GetSemanticModelAsync().Result!.GetDiagnostics();
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.Helpers
         public static string GetStringFromDocument(Document document)
         {
             var simplifiedDoc = Simplifier.ReduceAsync(document, Simplifier.Annotation).Result;
-            var root = simplifiedDoc.GetSyntaxRootAsync().Result;
+            var root = simplifiedDoc.GetSyntaxRootAsync().Result!;
             root = Formatter.Format(root, Formatter.Annotation, simplifiedDoc.Project.Solution.Workspace);
             return root.GetText().ToString();
         }

@@ -3,11 +3,13 @@
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
     <LangVersion>12</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Dhgms.GripeWithRoslyn.Analyzer\Dhgms.GripeWithRoslyn.Analyzer.csproj" />
     <ProjectReference Include="..\Dhgms.GripeWithRoslyn.DotNetTool\Dhgms.GripeWithRoslyn.DotNetTool.csproj" />
+    <ProjectReference Include="..\Gripe.SourceGenerator\Gripe.SourceGenerator.csproj" />
   </ItemGroup>
 
 </Project>

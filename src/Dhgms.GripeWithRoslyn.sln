@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dhgms.GripeWithRoslyn.Testi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gripe.MSBuildBinLogStats.DotNetTool", "Gripe.MSBuildBinLogStats.DotNetTool\Gripe.MSBuildBinLogStats.DotNetTool.csproj", "{9C5CCBE1-0B77-449E-BCBD-D5B005398EA4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gripe.SourceGenerator", "Gripe.SourceGenerator\Gripe.SourceGenerator.csproj", "{C1FD0879-2FF9-47C2-9BAF-5E3D988BDE3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,18 @@ Global
 		{9C5CCBE1-0B77-449E-BCBD-D5B005398EA4}.Release|arm64.Build.0 = Release|Any CPU
 		{9C5CCBE1-0B77-449E-BCBD-D5B005398EA4}.Release|x86.ActiveCfg = Release|Any CPU
 		{9C5CCBE1-0B77-449E-BCBD-D5B005398EA4}.Release|x86.Build.0 = Release|Any CPU
+		{C1FD0879-2FF9-47C2-9BAF-5E3D988BDE3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1FD0879-2FF9-47C2-9BAF-5E3D988BDE3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1FD0879-2FF9-47C2-9BAF-5E3D988BDE3A}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{C1FD0879-2FF9-47C2-9BAF-5E3D988BDE3A}.Debug|arm64.Build.0 = Debug|Any CPU
+		{C1FD0879-2FF9-47C2-9BAF-5E3D988BDE3A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C1FD0879-2FF9-47C2-9BAF-5E3D988BDE3A}.Debug|x86.Build.0 = Debug|Any CPU
+		{C1FD0879-2FF9-47C2-9BAF-5E3D988BDE3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1FD0879-2FF9-47C2-9BAF-5E3D988BDE3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1FD0879-2FF9-47C2-9BAF-5E3D988BDE3A}.Release|arm64.ActiveCfg = Release|Any CPU
+		{C1FD0879-2FF9-47C2-9BAF-5E3D988BDE3A}.Release|arm64.Build.0 = Release|Any CPU
+		{C1FD0879-2FF9-47C2-9BAF-5E3D988BDE3A}.Release|x86.ActiveCfg = Release|Any CPU
+		{C1FD0879-2FF9-47C2-9BAF-5E3D988BDE3A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

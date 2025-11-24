@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -24,7 +25,7 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.Verifiers
         /// Returns the codefix being tested (C#) - to be implemented in non-abstract class.
         /// </summary>
         /// <returns>The CodeFixProvider to be used for CSharp code.</returns>
-        protected virtual CodeFixProvider GetCSharpCodeFixProvider()
+        protected virtual CodeFixProvider? GetCSharpCodeFixProvider()
         {
             return null;
         }
@@ -33,7 +34,7 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.Verifiers
         /// Returns the codefix being tested (VB) - to be implemented in non-abstract class.
         /// </summary>
         /// <returns>The CodeFixProvider to be used for VisualBasic code.</returns>
-        protected virtual CodeFixProvider GetBasicCodeFixProvider()
+        protected virtual CodeFixProvider? GetBasicCodeFixProvider()
         {
             return null;
         }
@@ -47,7 +48,13 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.Verifiers
         /// <param name="allowNewCompilerDiagnostics">A bool controlling whether or not the test will fail if the CodeFix introduces other warnings after being applied.</param>
         protected void VerifyCSharpFix(string oldSource, string newSource, int? codeFixIndex = null, bool allowNewCompilerDiagnostics = false)
         {
-            VerifyFix(LanguageNames.CSharp, GetCSharpDiagnosticAnalyzer(), GetCSharpCodeFixProvider(), oldSource, newSource, codeFixIndex, allowNewCompilerDiagnostics);
+            var fix = GetCSharpCodeFixProvider();
+            if (fix == null)
+            {
+                throw new InvalidOperationException("Test not setup correctly for Fix check");
+            }
+
+            VerifyFix(LanguageNames.CSharp, GetCSharpDiagnosticAnalyzer()!, fix, oldSource, newSource, codeFixIndex, allowNewCompilerDiagnostics);
         }
 
         /// <summary>
@@ -59,7 +66,13 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.Verifiers
         /// <param name="allowNewCompilerDiagnostics">A bool controlling whether or not the test will fail if the CodeFix introduces other warnings after being applied.</param>
         protected void VerifyBasicFix(string oldSource, string newSource, int? codeFixIndex = null, bool allowNewCompilerDiagnostics = false)
         {
-            VerifyFix(LanguageNames.VisualBasic, GetBasicDiagnosticAnalyzer(), GetBasicCodeFixProvider(), oldSource, newSource, codeFixIndex, allowNewCompilerDiagnostics);
+            var fix = GetBasicCodeFixProvider();
+            if (fix == null)
+            {
+                throw new InvalidOperationException("Test not setup correctly for Fix check");
+            }
+
+            VerifyFix(LanguageNames.VisualBasic, GetBasicDiagnosticAnalyzer()!, fix, oldSource, newSource, codeFixIndex, allowNewCompilerDiagnostics);
         }
 
         /// <summary>
@@ -108,13 +121,13 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.Verifiers
                 if (!allowNewCompilerDiagnostics && newCompilerDiagnostics.Any())
                 {
                     // Format and get the compiler diagnostics again so that the locations make sense in the output
-                    document = document.WithSyntaxRoot(Formatter.Format(document.GetSyntaxRootAsync().Result, Formatter.Annotation, document.Project.Solution.Workspace));
+                    document = document.WithSyntaxRoot(Formatter.Format(document.GetSyntaxRootAsync().Result!, Formatter.Annotation, document.Project.Solution.Workspace));
                     newCompilerDiagnostics = Helpers.CodeFixVerifier.GetNewDiagnostics(compilerDiagnostics, Helpers.CodeFixVerifier.GetCompilerDiagnostics(document));
 
                     Assert.Fail(string.Format(
                             "Fix introduced new compiler diagnostics:\r\n{0}\r\n\r\nNew document:\r\n{1}\r\n",
                             string.Join("\r\n", newCompilerDiagnostics.Select(d => d.ToString())),
-                            document.GetSyntaxRootAsync().Result.ToFullString()));
+                            document.GetSyntaxRootAsync().Result!.ToFullString()));
                 }
 
                 // check if there are analyzer diagnostics left after the code fix

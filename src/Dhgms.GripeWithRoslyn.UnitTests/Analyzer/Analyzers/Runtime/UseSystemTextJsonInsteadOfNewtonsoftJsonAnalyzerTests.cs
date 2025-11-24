@@ -49,8 +49,6 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.Analyzers.Runtime
         }
     }";
 
-            var a = MethodBase.GetCurrentMethod().DeclaringType;
-
             var expected = new DiagnosticResult
             {
                 Id = DiagnosticIdsHelper.UseSystemTextJsonInsteadOfNewtonsoftJson,

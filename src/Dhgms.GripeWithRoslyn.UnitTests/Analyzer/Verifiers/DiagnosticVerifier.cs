@@ -21,7 +21,7 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.Verifiers
         /// Get the CSharp analyzer being tested - to be implemented in non-abstract class.
         /// </summary>
         /// <returns>C# Analyzer being tested.</returns>
-        protected virtual DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
+        protected virtual DiagnosticAnalyzer? GetCSharpDiagnosticAnalyzer()
         {
             return null;
         }
@@ -30,7 +30,7 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.Verifiers
         /// Get the Visual Basic analyzer being tested - to be implemented in non-abstract class.
         /// </summary>
         /// <returns>VB Analyzer being tested.</returns>
-        protected virtual DiagnosticAnalyzer GetBasicDiagnosticAnalyzer()
+        protected virtual DiagnosticAnalyzer? GetBasicDiagnosticAnalyzer()
         {
             return null;
         }
@@ -43,7 +43,7 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.Verifiers
         /// <param name="expected"> DiagnosticResults that should appear after the analyzer is run on the source.</param>
         protected void VerifyCSharpDiagnostic(string source, params DiagnosticResult[] expected)
         {
-            VerifyDiagnostics(new[] { source }, LanguageNames.CSharp, GetCSharpDiagnosticAnalyzer(), expected);
+            VerifyDiagnostics(new[] { source }, LanguageNames.CSharp, GetCSharpDiagnosticAnalyzer()!, expected);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.Verifiers
         /// <param name="expected">DiagnosticResults that should appear after the analyzer is run on the source.</param>
         protected void VerifyBasicDiagnostic(string source, params DiagnosticResult[] expected)
         {
-            VerifyDiagnostics(new[] { source }, LanguageNames.VisualBasic, GetBasicDiagnosticAnalyzer(), expected);
+            VerifyDiagnostics(new[] { source }, LanguageNames.VisualBasic, GetBasicDiagnosticAnalyzer()!, expected);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.Verifiers
         /// <param name="expected">DiagnosticResults that should appear after the analyzer is run on the sources.</param>
         protected void VerifyCSharpDiagnostic(string[] sources, params DiagnosticResult[] expected)
         {
-            VerifyDiagnostics(sources, LanguageNames.CSharp, GetCSharpDiagnosticAnalyzer(), expected);
+            VerifyDiagnostics(sources, LanguageNames.CSharp, GetCSharpDiagnosticAnalyzer()!, expected);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.Verifiers
         /// <param name="expected">DiagnosticResults that should appear after the analyzer is run on the sources.</param>
         protected void VerifyBasicDiagnostic(string[] sources, params DiagnosticResult[] expected)
         {
-            VerifyDiagnostics(sources, LanguageNames.VisualBasic, GetBasicDiagnosticAnalyzer(), expected);
+            VerifyDiagnostics(sources, LanguageNames.VisualBasic, GetBasicDiagnosticAnalyzer()!, expected);
         }
 
         /// <summary>
@@ -240,7 +240,7 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.Verifiers
                                 location.IsInSource,
                                 $"Test base does not currently handle diagnostics in metadata locations. Diagnostic in metadata: {diagnostics[i]}\r\n");
 
-                            string resultMethodName = diagnostics[i].Location.SourceTree.FilePath.EndsWith(".cs") ? "GetCSharpResultAt" : "GetBasicResultAt";
+                            string resultMethodName = diagnostics[i].Location.SourceTree!.FilePath.EndsWith(".cs") ? "GetCSharpResultAt" : "GetBasicResultAt";
                             var linePosition = diagnostics[i].Location.GetLineSpan().StartLinePosition;
 
                             builder.AppendFormat(
