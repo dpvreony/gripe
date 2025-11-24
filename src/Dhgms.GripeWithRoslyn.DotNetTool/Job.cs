@@ -180,7 +180,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
 
         private ImmutableArray<DiagnosticAnalyzer> GetDiagnosticAnalyzers()
         {
-            return Gripe.DotNetTool.DiagnosticAnalyzerCollectionFactory.EnumerateDiagnosticAnalyzers().ToImmutableArray();
+            return global::Gripe.DotNetTool.DiagnosticAnalyzerCollectionFactory.EnumerateDiagnosticAnalyzers().ToImmutableArray();
         }
 
         private void OutputGroupedDiagnosticCounts(ConcurrentDictionary<string, int> groupedDiagnosticCounts)

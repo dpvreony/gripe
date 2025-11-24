@@ -33,14 +33,15 @@ namespace Gripe.SourceGenerator
 
             if (analyzerRef == null)
             {
-                    return;
+                spc.ReportDiagnostic(ErrorDiagnostic("GRSC0001", "Failed to find analyzer project reference"));
+                return;
             }
 
             // Resolve the DiagnosticAnalyzer base type symbol.
             var diagnosticAnalyzerSymbol = compilation.GetTypeByMetadataName("Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer");
             if (diagnosticAnalyzerSymbol == null)
             {
-                // If Roslyn analyzer types aren't available in this compilation, nothing to do.
+                spc.ReportDiagnostic(ErrorDiagnostic("GRSC0002", "Failed to find DiagnosticAnalyzer underlying type symbol."));
                 return;
             }
 
@@ -49,6 +50,7 @@ namespace Gripe.SourceGenerator
 
             if (found.Length == 0)
             {
+                spc.ReportDiagnostic(ErrorDiagnostic("GRSC0003", "No public analyzers found to generate factory for."));
                 return;
             }
 
@@ -172,6 +174,34 @@ namespace Gripe.SourceGenerator
             }
 
             return false;
+        }
+
+        private static Diagnostic ErrorDiagnostic(
+            string id,
+            string message)
+        {
+            return GetDiagnostic(
+                id,
+                message,
+                DiagnosticSeverity.Error,
+                0);
+        }
+
+        private static Diagnostic GetDiagnostic(
+            string id,
+            string message,
+            DiagnosticSeverity severity,
+            int warningLevel)
+        {
+            return Diagnostic.Create(
+                id,
+                "Vetuviem Generation",
+                message,
+                severity,
+                severity,
+                true,
+                warningLevel,
+                "Model Generation");
         }
     }
 }
