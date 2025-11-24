@@ -180,37 +180,7 @@ namespace Dhgms.GripeWithRoslyn.DotNetTool
 
         private ImmutableArray<DiagnosticAnalyzer> GetDiagnosticAnalyzers()
         {
-            // TODO: build source generator to detect these at build time instead of manual maintenance. got basics of logic in Vetuviem.
-            var analyzersBuilder = ImmutableArray.CreateBuilder<DiagnosticAnalyzer>();
-
-            analyzersBuilder.AddRange(
-                new BooleanTryMethodShouldBeUsedInLogicalNotIfStatementAnalyzer(),
-                new ConstructorShouldNotInvokeExternalMethodsAnalyzer(),
-                new UseTypeofInsteadOfBaseMethodDeclaringTypeAnalyzer(),
-                new UseTypeofInsteadOfTypeGetTypeAnalyzer(),
-                new ConstructorShouldAcceptLoggingFrameworkArgumentAnalyzer(),
-                new NameOfRequestHandlerShouldEndWithCommandHandlerOrQueryHandlerAnalyzer(),
-                new NameOfRequestShouldEndWithCommandOrQueryAnalyzer(),
-                new RequestResponseTypeShouldHaveSpecificNameAnalyzer(),
-                new NameOfReactiveObjectBasedClassShouldEndWithViewModelAnalyzer(),
-                new NameOfReactiveObjectBasedInterfaceShouldEndWithViewModelAnalyzer(),
-                new ViewModelClassShouldInheritFromViewModelInterfaceAnalyzer(),
-                new ViewModelClassShouldInheritReactiveObjectAnalyzer(),
-                new ViewModelInterfaceShouldInheritReactiveObjectAnalyzer(),
-                new DoNotUseEnumToStringAnalyzer(),
-                new DoNotUseGdiPlusAnalyzer(),
-                new DoNotUseSystemConsoleAnalyzer(),
-                new DoNotUseSystemNetServicePointManagerAnalyzer(),
-                new DoNotUseSystemSecuritySecureStringAnalyzer(),
-                new UseDateTimeUtcNowInsteadofNowAnalyzer(),
-                new UseEncodingUnicodeInsteadOfASCIIAnalyzer(),
-                new UseSystemTextJsonInsteadOfNewtonsoftJsonAnalyzer(),
-                new StructureMapShouldNotBeUsedAnalyzer(),
-                new DoNotUseXUnitInlineDataAttributeAnalyzer(),
-                new ProjectShouldEnableNullableReferenceTypesAnalyzer());
-
-            var analyzers = analyzersBuilder.ToImmutable();
-            return analyzers;
+            return Gripe.DotNetTool.DiagnosticAnalyzerCollectionFactory.EnumerateDiagnosticAnalyzers().ToImmutableArray();
         }
 
         private void OutputGroupedDiagnosticCounts(ConcurrentDictionary<string, int> groupedDiagnosticCounts)

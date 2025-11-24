@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dhgms.GripeWithRoslyn.Analyzer\Dhgms.GripeWithRoslyn.Analyzer.csproj" />
+    <ProjectReference Include="..\Gripe.SourceGenerator\Gripe.SourceGenerator.csproj" OutputItemType="Analyzer" PrivateAssets="all" ReferenceOutputAssembly="false" Private="false" />
   </ItemGroup>
 
 </Project>
