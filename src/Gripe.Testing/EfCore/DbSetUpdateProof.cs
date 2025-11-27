@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for full license information.
 
 using System.Linq;
+using Gripe.Analyzer.Analyzers.EfCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

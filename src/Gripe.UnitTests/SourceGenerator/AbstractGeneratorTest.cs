@@ -10,6 +10,7 @@ using Foundatio.Xunit;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
+using Microsoft.CodeAnalysis.MSBuild;
 using Microsoft.Extensions.Logging;
 using Xunit;
 using Xunit.Abstractions;

@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections;
+using Gripe.Analyzer.Analyzers.Runtime;
 
 namespace Gripe.Testing.Runtime
 {

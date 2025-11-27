@@ -2,6 +2,8 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
+using Gripe.Analyzer;
+using Gripe.Analyzer.Analyzers.ReactiveUi;
 using Gripe.UnitTests.Analyzer.Helpers;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;

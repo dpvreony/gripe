@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for full license information.
 
 using System;
+using Gripe.Analyzer.Analyzers.Language;
 
 namespace Gripe.Testing.Language
 {
