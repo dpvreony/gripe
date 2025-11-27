@@ -45,7 +45,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.EfCore
                 // MSBuildProjectDirectory
                 var project =
                     await workspace.OpenProjectAsync(
-                        "../../../../Dhgms.GripeWithRoslyn.Testing/Dhgms.GripeWithRoslyn.Testing.csproj");
+                        "../../../../Gripe.Testing/Gripe.Testing.csproj");
                 var compilation = await project.GetCompilationAsync();
                 if (compilation == null)
                 {
