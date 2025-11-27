@@ -17,8 +17,8 @@ jobs:
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
       DOTNET_NOLOGO: true
       DOTNET_GENERATE_ASPNET_CERTIFICATE: false
-      solutionpath: src\Dhgms.GripeWithRoslyn.sln
-      unittestprojectpath: src\Dhgms.GripeWithRoslyn.UnitTests\Dhgms.GripeWithRoslyn.UnitTests.csproj
+      solutionpath: src\Gripe.slnx
+      unittestprojectpath: src\Gripe.UnitTests\Gripe.UnitTests.csproj
     steps:
     - name: Checkout code
       uses: actions/checkout@v6
