@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dhgms.GripeWithRoslyn.Analyzer", "Dhgms.GripeWithRoslyn.Analyzer\Dhgms.GripeWithRoslyn.Analyzer.csproj", "{C83BD07B-9C2A-4FA9-8F6D-98D761494B6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gripe.Analyzer", "Gripe.Analyzer\Gripe.Analyzer.csproj", "{C83BD07B-9C2A-4FA9-8F6D-98D761494B6C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dhgms.GripeWithRoslyn.UnitTests", "Dhgms.GripeWithRoslyn.UnitTests\Dhgms.GripeWithRoslyn.UnitTests.csproj", "{0D5026BC-C817-4153-BCF4-2AE53809A2A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gripe.UnitTests", "Gripe.UnitTests\Gripe.UnitTests.csproj", "{0D5026BC-C817-4153-BCF4-2AE53809A2A5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dhgms.GripeWithRoslyn.DotNetTool", "Dhgms.GripeWithRoslyn.DotNetTool\Dhgms.GripeWithRoslyn.DotNetTool.csproj", "{343C46ED-B318-4E49-A219-D142DC309461}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gripe.DotNetTool", "Gripe.DotNetTool\Gripe.DotNetTool.csproj", "{343C46ED-B318-4E49-A219-D142DC309461}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dhgms.GripeWithRoslyn.Testing", "Dhgms.GripeWithRoslyn.Testing\Dhgms.GripeWithRoslyn.Testing.csproj", "{08C16441-2A0A-4DFF-87B3-F839FA59E986}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gripe.Testing", "Gripe.Testing\Gripe.Testing.csproj", "{08C16441-2A0A-4DFF-87B3-F839FA59E986}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gripe.MSBuildBinLogStats.DotNetTool", "Gripe.MSBuildBinLogStats.DotNetTool\Gripe.MSBuildBinLogStats.DotNetTool.csproj", "{9C5CCBE1-0B77-449E-BCBD-D5B005398EA4}"
 EndProject
