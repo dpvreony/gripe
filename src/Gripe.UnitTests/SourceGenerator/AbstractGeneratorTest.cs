@@ -47,7 +47,7 @@ namespace Gripe.UnitTests.SourceGenerator
                 // MSBuildProjectDirectory
                 var project =
                     await workspace.OpenProjectAsync(
-                        "../../../../Dhgms.GripeWithRoslyn.DotNetTool/Dhgms.GripeWithRoslyn.DotNetTool.csproj");
+                        "../../../../Gripe.DotNetTool/Gripe.DotNetTool.csproj");
                 var compilation = await project.GetCompilationAsync();
                 if (compilation == null)
                 {
