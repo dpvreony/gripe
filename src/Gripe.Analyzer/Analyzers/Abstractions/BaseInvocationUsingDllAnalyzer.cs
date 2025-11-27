@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using SyntaxKind = Microsoft.CodeAnalysis.CSharp.SyntaxKind;
 
-namespace Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Abstractions
+namespace Gripe.Analyzer.Analyzers.Abstractions
 {
     /// <summary>
     /// Base class for a Roslyn Analyzer for checking for a method invocation that belongs to a certain dll.

@@ -4,9 +4,8 @@
 
 using System;
 using System.Collections;
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Runtime;
 
-namespace Dhgms.GripeWithRoslyn.Testing.Runtime
+namespace Gripe.Testing.Runtime
 {
     /// <summary>
     /// Analyzer proof for <see cref="DoNotUseObjectAsParameterTypeAnalyzer"/>.

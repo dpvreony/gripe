@@ -2,12 +2,12 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Abstractions;
-using Dhgms.GripeWithRoslyn.Analyzer.CodeCracker.Extensions;
+using Gripe.Analyzer.Analyzers.Abstractions;
+using Gripe.Analyzer.CodeCracker.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Dhgms.GripeWithRoslyn.Analyzer.Analyzers.ReactiveUi
+namespace Gripe.Analyzer.Analyzers.ReactiveUi
 {
     /// <summary>
     /// Analyzer to ensure a class inheriting from ReactiveUI.ReactiveObject has the suffix ViewModel.

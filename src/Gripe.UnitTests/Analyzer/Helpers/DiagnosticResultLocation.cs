@@ -3,9 +3,8 @@
 // See the LICENSE file in the project root for full license information.
 
 using System;
-using Microsoft.CodeAnalysis;
 
-namespace Dhgms.GripeWithRoslyn.UnitTests.Helpers
+namespace Gripe.UnitTests.Analyzer.Helpers
 {
     /// <summary>
     /// Location where the diagnostic appears, as determined by path, line number, and column number.

@@ -2,10 +2,9 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
-using System.IO;
 using System.IO.Abstractions;
 
-namespace Dhgms.GripeWithRoslyn.DotNetTool.CommandLine
+namespace Gripe.DotNetTool.CommandLine
 {
     /// <summary>
     /// Model that represents the command line arguments.

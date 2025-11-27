@@ -2,14 +2,12 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
-using Dhgms.GripeWithRoslyn.Analyzer;
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Logging;
-using Dhgms.GripeWithRoslyn.UnitTests.Helpers;
+using Gripe.UnitTests.Analyzer.Helpers;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Xunit;
 
-namespace Dhgms.GripeWithRoslyn.UnitTests.Analyzers.Logging
+namespace Gripe.UnitTests.Analyzer.Analyzers.Logging
 {
     /// <summary>
     /// Unit tests for the <see cref="ConstructorShouldAcceptLoggingFrameworkArgumentAnalyzer"/> class.

@@ -4,7 +4,7 @@
 
 using Microsoft.CodeAnalysis;
 
-namespace Dhgms.GripeWithRoslyn.UnitTests.Analyzer.Analyzers.EfCore
+namespace Gripe.UnitTests.Analyzer.Analyzers.EfCore
 {
     /// <summary>
     /// Model for expected diagnostic.

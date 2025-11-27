@@ -4,14 +4,14 @@
 
 using System;
 using System.Collections.Immutable;
-using Dhgms.GripeWithRoslyn.Analyzer.CodeCracker.Extensions;
-using Dhgms.GripeWithRoslyn.Analyzer.Extensions;
+using Gripe.Analyzer.CodeCracker.Extensions;
+using Gripe.Analyzer.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Dhgms.GripeWithRoslyn.Analyzer.Analyzers.AspNetCore
+namespace Gripe.Analyzer.Analyzers.AspNetCore
 {
     /// <summary>
     /// Analyzer for checking an API call uses ActionResult{T} instead of non-generic version, non-descript interfaces, or other return types.

@@ -12,7 +12,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using SyntaxKind = Microsoft.CodeAnalysis.CSharp.SyntaxKind;
 
-namespace Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Abstractions
+namespace Gripe.Analyzer.Analyzers.Abstractions
 {
     /// <summary>
     /// Base class for a Roslyn Analayzer for Method Invocation where you need to validate the arguments passed.

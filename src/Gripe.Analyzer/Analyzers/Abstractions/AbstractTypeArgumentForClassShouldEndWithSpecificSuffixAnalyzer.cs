@@ -5,14 +5,14 @@
 using System;
 using System.Collections.Immutable;
 using System.Linq;
-using Dhgms.GripeWithRoslyn.Analyzer.Extensions;
+using Gripe.Analyzer.Extensions;
 using JetBrains.Annotations;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Abstractions
+namespace Gripe.Analyzer.Analyzers.Abstractions
 {
     /// <summary>
     /// Abstraction for an analyzer that checks the type argument for a generic inheritance should end with a specific suffix.

@@ -3,11 +3,11 @@
 // See the LICENSE file in the project root for full license information.
 
 using System.Collections.Immutable;
-using Dhgms.GripeWithRoslyn.Analyzer.CodeCracker.Extensions;
+using Gripe.Analyzer.CodeCracker.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Dhgms.GripeWithRoslyn.Analyzer.Project
+namespace Gripe.Analyzer.Analyzers.Project
 {
     /// <summary>
     /// Analyzer for checking that Nullable Reference Types are enabled.

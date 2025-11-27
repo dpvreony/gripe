@@ -3,9 +3,8 @@
 // See the LICENSE file in the project root for full license information.
 
 using System;
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Language;
 
-namespace Dhgms.GripeWithRoslyn.Testing.Language
+namespace Gripe.Testing.Language
 {
     /// <summary>
     /// Analyzer Proofs for <see cref="Tuple"/>.

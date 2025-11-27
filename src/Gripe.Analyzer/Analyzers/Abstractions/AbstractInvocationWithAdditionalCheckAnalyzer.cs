@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Abstractions
+namespace Gripe.Analyzer.Analyzers.Abstractions
 {
     /// <summary>
     /// Abstraction of a method invocation check based on the method name and then some extended logic in a subclass.

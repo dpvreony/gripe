@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 
-namespace Dhgms.GripeWithRoslyn.UnitTests.Helpers
+namespace Gripe.UnitTests.Analyzer.Helpers
 {
     /// <summary>
     /// Class for turning strings into documents and getting the diagnostics on them

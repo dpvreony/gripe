@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using Whipstaff.Core.Logging;
 using Whipstaff.Core.Logging.MessageActionWrappers;
 
-namespace Dhgms.GripeWithRoslyn.DotNetTool
+namespace Gripe.DotNetTool
 {
     /// <summary>
     /// Log Message Actions wrapper for <see cref="Job"/>.

@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dhgms.GripeWithRoslyn.Analyzer\Dhgms.GripeWithRoslyn.Analyzer.csproj" />
-    <ProjectReference Include="..\Dhgms.GripeWithRoslyn.DotNetTool\Dhgms.GripeWithRoslyn.DotNetTool.csproj" />
+    <ProjectReference Include="..\Gripe.Analyzer\Gripe.Analyzer.csproj" />
+    <ProjectReference Include="..\Gripe.DotNetTool\Gripe.DotNetTool.csproj" />
     <ProjectReference Include="..\Gripe.SourceGenerator\Gripe.SourceGenerator.csproj" />
   </ItemGroup>
 

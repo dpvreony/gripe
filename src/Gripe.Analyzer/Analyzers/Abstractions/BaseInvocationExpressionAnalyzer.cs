@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Abstractions
+namespace Gripe.Analyzer.Analyzers.Abstractions
 {
     /// <summary>
     /// Base class for a Roslyn Analyzer that checks a method invocation based on the name and class of the method.

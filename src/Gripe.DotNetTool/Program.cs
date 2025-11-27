@@ -4,12 +4,10 @@
 
 using System.IO.Abstractions;
 using System.Threading.Tasks;
-using Dhgms.GripeWithRoslyn.DotNetTool.CommandLine;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Gripe.DotNetTool.CommandLine;
 using Whipstaff.CommandLine.Hosting;
 
-namespace Dhgms.GripeWithRoslyn.DotNetTool
+namespace Gripe.DotNetTool
 {
     /// <summary>
     /// Program entry point holder.

@@ -5,15 +5,14 @@
 using System;
 using System.Collections.Immutable;
 using System.Linq;
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Language;
-using Dhgms.GripeWithRoslyn.Analyzer.CodeCracker.Extensions;
-using Dhgms.GripeWithRoslyn.Analyzer.Extensions;
+using Gripe.Analyzer.CodeCracker.Extensions;
+using Gripe.Analyzer.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Logging
+namespace Gripe.Analyzer.Analyzers.Logging
 {
     /// <summary>
     /// Analyzer for checking a constructor has a logging framework instance passed into it.

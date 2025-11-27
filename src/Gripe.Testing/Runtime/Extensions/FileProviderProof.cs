@@ -5,7 +5,7 @@
 using System;
 using Microsoft.Extensions.FileProviders;
 
-namespace Dhgms.GripeWithRoslyn.Testing.Runtime.Extensions
+namespace Gripe.Testing.Runtime.Extensions
 {
     /// <summary>
     /// Analyzer Proofs for <see cref="IFileProvider"/>.

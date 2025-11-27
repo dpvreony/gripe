@@ -3,12 +3,12 @@
 // See the LICENSE file in the project root for full license information.
 
 using System;
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Abstractions;
-using Dhgms.GripeWithRoslyn.Analyzer.CodeCracker.Extensions;
+using Gripe.Analyzer.Analyzers.Abstractions;
+using Gripe.Analyzer.CodeCracker.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Runtime
+namespace Gripe.Analyzer.Analyzers.Runtime
 {
     /// <summary>
     /// Analyzer to ensure the ToString() method is not used on an enum value.

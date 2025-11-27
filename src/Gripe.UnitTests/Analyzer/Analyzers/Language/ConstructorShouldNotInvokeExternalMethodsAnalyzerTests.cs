@@ -2,16 +2,10 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
-using Dhgms.GripeWithRoslyn.Analyzer;
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Language;
-using Dhgms.GripeWithRoslyn.UnitTests.Analyzer.Analyzers.EfCore;
-using Dhgms.GripeWithRoslyn.UnitTests.Helpers;
+using Gripe.UnitTests.Analyzer.Analyzers.EfCore;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Diagnostics;
-using Xunit;
-using CodeFixVerifier = Dhgms.GripeWithRoslyn.UnitTests.Verifiers.CodeFixVerifier;
 
-namespace Dhgms.GripeWithRoslyn.UnitTests.Analyzers.Language
+namespace Gripe.UnitTests.Analyzer.Analyzers.Language
 {
     /// <summary>
     /// Unit Tests for checking if a Constructor invokes external methods.

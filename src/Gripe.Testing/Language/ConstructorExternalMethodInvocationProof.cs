@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Dhgms.GripeWithRoslyn.Testing.Language
+namespace Gripe.Testing.Language
 {
     /// <summary>
     /// Analyzer Proofs for constructor external method invocation.

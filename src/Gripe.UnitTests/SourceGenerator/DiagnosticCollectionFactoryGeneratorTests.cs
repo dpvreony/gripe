@@ -5,7 +5,7 @@
 using Gripe.SourceGenerator;
 using Xunit.Abstractions;
 
-namespace Dhgms.GripeWithRoslyn.UnitTests.SourceGenerator
+namespace Gripe.UnitTests.SourceGenerator
 {
     /// <summary>
     /// Unit Tests for <see cref="DiagnosticCollectionFactoryGenerator"/>.

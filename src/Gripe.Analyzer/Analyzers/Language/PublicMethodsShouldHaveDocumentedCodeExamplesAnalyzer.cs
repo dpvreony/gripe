@@ -3,12 +3,12 @@
 // See the LICENSE file in the project root for full license information.
 
 using System.Collections.Immutable;
-using Dhgms.GripeWithRoslyn.Analyzer.CodeCracker.Extensions;
-using Dhgms.GripeWithRoslyn.Analyzer.Extensions;
+using Gripe.Analyzer.CodeCracker.Extensions;
+using Gripe.Analyzer.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Language
+namespace Gripe.Analyzer.Analyzers.Language
 {
     /// <summary>
     /// Analyzer to check if an XMLDOC comment on a public method contains a code example.

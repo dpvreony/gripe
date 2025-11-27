@@ -2,11 +2,11 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Abstractions;
-using Dhgms.GripeWithRoslyn.Analyzer.CodeCracker.Extensions;
+using Gripe.Analyzer.Analyzers.Abstractions;
+using Gripe.Analyzer.CodeCracker.Extensions;
 using Microsoft.CodeAnalysis;
 
-namespace Dhgms.GripeWithRoslyn.Analyzer.Analyzers.AppCenter
+namespace Gripe.Analyzer.Analyzers.AppCenter
 {
     /// <summary>
     /// Analyzer to ensure structure map is not used.

@@ -4,7 +4,7 @@
 
 using Microsoft.CodeAnalysis;
 
-namespace Dhgms.GripeWithRoslyn.Analyzer.Extensions
+namespace Gripe.Analyzer.Extensions
 {
     /// <summary>
     /// Extension methods for <see cref="SyntaxNode"/>.

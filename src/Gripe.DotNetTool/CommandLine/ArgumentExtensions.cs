@@ -6,7 +6,7 @@ using System.CommandLine;
 using System.IO.Abstractions;
 using System.Linq;
 
-namespace Dhgms.GripeWithRoslyn.DotNetTool.CommandLine
+namespace Gripe.DotNetTool.CommandLine
 {
     internal static class ArgumentExtensions
     {

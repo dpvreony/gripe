@@ -2,16 +2,12 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
-using Dhgms.GripeWithRoslyn.Analyzer;
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.AppCenter;
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.StructureMap;
-using Dhgms.GripeWithRoslyn.UnitTests.Helpers;
+using Gripe.UnitTests.Analyzer.Helpers;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Xunit;
-using CodeFixVerifier = Dhgms.GripeWithRoslyn.UnitTests.Verifiers.CodeFixVerifier;
 
-namespace Dhgms.GripeWithRoslyn.UnitTests.Analyzer.Analyzers.AppCenter
+namespace Gripe.UnitTests.Analyzer.Analyzers.AppCenter
 {
     /// <summary>
     /// Unit Tests for <see cref="StructureMapShouldNotBeUsedAnalyzer"/>.

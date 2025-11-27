@@ -10,10 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis.MSBuild;
 using Xunit;
 
-namespace Dhgms.GripeWithRoslyn.UnitTests.Analyzer.Analyzers.EfCore
+namespace Gripe.UnitTests.Analyzer.Analyzers.EfCore
 {
     /// <summary>
     /// Base class for testing analyzers.

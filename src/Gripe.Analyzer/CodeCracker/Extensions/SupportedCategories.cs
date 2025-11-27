@@ -2,7 +2,7 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
-namespace Dhgms.GripeWithRoslyn.Analyzer.CodeCracker.Extensions
+namespace Gripe.Analyzer.CodeCracker.Extensions
 {
     /// <summary>
     /// Represents the different categories you can designate your issue as during analysis.

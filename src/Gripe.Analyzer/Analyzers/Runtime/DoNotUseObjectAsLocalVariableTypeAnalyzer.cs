@@ -3,13 +3,13 @@
 // See the LICENSE file in the project root for full license information.
 
 using System.Collections.Immutable;
-using Dhgms.GripeWithRoslyn.Analyzer.CodeCracker.Extensions;
+using Gripe.Analyzer.CodeCracker.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Runtime
+namespace Gripe.Analyzer.Analyzers.Runtime
 {
     /// <summary>
     /// Analyzer to ensure <see cref="object"/> is not used in a variable declaration.

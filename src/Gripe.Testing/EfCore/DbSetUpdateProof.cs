@@ -3,11 +3,10 @@
 // See the LICENSE file in the project root for full license information.
 
 using System.Linq;
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.EfCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dhgms.GripeWithRoslyn.Testing.EfCore
+namespace Gripe.Testing.EfCore
 {
     /// <summary>
     /// Analyzer Proofs for <see cref="DbSet{TEntity}"/>.

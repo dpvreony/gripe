@@ -3,11 +3,10 @@
 // See the LICENSE file in the project root for full license information.
 
 using System;
-using System.Diagnostics.Tracing;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Logging;
 
-namespace Dhgms.GripeWithRoslyn.DotNetTool
+namespace Gripe.DotNetTool
 {
     /// <summary>
     /// Log Message Actions for <see cref="Job"/>.

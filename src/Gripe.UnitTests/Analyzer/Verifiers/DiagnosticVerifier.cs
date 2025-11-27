@@ -5,12 +5,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Dhgms.GripeWithRoslyn.UnitTests.Helpers;
+using Gripe.UnitTests.Analyzer.Helpers;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Xunit;
 
-namespace Dhgms.GripeWithRoslyn.UnitTests.Verifiers
+namespace Gripe.UnitTests.Analyzer.Verifiers
 {
     /// <summary>
     /// Superclass of all Unit Tests for DiagnosticAnalyzers.

@@ -7,7 +7,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Dhgms.GripeWithRoslyn.Analyzer.Extensions
+namespace Gripe.Analyzer.Extensions
 {
     /// <summary>
     /// Extensions for <see cref="BaseTypeSyntax"/>.

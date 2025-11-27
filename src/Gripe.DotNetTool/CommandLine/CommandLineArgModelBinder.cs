@@ -6,7 +6,7 @@ using System.CommandLine;
 using System.IO.Abstractions;
 using Whipstaff.CommandLine;
 
-namespace Dhgms.GripeWithRoslyn.DotNetTool.CommandLine
+namespace Gripe.DotNetTool.CommandLine
 {
     /// <summary>
     /// Binding logic for the command line arguments.

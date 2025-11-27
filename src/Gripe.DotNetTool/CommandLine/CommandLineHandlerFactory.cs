@@ -4,11 +4,10 @@
 
 using System;
 using System.CommandLine;
-using System.IO;
 using System.IO.Abstractions;
 using Whipstaff.CommandLine;
 
-namespace Dhgms.GripeWithRoslyn.DotNetTool.CommandLine
+namespace Gripe.DotNetTool.CommandLine
 {
     /// <summary>
     /// Factory for creating the root command and binder.

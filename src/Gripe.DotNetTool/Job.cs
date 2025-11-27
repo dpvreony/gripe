@@ -4,30 +4,20 @@
 
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Diagnostics.Tracing;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Language;
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Logging;
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.MediatR;
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.ReactiveUi;
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Runtime;
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.StructureMap;
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.XUnit;
-using Dhgms.GripeWithRoslyn.Analyzer.Project;
-using Dhgms.GripeWithRoslyn.DotNetTool.CommandLine;
+using Gripe.DotNetTool.CommandLine;
 using Microsoft.Build.Locator;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.MSBuild;
 using Whipstaff.CommandLine;
 
-namespace Dhgms.GripeWithRoslyn.DotNetTool
+namespace Gripe.DotNetTool
 {
     /// <summary>
     /// Job to carry out analysis.

@@ -2,7 +2,7 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
-namespace Dhgms.GripeWithRoslyn.Analyzer.Analyzers.EfCore
+namespace Gripe.Analyzer.Analyzers.EfCore
 {
     /// <summary>
     /// This checks for the minimum requirements for a migration to be viable.

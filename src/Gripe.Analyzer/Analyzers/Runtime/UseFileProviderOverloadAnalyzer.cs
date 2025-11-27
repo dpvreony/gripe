@@ -4,13 +4,13 @@
 
 using System.Collections.Immutable;
 using System.Linq;
-using Dhgms.GripeWithRoslyn.Analyzer.CodeCracker.Extensions;
+using Gripe.Analyzer.CodeCracker.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Runtime
+namespace Gripe.Analyzer.Analyzers.Runtime
 {
     /// <summary>
     /// Analyzer that checks for methods that have an overload that takes an IFileProvider.
