@@ -33,8 +33,8 @@ namespace Gripe.SourceGenerator
             var analyzerRef = metadataReferences.FirstOrDefault(x =>
                 x.Display != null
                 && (
-                    x.Display!.EndsWith("\\Dhgms.GripeWithRoslyn.Analyzer.dll", StringComparison.Ordinal)
-                    || x.Display!.Equals("Dhgms.GripeWithRoslyn.Analyzer", StringComparison.Ordinal)));
+                    x.Display!.EndsWith("\\Gripe.Analyzer.dll", StringComparison.Ordinal)
+                    || x.Display!.Equals("Gripe.Analyzer", StringComparison.Ordinal)));
 
             if (analyzerRef == null)
             {
