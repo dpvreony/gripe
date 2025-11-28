@@ -11,7 +11,7 @@ namespace Gripe.Analyzer.Analyzers.Runtime
     /// <summary>
     /// Roslyn Analyzer for detecting the use of methods in the .NET remoting services namespace.
     /// </summary>
-    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class RemotingServicesAnalyzer : BaseInvocationUsingNamespaceAnalyzer
     {
         private const string Title = ".NET remoting is legacy technology and should not be used. You should be using a newer technology.";

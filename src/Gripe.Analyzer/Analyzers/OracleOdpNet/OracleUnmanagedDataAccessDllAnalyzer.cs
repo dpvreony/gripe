@@ -11,7 +11,7 @@ namespace Gripe.Analyzer.Analyzers.OracleOdpNet
     /// <summary>
     /// Roslyn Analyzer for detecting usage of methods in the old Oracle.DataAccess dll.
     /// </summary>
-    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class OracleUnmanagedDataAccessDllAnalyzer : BaseInvocationUsingDllAnalyzer
     {
         private const string Title = "Unmanaged Oracle ODP.NET should be replaced with the Oracle Managed DataAccess.";

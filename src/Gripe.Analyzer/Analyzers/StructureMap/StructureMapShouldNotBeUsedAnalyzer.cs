@@ -11,7 +11,7 @@ namespace Gripe.Analyzer.Analyzers.StructureMap
     /// <summary>
     /// Analyzer to ensure structure map is not used.
     /// </summary>
-    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class StructureMapShouldNotBeUsedAnalyzer : BaseInvocationUsingNamespaceAnalyzer
     {
         private const string Title = "StructureMap is end of life so should not be used.";

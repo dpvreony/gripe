@@ -11,7 +11,7 @@ namespace Gripe.Analyzer.Analyzers.Runtime
     /// <summary>
     /// Analyzer to ensure System.Security.SecureString is not used.
     /// </summary>
-    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class DoNotUseSystemSecuritySecureStringAnalyzer : BaseInvocationUsingClassAnalyzer
     {
         internal const string Title = "Do not use System.Security.SecureString.";

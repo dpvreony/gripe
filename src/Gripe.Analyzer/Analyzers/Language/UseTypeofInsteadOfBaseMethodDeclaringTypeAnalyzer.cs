@@ -11,7 +11,7 @@ namespace Gripe.Analyzer.Analyzers.Language
     /// <summary>
     /// Analyzer to suggest the use of typeof() instead of <see cref="System.Reflection.MethodBase.GetCurrentMethod()"/> and <see cref="System.Reflection.MemberInfo.DeclaringType"/> .
     /// </summary>
-    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class UseTypeofInsteadOfBaseMethodDeclaringTypeAnalyzer : BaseSimpleMemberAccessOnTypeAnalyzer
     {
         private const string Title = "Consider usage of typeof(x) instead of MethodBase.GetCurrentMethod().DeclaringType.";

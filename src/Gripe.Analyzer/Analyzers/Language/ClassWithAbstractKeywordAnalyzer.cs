@@ -15,7 +15,7 @@ namespace Gripe.Analyzer.Analyzers.Language
     /// <summary>
     /// Analyzer to check if a class with the abstract keyword starts with the word "Abstract".
     /// </summary>
-    [DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class ClassWithAbstractKeywordAnalyzer : DiagnosticAnalyzer
     {
         internal const string Title = "Class with abstract keyword should start with Abstract";

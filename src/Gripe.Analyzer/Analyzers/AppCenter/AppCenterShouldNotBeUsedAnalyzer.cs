@@ -11,7 +11,7 @@ namespace Gripe.Analyzer.Analyzers.AppCenter
     /// <summary>
     /// Analyzer to ensure structure map is not used.
     /// </summary>
-    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class AppCenterShouldNotBeUsedAnalyzer : BaseInvocationUsingNamespaceAnalyzer
     {
         private const string Title = "Microsoft AppCenter is end of life so should not be used.";

@@ -11,7 +11,7 @@ namespace Gripe.Analyzer.Analyzers.Language
     /// <summary>
     /// Analyzer to suggest using typeof() instead of <see cref="M:System.Type.GetType"/>.
     /// </summary>
-    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class UseTypeofInsteadOfTypeGetTypeAnalyzer : BaseInvocationExpressionAnalyzer
     {
         private const string Title = "Consider usage of typeof(x) instead of System.Type.GetType.";

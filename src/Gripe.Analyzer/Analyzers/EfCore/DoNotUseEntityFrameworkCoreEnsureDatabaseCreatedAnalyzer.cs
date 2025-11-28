@@ -11,7 +11,7 @@ namespace Gripe.Analyzer.Analyzers.EfCore
     /// <summary>
     /// Analyzer to ensure the EF Core EnsureCreated method is not used in an Application.
     /// </summary>
-    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class DoNotUseEntityFrameworkCoreEnsureDatabaseCreatedAnalyzer : BaseInvocationExpressionAnalyzer
     {
         private const string Title = "Do not use Entity Framework Database EnsureCreated.";

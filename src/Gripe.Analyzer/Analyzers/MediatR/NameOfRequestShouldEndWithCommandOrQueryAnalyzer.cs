@@ -12,7 +12,7 @@ namespace Gripe.Analyzer.Analyzers.MediatR
     /// <summary>
     /// Analyzer to ensure a class inheriting from MediatR.IRequest has the suffix ViewModel.
     /// </summary>
-    [DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class NameOfRequestShouldEndWithCommandOrQueryAnalyzer : BaseClassInheritingTypeShouldEndWithSpecificSuffix
     {
         internal const string Title = "Classes based on MediatR.IRequest should end with either the suffix \"Command\" or \"Query\".";
