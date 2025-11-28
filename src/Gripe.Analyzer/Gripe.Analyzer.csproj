@@ -12,8 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.8.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.9.2" />
   </ItemGroup>
 
   <Target Name="_AddAnalyzersToOutput">
