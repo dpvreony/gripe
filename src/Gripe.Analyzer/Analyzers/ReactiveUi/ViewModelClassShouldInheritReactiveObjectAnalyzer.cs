@@ -13,7 +13,7 @@ namespace Gripe.Analyzer.Analyzers.ReactiveUi
     /// <summary>
     /// Analyzer for checking that a class that has the ViewModel suffix inherits from ReactiveUI.ReactiveObject.
     /// </summary>
-    [DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class ViewModelClassShouldInheritReactiveObjectAnalyzer : BaseClassDeclarationSuffixShouldInheritTypes
     {
         internal const string Title = "ViewModel classes should inherit from ReactiveUI.ReactiveObject.";

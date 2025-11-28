@@ -12,7 +12,7 @@ namespace Gripe.Analyzer.Analyzers.MediatR
     /// <summary>
     /// Analyzer to check that the response type argument Mediatr IRequest ends with "CommandResponse" or "QueryResponse".
     /// </summary>
-    [DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class RequestResponseTypeShouldHaveSpecificNameAnalyzer : AbstractTypeArgumentForClassShouldEndWithSpecificSuffixAnalyzer
     {
         internal const string Title = "Response Classes used in MediatR.IRequest should end with either the suffix \"CommandResponse\" or \"QueryResponse\".";

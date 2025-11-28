@@ -11,7 +11,7 @@ namespace Gripe.Analyzer.Analyzers.Runtime
     /// <summary>
     /// Analyzer to suggest using <see cref="T:System.Text.UnicodeEncoding"/> instead of <see cref="T:System.Text.ASCIIEncoding"/>.
     /// </summary>
-    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class UseEncodingUnicodeInsteadOfASCIIAnalyzer : BaseInvocationUsingClassAnalyzer
     {
         private const string Title = "Consider usage of Unicode Encoding instead of ASCII.";

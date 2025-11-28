@@ -12,7 +12,7 @@ namespace Gripe.Analyzer.Analyzers.MediatR
     /// <summary>
     /// Analyzer to ensure a class inheriting from MediatR.RequestHandler has the suffix ViewModel.
     /// </summary>
-    [DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class NameOfRequestHandlerShouldEndWithCommandHandlerOrQueryHandlerAnalyzer : BaseClassInheritingTypeShouldEndWithSpecificSuffix
     {
         internal const string Title = "Classes based on MediatR.RequestHandler should end with either the suffix \"CommandHandler\" or \"QueryHandler\".";

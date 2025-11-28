@@ -17,7 +17,7 @@ namespace Gripe.Analyzer.Analyzers.Language
     /// <summary>
     /// Analyzer for checking a constructor does not invoke external methods.
     /// </summary>
-    [DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class ConstructorShouldNotInvokeExternalMethodsAnalyzer : DiagnosticAnalyzer
     {
         internal const string Title = "Constructors should minimise work and not execute methods";

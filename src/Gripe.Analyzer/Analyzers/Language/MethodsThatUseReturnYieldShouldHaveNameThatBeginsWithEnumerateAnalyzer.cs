@@ -16,7 +16,7 @@ namespace Gripe.Analyzer.Analyzers.Language
     /// <summary>
     /// Analyzer to check where a method uses return yield has the name starts with Enumerate.
     /// </summary>
-    [DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class MethodsThatUseReturnYieldShouldHaveNameThatBeginsWithEnumerateAnalyzer : DiagnosticAnalyzer
     {
         internal const string Title = "Methods that use \"yield return\" should start with the name \"Enumerate\".";

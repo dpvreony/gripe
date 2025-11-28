@@ -16,7 +16,7 @@ namespace Dhgms.GripeWithRoslyn.Analyzer.Analyzers
     /// <summary>
     /// Analyzer for checking that Treat Warnings As Errors is Enabled.
     /// </summary>
-    [DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class TreatWarningsAsErrorsAnalyzer : DiagnosticAnalyzer
     {
         internal const string Title = "Treat Warnings as Errors should be enabled on the build.";

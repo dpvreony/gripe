@@ -11,7 +11,7 @@ namespace Gripe.Analyzer.Analyzers.Runtime
     /// <summary>
     /// Analyzer to suggest the use of <see cref="N:System.Text.Json"/> instead of <see cref="N:Newtonsoft.Json"/>.
     /// </summary>
-    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class UseSystemTextJsonInsteadOfNewtonsoftJsonAnalyzer : BaseInvocationUsingNamespaceAnalyzer
     {
         internal const string Title = "Consider use of System.Text.Json instead of Newtonsoft.Json (JSON.NET).";

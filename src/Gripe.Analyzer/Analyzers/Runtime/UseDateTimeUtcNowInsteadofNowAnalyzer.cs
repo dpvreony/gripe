@@ -11,7 +11,7 @@ namespace Gripe.Analyzer.Analyzers.Runtime
     /// <summary>
     /// Analyzer for usages for System.DateTime.Now.
     /// </summary>
-    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class UseDateTimeUtcNowInsteadofNowAnalyzer : BaseSimpleMemberAccessOnTypeAnalyzer
     {
         internal const string Title = "Consider usage of DateTime.UtcNow instead of DateTime.Now.";

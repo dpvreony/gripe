@@ -14,7 +14,7 @@ namespace Gripe.Analyzer.Analyzers.Language
     /// <summary>
     /// Analyzer to warn about the use of manual event subscriptions.
     /// </summary>
-    [DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class DoNotUseManualEventSubscriptionsAnalyzer : DiagnosticAnalyzer
     {
         internal const string Title = "Do not use manual event subscriptions. Consider a ReactiveMarbles ObservableEvents approach.";

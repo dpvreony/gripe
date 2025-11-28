@@ -15,7 +15,7 @@ namespace Gripe.Analyzer.Analyzers.ReactiveUi
     /// <summary>
     /// Analyzer for checking that a view model class implements a viewmodel interface.
     /// </summary>
-    [DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class ViewModelClassShouldInheritFromViewModelInterfaceAnalyzer : DiagnosticAnalyzer
     {
         internal const string Title = "ViewModel classes should inherit from a ViewModel interface.";

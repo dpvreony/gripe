@@ -15,7 +15,7 @@ namespace Gripe.Analyzer.Analyzers.Language
     /// <summary>
     /// Analyzer to check if TryParse is used in a logical if statement.
     /// </summary>
-    [DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class BooleanTryMethodShouldBeUsedInLogicalNotIfStatementAnalyzer : DiagnosticAnalyzer
     {
         internal const string Title = "TryParse should be used inside an If Statement with a unary operation";

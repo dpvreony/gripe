@@ -11,7 +11,7 @@ namespace Gripe.Analyzer.Analyzers.Runtime
     /// <summary>
     /// Analyzer to detect the use of <see cref="System.Net.ServicePointManager"/>.
     /// </summary>
-    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp, LanguageNames.VisualBasic)]
+    [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class DoNotUseSystemNetServicePointManagerAnalyzer : BaseInvocationUsingClassAnalyzer
     {
         internal const string Title = "Do not use System.Net.ServicePointManager.";
