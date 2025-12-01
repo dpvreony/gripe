@@ -5,7 +5,7 @@
     <Platform Name="x86" />
   </Configurations>
   <Folder Name="/_Testing/">
-    <Project Path="Gripe.IntegrationTests/Gripe.IntegrationTests.csproj" Id="341429fb-90e6-44c2-9b4d-74edd4078623" />
+    <Project Path="Gripe.IntegrationTests/Gripe.IntegrationTests.csproj" />
     <Project Path="Gripe.Testing/Gripe.Testing.csproj" />
     <Project Path="Gripe.UnitTests/Gripe.UnitTests.csproj" />
   </Folder>
