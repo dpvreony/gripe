@@ -156,7 +156,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.EfCore
             Diagnostic diagnostic,
             string expectedDiagnosticId)
         {
-            return actualSpan.Path.EndsWith(expectedDiagnostic.FilePath)
+            return actualSpan.Path.Replace('/', '\\').EndsWith(expectedDiagnostic.FilePath)
                    && expectedDiagnostic.Severity == diagnostic.Severity
                    && expectedDiagnosticId == diagnostic.Id
                    && expectedDiagnostic.LineNumber == actualLine
