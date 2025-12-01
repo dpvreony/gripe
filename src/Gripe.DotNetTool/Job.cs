@@ -61,8 +61,7 @@ namespace Gripe.DotNetTool
             using (var workspace = MSBuildWorkspace.Create())
             {
                 // Print message for WorkspaceFailed event to help diagnosing project load failures.
-                // TODO: add subscription handler.
-                workspace.WorkspaceFailed += (o, e) => LogMessageActionsWrapper.WorkspaceFailed(e);
+                workspace.RegisterWorkspaceFailedHandler(e => LogMessageActionsWrapper.WorkspaceFailed(e));
 
                 LogMessageActionsWrapper.StartingLoadOfSolution(solutionFullPath);
 
