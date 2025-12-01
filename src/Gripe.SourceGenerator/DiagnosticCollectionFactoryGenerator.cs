@@ -34,6 +34,7 @@ namespace Gripe.SourceGenerator
                 x.Display != null
                 && (
                     x.Display!.EndsWith("\\Gripe.Analyzer.dll", StringComparison.Ordinal)
+                    || x.Display!.EndsWith("/Gripe.Analyzer.dll", StringComparison.Ordinal)
                     || x.Display!.Equals("Gripe.Analyzer", StringComparison.Ordinal)));
 
             if (analyzerRef == null)

@@ -6,14 +6,13 @@ using System;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
-using Foundatio.Xunit;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.MSBuild;
 using Microsoft.Extensions.Logging;
+using NetTestRegimentation.XUnit.Logging;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Gripe.UnitTests.SourceGenerator
 {
@@ -47,8 +46,8 @@ namespace Gripe.UnitTests.SourceGenerator
                 // MSBuildProjectDirectory
                 var project =
                     await workspace.OpenProjectAsync(
-                        "../../../../Gripe.DotNetTool/Gripe.DotNetTool.csproj");
-                var compilation = await project.GetCompilationAsync();
+                        "../../../../Gripe.DotNetTool/Gripe.DotNetTool.csproj", cancellationToken: TestContext.Current.CancellationToken);
+                var compilation = await project.GetCompilationAsync(TestContext.Current.CancellationToken);
                 if (compilation == null)
                 {
                     // TODO: warn about failure to get compilation object.
@@ -61,12 +60,12 @@ namespace Gripe.UnitTests.SourceGenerator
                     out var generatorDiags,
                     generator.AsSourceGenerator());
 
-                _logger.LogInformation($"Generator Diagnostic count : {generatorDiags.Length}");
+                Logger.LogInformation($"Generator Diagnostic count : {generatorDiags.Length}");
 
                 var hasErrors = false;
                 foreach (var generatorDiag in generatorDiags)
                 {
-                    _logger.LogInformation(generatorDiag.ToString());
+                    Logger.LogInformation(generatorDiag.ToString());
 
                     hasErrors |= generatorDiag.Severity == DiagnosticSeverity.Error;
                 }
@@ -75,8 +74,8 @@ namespace Gripe.UnitTests.SourceGenerator
                 var matchedFiles = newComp.SyntaxTrees.Where(x => expectedSources.Any(e => x.FilePath.EndsWith(e, StringComparison.OrdinalIgnoreCase))).ToArray();
                 foreach (var newCompSyntaxTree in matchedFiles)
                 {
-                    _logger.LogInformation("Syntax Tree:");
-                    _logger.LogInformation(newCompSyntaxTree.GetText().ToString());
+                    Logger.LogInformation("Syntax Tree:");
+                    Logger.LogInformation(newCompSyntaxTree.GetText(TestContext.Current.CancellationToken).ToString());
                 }
 
                 Assert.False(hasErrors);

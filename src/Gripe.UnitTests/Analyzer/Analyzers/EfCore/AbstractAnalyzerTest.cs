@@ -45,8 +45,9 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.EfCore
                 // MSBuildProjectDirectory
                 var project =
                     await workspace.OpenProjectAsync(
-                        "../../../../Gripe.Testing/Gripe.Testing.csproj");
-                var compilation = await project.GetCompilationAsync();
+                        "../../../../Gripe.Testing/Gripe.Testing.csproj",
+                        cancellationToken: TestContext.Current.CancellationToken);
+                var compilation = await project.GetCompilationAsync(TestContext.Current.CancellationToken);
                 if (compilation == null)
                 {
                     // TODO: warn about failure to get compilation object.
@@ -54,7 +55,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.EfCore
                 }
 
                 var compilationWithAnalyzers = compilation.WithAnalyzers(analyzers);
-                var diagnostics = await compilationWithAnalyzers.GetAnalyzerDiagnosticsAsync();
+                var diagnostics = await compilationWithAnalyzers.GetAnalyzerDiagnosticsAsync(TestContext.Current.CancellationToken);
 
                 Assert.NotEmpty(diagnostics);
 
@@ -155,7 +156,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.EfCore
             Diagnostic diagnostic,
             string expectedDiagnosticId)
         {
-            return actualSpan.Path.EndsWith(expectedDiagnostic.FilePath)
+            return actualSpan.Path.Replace('/', '\\').EndsWith(expectedDiagnostic.FilePath)
                    && expectedDiagnostic.Severity == diagnostic.Severity
                    && expectedDiagnosticId == diagnostic.Id
                    && expectedDiagnostic.LineNumber == actualLine

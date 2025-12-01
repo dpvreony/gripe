@@ -4,10 +4,13 @@
     <Platform Name="arm64" />
     <Platform Name="x86" />
   </Configurations>
+  <Folder Name="/_Testing/">
+    <Project Path="Gripe.IntegrationTests/Gripe.IntegrationTests.csproj" />
+    <Project Path="Gripe.Testing/Gripe.Testing.csproj" />
+    <Project Path="Gripe.UnitTests/Gripe.UnitTests.csproj" />
+  </Folder>
   <Project Path="Gripe.Analyzer/Gripe.Analyzer.csproj" />
   <Project Path="Gripe.DotNetTool/Gripe.DotNetTool.csproj" />
   <Project Path="Gripe.MSBuildBinLogStats.DotNetTool/Gripe.MSBuildBinLogStats.DotNetTool.csproj" />
   <Project Path="Gripe.SourceGenerator/Gripe.SourceGenerator.csproj" />
-  <Project Path="Gripe.Testing/Gripe.Testing.csproj" />
-  <Project Path="Gripe.UnitTests/Gripe.UnitTests.csproj" />
 </Solution>

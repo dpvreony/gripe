@@ -30,35 +30,30 @@
     <WarningsAsErrors />
   </PropertyGroup>
 
-  <!--
-  This choose block is used because if you use an old style csproj file, it won't apply conditions to item groups.
-  see: https://github.com/dotnet/project-system/issues/4175
-  -->
-  <Choose>
-    <When Condition="'$(IsTestProject)' == 'true'">
-      <ItemGroup>
-        <PackageReference Include="Foundatio.XUnit" Version="12.0.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-        <PackageReference Include="xunit" Version="2.9.3" />
-        <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5" />
-        <PackageReference Include="Xunit.StaFact" Version="1.2.69" />
-        <!--<PackageReference Include="PublicApiGenerator" Version="8.1.0" />-->
-        <PackageReference Include="GitHubActionsTestLogger" Version="3.0.1" />
-        <!--<Compile Include="$(MSBuildThisFileDirectory)ApiGeneratorGlobalSuppressions.cs" />-->
-        <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage" />
-      </ItemGroup>
-    </When>
-    <Otherwise>
-      <Choose>
-        <When Condition="'$(SourceLinkEnabled)' != 'false'">
-          <ItemGroup>
-            <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
-          </ItemGroup>
-        </When>
-      </Choose>
-    </Otherwise>
-  </Choose>
-
+  <PropertyGroup Condition="$(IsTestProject)">
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+    <TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
+    <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
+    <EnableStaticNativeInstrumentation>False</EnableStaticNativeInstrumentation>
+    <EnableDynamicNativeInstrumentation>False</EnableDynamicNativeInstrumentation>
+  </PropertyGroup>
+  
+  <ItemGroup Condition="$(IsTestProject)">
+    <PackageReference Include="GitHubActionsTestLogger" Version="3.0.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+    <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.1.0" />
+    <PackageReference Include="Microsoft.Testing.Platform" Version="2.0.2" />
+    <PackageReference Include="NetTestRegimentation" Version="2.0.8" />
+    <PackageReference Include="NetTestRegimentation.Xunit" Version="2.0.8" />
+    <PackageReference Include="Rocks" Version="9.3.0" PrivateAssets="all" />
+    <PackageReference Include="TestableIO.System.IO.Abstractions.TestingHelpers" Version="22.1.0" />
+    <PackageReference Include="xunit.v3.mtp-v2" Version="3.2.1" />
+    <PackageReference Include="xunit.analyzers" Version="1.26.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5" />
+    <PackageReference Include="Xunit.StaFact" Version="3.0.13" />
+    <!--<PackageReference Include="PublicApiGenerator" Version="8.1.0" />-->
+    <!--<Compile Include="$(MSBuildThisFileDirectory)ApiGeneratorGlobalSuppressions.cs" />-->
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)..\LICENSE" Pack="true" PackagePath="LICENSE" />
