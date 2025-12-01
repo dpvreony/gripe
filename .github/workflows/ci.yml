@@ -21,7 +21,7 @@ jobs:
       pull-requests: write
       packages: read
       security-events: write
-    uses: dpvreony/github-action-workflows/.github/workflows/dotnet-ci.yml@20aff898795c4c919d8b73bbfd20e7c79ac92941
+    uses: dpvreony/github-action-workflows/.github/workflows/dotnet-ci.yml@ca1529683aaebd388592bc24bf52768ff09128b1
     with:
       buildOs: "linux"
       solutionName: "Gripe"
