@@ -39,23 +39,26 @@ namespace Gripe.Analyzer.Extensions
 
             var baseTypeFullName = baseTypeSymbol.GetFullName();
 
-            if (baseClasses.Any(bc => bc.Equals(baseTypeFullName, StringComparison.Ordinal)))
+            if (baseClasses != null && baseClasses.Any(bc => bc.Equals(baseTypeFullName, StringComparison.Ordinal)))
             {
                 return true;
             }
 
-            if (interfaces.Any(i => i.Equals(baseTypeFullName, StringComparison.Ordinal)))
+            if (interfaces != null)
             {
-                return true;
-            }
-
-            if (baseTypeSymbol.AllInterfaces.Any(symbol =>
+                if (interfaces.Any(i => i.Equals(baseTypeFullName, StringComparison.Ordinal)))
                 {
-                    var fn = symbol.GetFullName();
-                    return interfaces.Any(i => i.Equals(fn, StringComparison.Ordinal));
-                }))
-            {
-                return true;
+                    return true;
+                }
+
+                if (baseTypeSymbol.AllInterfaces.Any(symbol =>
+                    {
+                        var fn = symbol.GetFullName();
+                        return interfaces.Any(i => i.Equals(fn, StringComparison.Ordinal));
+                    }))
+                {
+                    return true;
+                }
             }
 
             return false;
