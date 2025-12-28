@@ -4,6 +4,7 @@
 
 using System;
 using System.CommandLine;
+using System.CommandLine.Parsing;
 using System.IO.Abstractions;
 using Whipstaff.CommandLine;
 
@@ -19,20 +20,35 @@ namespace Gripe.DotNetTool.CommandLine
         {
             ArgumentNullException.ThrowIfNull(fileSystem);
 
-            var solutionArgument = new Argument<IFileInfo>("solution")
+            var solutionArgument = new Argument<IFileInfo>("solution") { CustomParser = x => CustomParser(fileSystem, x) }
                 .AcceptExistingOnly(fileSystem)
                 .SpecificFileExtensionOnly(fileSystem, ".sln");
 
-            var msBuildInstanceNameArgument = new Argument<string?>("msbuild-instance-name");
+            var msBuildInstanceNameArgument = new Option<string>("msbuild-instance-name")
+            {
+                Required = false
+            };
 
             var rootCommand = new RootCommand("Runs Gripe analysis on a solution.")
             {
-                solutionArgument
+                solutionArgument,
+                msBuildInstanceNameArgument
             };
 
             return new RootCommandAndBinderModel<CommandLineArgModelBinder>(
                 rootCommand,
                 new CommandLineArgModelBinder(solutionArgument, msBuildInstanceNameArgument));
+        }
+
+        private static IFileInfo? CustomParser(IFileSystem fileSystem, ArgumentResult argumentResult)
+        {
+            if (argumentResult.Tokens.Count != 1)
+            {
+                argumentResult.AddError($"{argumentResult.Argument.Name} requires single argument");
+                return null;
+            }
+
+            return fileSystem.FileInfo.New(argumentResult.Tokens[0].Value);
         }
     }
 }

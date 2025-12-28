@@ -14,7 +14,7 @@ namespace Gripe.DotNetTool.CommandLine
     public sealed class CommandLineArgModelBinder : IBinderBase<CommandLineArgModel>
     {
         private readonly Argument<IFileInfo> _solutionArgument;
-        private readonly Argument<string?> _msBuildInstanceNameArgument;
+        private readonly Option<string> _msBuildInstanceNameOption;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandLineArgModelBinder"/> class.
@@ -23,17 +23,17 @@ namespace Gripe.DotNetTool.CommandLine
         /// <param name="msBuildInstanceNameArgument">MSBuild Instance Name argument to parse and bind against.</param>
         public CommandLineArgModelBinder(
             Argument<IFileInfo> solutionArgument,
-            Argument<string?> msBuildInstanceNameArgument)
+            Option<string> msBuildInstanceNameArgument)
         {
             _solutionArgument = solutionArgument;
-            _msBuildInstanceNameArgument = msBuildInstanceNameArgument;
+            _msBuildInstanceNameOption = msBuildInstanceNameArgument;
         }
 
         /// <inheritdoc/>
         public CommandLineArgModel GetBoundValue(ParseResult parseResult)
         {
             var solution = parseResult.GetRequiredValue(_solutionArgument);
-            var msBuildInstanceName = parseResult.GetRequiredValue(_msBuildInstanceNameArgument);
+            var msBuildInstanceName = parseResult.GetValue(_msBuildInstanceNameOption);
             return new CommandLineArgModel(solution, msBuildInstanceName);
         }
     }
