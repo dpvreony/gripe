@@ -105,6 +105,12 @@ namespace Gripe.Analyzer.Analyzers.Language
                         return;
                     }
                 }
+
+                var containingType = methodSymbol.ContainingType;
+                if (containingType.ImplementsClass("global::System.Exception"))
+                {
+                    return;
+                }
             }
 
             // Get XML documentation of the method

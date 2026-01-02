@@ -142,6 +142,13 @@ namespace Gripe.Analyzer.Analyzers.Logging
             }
 
             if (typeFullName.Equals(
+                    $"global::Xunit.ITestOutputHelper",
+                    StringComparison.Ordinal))
+            {
+                return;
+            }
+
+            if (typeFullName.Equals(
                     $"global::Microsoft.Extensions.Logging.ILogger",
                     StringComparison.Ordinal))
             {
