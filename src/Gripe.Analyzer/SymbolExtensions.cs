@@ -19,7 +19,7 @@ namespace Gripe.Analyzer
         /// <returns>Full name for the type.</returns>
         public static string GetFullName(this ISymbol symbol, bool addGlobal = true)
         {
-            if (symbol.Kind == SymbolKind.TypeParameter)
+            if (symbol.Kind is SymbolKind.TypeParameter or SymbolKind.PointerType)
             {
                 return symbol.ToString();
             }

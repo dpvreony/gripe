@@ -59,6 +59,10 @@ namespace Gripe.Analyzer.Analyzers.ReactiveUi
 
             var constructorDeclarationSyntax = (ConstructorDeclarationSyntax)context.Node;
             var classDeclarationSyntax = constructorDeclarationSyntax.GetAncestor<ClassDeclarationSyntax>();
+            if (classDeclarationSyntax == null)
+            {
+                return;
+            }
 
             var baseClasses = new[]
             {

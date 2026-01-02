@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for full license information.
 
 using System.Collections.Immutable;
+using System.Linq;
 using Gripe.Analyzer.CodeCracker.Extensions;
 using Gripe.Analyzer.Extensions;
 using Microsoft.CodeAnalysis;
@@ -77,8 +78,34 @@ namespace Gripe.Analyzer.Analyzers.Language
                 return;
             }
 
-            if (methodSymbol.MethodKind is MethodKind.Constructor)
+            if (methodSymbol.MethodKind == MethodKind.Constructor)
             {
+                var containingClass = methodSymbol.ContainingSymbol;
+                if (containingClass is INamedTypeSymbol namedTypeSymbol)
+                {
+                    if (namedTypeSymbol.TypeKind == TypeKind.Struct)
+                    {
+                        // Skip struct constructors
+                        return;
+                    }
+
+                    var otherMethods = namedTypeSymbol.GetMembers().Any(member =>
+                    {
+                        if (member is IMethodSymbol ms)
+                        {
+                            return ms.MethodKind == MethodKind.Ordinary &&
+                                member.DeclaredAccessibility == Accessibility.Public;
+                        }
+
+                        return false;
+                    });
+
+                    if (!otherMethods)
+                    {
+                        return;
+                    }
+                }
+
                 var containingType = methodSymbol.ContainingType;
                 if (containingType.ImplementsClass("global::System.Exception"))
                 {

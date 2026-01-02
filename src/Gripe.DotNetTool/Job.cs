@@ -174,7 +174,7 @@ namespace Gripe.DotNetTool
 
         private void OutputGroupedDiagnosticCounts(ConcurrentDictionary<string, int> groupedDiagnosticCounts)
         {
-            foreach (var groupedDiagnosticCount in groupedDiagnosticCounts)
+            foreach (var groupedDiagnosticCount in groupedDiagnosticCounts.OrderBy(d => d.Key))
             {
                 LogMessageActionsWrapper.GroupedDiagnosticCount(groupedDiagnosticCount.Key, groupedDiagnosticCount.Value);
             }
