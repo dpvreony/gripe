@@ -77,6 +77,15 @@ namespace Gripe.Analyzer.Analyzers.Language
                 return;
             }
 
+            if (methodSymbol.MethodKind is MethodKind.Constructor)
+            {
+                var containingType = methodSymbol.ContainingType;
+                if (containingType.ImplementsClass("global::System.Exception"))
+                {
+                    return;
+                }
+            }
+
             // Get XML documentation of the method
             var xmlDocumentation = methodSymbol.GetDocumentationCommentXml();
 
