@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
+using System;
 using Microsoft.CodeAnalysis;
 
 namespace Gripe.Analyzer.Extensions
@@ -31,6 +32,31 @@ namespace Gripe.Analyzer.Extensions
                         return true;
                     }
                 }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Checks if a symbol implements an interface.
+        /// </summary>
+        /// <param name="namedTypeSymbol">Symbol to check.</param>
+        /// <param name="expectedFullName">Expected name of the implemented type.</param>
+        /// <returns>Whether the symbol implements an interface.</returns>
+        public static bool ImplementsClass(this INamedTypeSymbol namedTypeSymbol, string expectedFullName)
+        {
+            // Check if it implements interface methods
+            var currentType = namedTypeSymbol.BaseType;
+
+            while (currentType != null)
+            {
+                var currentFullName = currentType.GetFullName(true);
+                if (currentFullName.Equals(expectedFullName, StringComparison.Ordinal))
+                {
+                    return true;
+                }
+
+                currentType = currentType.BaseType;
             }
 
             return false;
