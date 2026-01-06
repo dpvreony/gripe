@@ -58,8 +58,17 @@ namespace Gripe.Analyzer.Analyzers.Abstractions
         public sealed override void Initialize(AnalysisContext context)
         {
             context.EnableConcurrentExecution();
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.Analyze | GeneratedCodeAnalysisFlags.ReportDiagnostics);
+            context.ConfigureGeneratedCodeAnalysis(GetGeneratedCodeAnalysisFlags());
             context.RegisterSyntaxNodeAction(AnalyzeInvocationExpression, SyntaxKind.InvocationExpression);
+        }
+
+        /// <summary>
+        /// Gets the generated code analysis flags. Use this to customize how generated code is handled.
+        /// </summary>
+        /// <returns>Generated code analysis flags for the analyzer.</returns>
+        protected virtual GeneratedCodeAnalysisFlags GetGeneratedCodeAnalysisFlags()
+        {
+            return GeneratedCodeAnalysisFlags.Analyze | GeneratedCodeAnalysisFlags.ReportDiagnostics;
         }
 
         private void AnalyzeInvocationExpression(SyntaxNodeAnalysisContext context)

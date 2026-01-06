@@ -5,6 +5,7 @@
 using Gripe.Analyzer.Analyzers.Abstractions;
 using Gripe.Analyzer.CodeCracker.Extensions;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace Gripe.Analyzer.Analyzers.Language
 {
@@ -42,5 +43,11 @@ namespace Gripe.Analyzer.Analyzers.Language
 
         /// <inheritdoc />
         protected override string[] ContainingTypes => new[] { "global::System.Type" };
+
+        /// <inheritdoc />
+        protected override GeneratedCodeAnalysisFlags GetGeneratedCodeAnalysisFlags()
+        {
+            return GeneratedCodeAnalysisFlags.None;
+        }
     }
 }
