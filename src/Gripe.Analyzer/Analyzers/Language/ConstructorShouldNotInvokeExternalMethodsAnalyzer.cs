@@ -34,6 +34,8 @@ namespace Gripe.Analyzer.Analyzers.Language
         private const string GlobalReactiveMarblesObservableEventsNamespace = "global::ReactiveMarbles.ObservableEvents.ObservableGeneratorExtensions";
         private const string GlobalSystemIObservableNamespace = "global::System.IObservable";
         private const string GlobalMicrosoftExtensionsLoggingLoggerMessage = "global::Microsoft.Extensions.Logging.LoggerMessage";
+        private const string GlobalWhipstaffShimArgumentNullExceptionNamespace =
+            "global::Whipstaff.Runtime.Exceptions.ArgumentNullException";
 
         private readonly DiagnosticDescriptor _rule;
 
@@ -58,6 +60,12 @@ namespace Gripe.Analyzer.Analyzers.Language
                 }),
             (
                 GlobalSystemArgumentNullExceptionNamespace,
+                new[]
+                {
+                    "ThrowIfNull"
+                }),
+            (
+                GlobalWhipstaffShimArgumentNullExceptionNamespace,
                 new[]
                 {
                     "ThrowIfNull"
