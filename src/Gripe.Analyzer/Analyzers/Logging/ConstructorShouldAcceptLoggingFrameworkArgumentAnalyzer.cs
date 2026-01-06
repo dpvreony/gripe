@@ -88,6 +88,7 @@ namespace Gripe.Analyzer.Analyzers.Logging
                 "global::Splat.IEnableLogger"
             };
 
+            var symbol = context.SemanticModel.GetDeclaredSymbol(classDeclarationSyntax);
             if (classDeclarationSyntax.HasImplementedAnyOfType(baseClasses, interfaces, context.SemanticModel))
             {
                 return;
