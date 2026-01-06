@@ -42,13 +42,21 @@ namespace Gripe.Analyzer.Analyzers.Language
         public override void Initialize(AnalysisContext context)
         {
             context.EnableConcurrentExecution();
+#if TBC
             context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.Analyze | GeneratedCodeAnalysisFlags.ReportDiagnostics);
+#endif
+            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
             context.RegisterSyntaxNodeAction(AnalyzeClassDeclarationExpression, SyntaxKind.AddAssignmentExpression);
         }
 
         private void AnalyzeClassDeclarationExpression(SyntaxNodeAnalysisContext context)
         {
             if (context.Node is not AssignmentExpressionSyntax assignmentExpressionSyntax)
+            {
+                return;
+            }
+
+            if (context.IsGeneratedCode)
             {
                 return;
             }
