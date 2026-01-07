@@ -151,7 +151,7 @@ namespace Gripe.Analyzer.Analyzers.Language
                 return false;
             }
 
-            if (methodSymbol.DeclaredAccessibility != Accessibility.Private)
+            if (methodSymbol.DeclaredAccessibility is not Accessibility.Private and not Accessibility.Protected)
             {
                 return false;
             }
@@ -198,7 +198,7 @@ namespace Gripe.Analyzer.Analyzers.Language
                 return;
             }
 
-            if (GetIsWhitelistedMethod(context, invocationExpression))
+            if (GetIsApprovedMethod(context, invocationExpression))
             {
                 return;
             }
@@ -233,12 +233,12 @@ namespace Gripe.Analyzer.Analyzers.Language
             return false;
         }
 
-        private bool GetIsWhitelistedMethod(SyntaxNodeAnalysisContext context, InvocationExpressionSyntax invocationExpression)
+        private bool GetIsApprovedMethod(SyntaxNodeAnalysisContext context, InvocationExpressionSyntax invocationExpression)
         {
             switch (invocationExpression.Expression)
             {
                 case MemberAccessExpressionSyntax memberAccessExpression:
-                    return GetIsWhiteListedMemberAccessMethod(
+                    return GetIsApprovedMemberAccessMethod(
                         context,
                         memberAccessExpression);
                 case IdentifierNameSyntax identifierNameSyntax:
@@ -252,8 +252,19 @@ namespace Gripe.Analyzer.Analyzers.Language
             }
         }
 
-        private bool GetIsWhiteListedMemberAccessMethod(SyntaxNodeAnalysisContext context, MemberAccessExpressionSyntax memberAccessExpression)
+        private bool GetIsApprovedMemberAccessMethod(SyntaxNodeAnalysisContext context, MemberAccessExpressionSyntax memberAccessExpression)
         {
+            // issue here with ReactiveMarbles ObservableEvents method resolution
+            // we need to check the containing type
+            var resolvedSymbol = context.SemanticModel.GetSymbolInfo(memberAccessExpression);
+            if (resolvedSymbol.Symbol == null)
+            {
+                return false;
+            }
+
+            var typeFullName = resolvedSymbol.Symbol.ContainingType.GetFullName();
+
+#if OLD
             var typeInfo = ModelExtensions.GetTypeInfo(context.SemanticModel, memberAccessExpression.Expression);
             if (typeInfo.Type == null)
             {
@@ -261,6 +272,7 @@ namespace Gripe.Analyzer.Analyzers.Language
             }
 
             var typeFullName = typeInfo.Type.GetFullName();
+#endif
 
             var methodName = memberAccessExpression.Name.ToString();
 
