@@ -37,6 +37,9 @@ namespace Gripe.Analyzer.Analyzers.Language
         private const string GlobalWhipstaffShimArgumentNullExceptionNamespace =
             "global::Whipstaff.Runtime.Exceptions.ArgumentNullException";
 
+        private const string GlobalIComponentConnectorNamespace =
+            "global::System.Windows.Markup.IComponentConnector";
+
         private readonly DiagnosticDescriptor _rule;
 
         private readonly string[] _operatorsWhiteList =
@@ -88,6 +91,12 @@ namespace Gripe.Analyzer.Analyzers.Language
                 {
                     "Define"
                 }),
+            (
+                GlobalIComponentConnectorNamespace,
+                new[]
+                {
+                    "InitializeComponent"
+                })
         };
 
         /// <summary>
@@ -223,7 +232,10 @@ namespace Gripe.Analyzer.Analyzers.Language
                 "global::Xunit.TheoryData"
             };
 
-            var interfaces = Array.Empty<string>();
+            var interfaces = new[]
+            {
+                "global::Whipstaff.Core.Logging.ILogMessageActions"
+            };
 
             if (classDeclarationSyntax.HasImplementedAnyOfType(baseClasses, interfaces, context.SemanticModel))
             {
@@ -242,14 +254,24 @@ namespace Gripe.Analyzer.Analyzers.Language
                         context,
                         memberAccessExpression);
                 case IdentifierNameSyntax identifierNameSyntax:
-                    {
-                        var methodName = identifierNameSyntax.Identifier.ToFullString();
-                        return _operatorsWhiteList.Any(operatorName => operatorName.Equals(methodName, StringComparison.Ordinal));
-                    }
-
+                    return GetIsApprovedIdentifierNameSyntax(
+                        context,
+                        identifierNameSyntax);
                 default:
                     return false;
             }
+        }
+
+        private bool GetIsApprovedIdentifierNameSyntax(SyntaxNodeAnalysisContext context, IdentifierNameSyntax identifierNameSyntax)
+        {
+            var methodName = identifierNameSyntax.Identifier.ToFullString();
+            if (_operatorsWhiteList.Any(operatorName => operatorName.Equals(methodName, StringComparison.Ordinal)))
+            {
+                return true;
+            }
+
+            var symbol = context.SemanticModel.GetSymbolInfo(identifierNameSyntax).Symbol;
+            return symbol != null && symbol.ContainingType.AllInterfaces.Any(i => i.GetFullName().Equals("global::System.Windows.Markup.IComponentConnector", StringComparison.Ordinal));
         }
 
         private bool GetIsApprovedMemberAccessMethod(SyntaxNodeAnalysisContext context, MemberAccessExpressionSyntax memberAccessExpression)
@@ -263,6 +285,13 @@ namespace Gripe.Analyzer.Analyzers.Language
             }
 
             var typeFullName = resolvedSymbol.Symbol.ContainingType.GetFullName();
+            if (typeFullName.EndsWith(
+                    $".RxEvents",
+                    StringComparison.Ordinal))
+            {
+                // ReactiveMarbles at this point doesn't have a wrapper namespace, so best we can do is check the suffix.
+                return true;
+            }
 
 #if OLD
             var typeInfo = ModelExtensions.GetTypeInfo(context.SemanticModel, memberAccessExpression.Expression);
