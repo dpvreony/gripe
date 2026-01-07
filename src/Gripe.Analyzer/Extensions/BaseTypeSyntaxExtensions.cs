@@ -32,33 +32,33 @@ namespace Gripe.Analyzer.Extensions
             var baseTypeInfo = semanticModel.GetTypeInfo(typeSyntax);
             var baseTypeSymbol = baseTypeInfo.Type;
 
-            if (baseTypeSymbol == null)
+            while (baseTypeSymbol != null)
             {
-                return false;
-            }
+                var baseTypeFullName = baseTypeSymbol.GetFullName();
 
-            var baseTypeFullName = baseTypeSymbol.GetFullName();
-
-            if (baseClasses != null && baseClasses.Any(bc => bc.Equals(baseTypeFullName, StringComparison.Ordinal)))
-            {
-                return true;
-            }
-
-            if (interfaces != null)
-            {
-                if (interfaces.Any(i => i.Equals(baseTypeFullName, StringComparison.Ordinal)))
+                if (baseClasses != null && baseClasses.Any(bc => bc.Equals(baseTypeFullName, StringComparison.Ordinal)))
                 {
                     return true;
                 }
 
-                if (baseTypeSymbol.AllInterfaces.Any(symbol =>
+                if (interfaces != null)
+                {
+                    if (interfaces.Any(i => i.Equals(baseTypeFullName, StringComparison.Ordinal)))
                     {
-                        var fn = symbol.GetFullName();
-                        return interfaces.Any(i => i.Equals(fn, StringComparison.Ordinal));
-                    }))
-                {
-                    return true;
+                        return true;
+                    }
+
+                    if (baseTypeSymbol.AllInterfaces.Any(symbol =>
+                        {
+                            var fn = symbol.GetFullName();
+                            return interfaces.Any(i => i.Equals(fn, StringComparison.Ordinal));
+                        }))
+                    {
+                        return true;
+                    }
                 }
+
+                baseTypeSymbol = baseTypeSymbol.BaseType;
             }
 
             return false;

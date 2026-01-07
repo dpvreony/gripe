@@ -20,7 +20,7 @@ namespace Gripe.Analyzer.Analyzers.ReactiveUi
     {
         internal const string Title = "ViewModel classes should inherit from a ViewModel interface.";
 
-        private const string MessageFormat = Title;
+        private const string MessageFormat = "ViewModel classes should inherit from ViewModel interface: {0}";
 
         private const string Category = SupportedCategories.Maintainability;
 
@@ -95,7 +95,7 @@ namespace Gripe.Analyzer.Analyzers.ReactiveUi
                 }
             }
 
-            context.ReportDiagnostic(Diagnostic.Create(_rule, identifier.GetLocation()));
+            context.ReportDiagnostic(Diagnostic.Create(_rule, identifier.GetLocation(), viewModelInterfaceName));
         }
     }
 }

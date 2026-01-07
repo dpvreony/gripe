@@ -34,6 +34,11 @@ namespace Gripe.Analyzer.Analyzers.Language
         private const string GlobalReactiveMarblesObservableEventsNamespace = "global::ReactiveMarbles.ObservableEvents.ObservableGeneratorExtensions";
         private const string GlobalSystemIObservableNamespace = "global::System.IObservable";
         private const string GlobalMicrosoftExtensionsLoggingLoggerMessage = "global::Microsoft.Extensions.Logging.LoggerMessage";
+        private const string GlobalWhipstaffShimArgumentNullExceptionNamespace =
+            "global::Whipstaff.Runtime.Exceptions.ArgumentNullException";
+
+        private const string GlobalIComponentConnectorNamespace =
+            "global::System.Windows.Markup.IComponentConnector";
 
         private readonly DiagnosticDescriptor _rule;
 
@@ -63,6 +68,12 @@ namespace Gripe.Analyzer.Analyzers.Language
                     "ThrowIfNull"
                 }),
             (
+                GlobalWhipstaffShimArgumentNullExceptionNamespace,
+                new[]
+                {
+                    "ThrowIfNull"
+                }),
+            (
                 GlobalReactiveMarblesObservableEventsNamespace,
                 new[]
                 {
@@ -80,6 +91,12 @@ namespace Gripe.Analyzer.Analyzers.Language
                 {
                     "Define"
                 }),
+            (
+                GlobalIComponentConnectorNamespace,
+                new[]
+                {
+                    "InitializeComponent"
+                })
         };
 
         /// <summary>
@@ -143,7 +160,7 @@ namespace Gripe.Analyzer.Analyzers.Language
                 return false;
             }
 
-            if (methodSymbol.DeclaredAccessibility != Accessibility.Private)
+            if (methodSymbol.DeclaredAccessibility is not Accessibility.Private and not Accessibility.Protected)
             {
                 return false;
             }
@@ -190,7 +207,7 @@ namespace Gripe.Analyzer.Analyzers.Language
                 return;
             }
 
-            if (GetIsWhitelistedMethod(context, invocationExpression))
+            if (GetIsApprovedMethod(context, invocationExpression))
             {
                 return;
             }
@@ -215,7 +232,10 @@ namespace Gripe.Analyzer.Analyzers.Language
                 "global::Xunit.TheoryData"
             };
 
-            var interfaces = Array.Empty<string>();
+            var interfaces = new[]
+            {
+                "global::Whipstaff.Core.Logging.ILogMessageActions"
+            };
 
             if (classDeclarationSyntax.HasImplementedAnyOfType(baseClasses, interfaces, context.SemanticModel))
             {
@@ -225,27 +245,55 @@ namespace Gripe.Analyzer.Analyzers.Language
             return false;
         }
 
-        private bool GetIsWhitelistedMethod(SyntaxNodeAnalysisContext context, InvocationExpressionSyntax invocationExpression)
+        private bool GetIsApprovedMethod(SyntaxNodeAnalysisContext context, InvocationExpressionSyntax invocationExpression)
         {
             switch (invocationExpression.Expression)
             {
                 case MemberAccessExpressionSyntax memberAccessExpression:
-                    return GetIsWhiteListedMemberAccessMethod(
+                    return GetIsApprovedMemberAccessMethod(
                         context,
                         memberAccessExpression);
                 case IdentifierNameSyntax identifierNameSyntax:
-                    {
-                        var methodName = identifierNameSyntax.Identifier.ToFullString();
-                        return _operatorsWhiteList.Any(operatorName => operatorName.Equals(methodName, StringComparison.Ordinal));
-                    }
-
+                    return GetIsApprovedIdentifierNameSyntax(
+                        context,
+                        identifierNameSyntax);
                 default:
                     return false;
             }
         }
 
-        private bool GetIsWhiteListedMemberAccessMethod(SyntaxNodeAnalysisContext context, MemberAccessExpressionSyntax memberAccessExpression)
+        private bool GetIsApprovedIdentifierNameSyntax(SyntaxNodeAnalysisContext context, IdentifierNameSyntax identifierNameSyntax)
         {
+            var methodName = identifierNameSyntax.Identifier.ToFullString();
+            if (_operatorsWhiteList.Any(operatorName => operatorName.Equals(methodName, StringComparison.Ordinal)))
+            {
+                return true;
+            }
+
+            var symbol = context.SemanticModel.GetSymbolInfo(identifierNameSyntax).Symbol;
+            return symbol != null && symbol.ContainingType.AllInterfaces.Any(i => i.GetFullName().Equals("global::System.Windows.Markup.IComponentConnector", StringComparison.Ordinal));
+        }
+
+        private bool GetIsApprovedMemberAccessMethod(SyntaxNodeAnalysisContext context, MemberAccessExpressionSyntax memberAccessExpression)
+        {
+            // issue here with ReactiveMarbles ObservableEvents method resolution
+            // we need to check the containing type
+            var resolvedSymbol = context.SemanticModel.GetSymbolInfo(memberAccessExpression);
+            if (resolvedSymbol.Symbol == null)
+            {
+                return false;
+            }
+
+            var typeFullName = resolvedSymbol.Symbol.ContainingType.GetFullName();
+            if (typeFullName.EndsWith(
+                    $".RxEvents",
+                    StringComparison.Ordinal))
+            {
+                // ReactiveMarbles at this point doesn't have a wrapper namespace, so best we can do is check the suffix.
+                return true;
+            }
+
+#if OLD
             var typeInfo = ModelExtensions.GetTypeInfo(context.SemanticModel, memberAccessExpression.Expression);
             if (typeInfo.Type == null)
             {
@@ -253,6 +301,7 @@ namespace Gripe.Analyzer.Analyzers.Language
             }
 
             var typeFullName = typeInfo.Type.GetFullName();
+#endif
 
             var methodName = memberAccessExpression.Name.ToString();
 

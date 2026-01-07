@@ -47,7 +47,10 @@ namespace Gripe.Analyzer.Analyzers.Language
         public override void Initialize(AnalysisContext context)
         {
             context.EnableConcurrentExecution();
+#if TBC
             context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.Analyze | GeneratedCodeAnalysisFlags.ReportDiagnostics);
+#endif
+            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
             context.RegisterSyntaxNodeAction(AnalyzeParameter, SyntaxKind.TupleElement, SyntaxKind.TupleExpression, SyntaxKind.TupleType);
         }
 

@@ -40,7 +40,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.ReactiveUi
             var expected = new DiagnosticResult
             {
                 Id = DiagnosticIdsHelper.ViewModelClassShouldInheritFromViewModelInterface,
-                Message = ViewModelClassShouldInheritFromViewModelInterfaceAnalyzer.Title,
+                Message = "ViewModel classes should inherit from ViewModel interface: .ITestViewModel",
                 Severity = DiagnosticSeverity.Warning,
                 Locations =
                     new[]

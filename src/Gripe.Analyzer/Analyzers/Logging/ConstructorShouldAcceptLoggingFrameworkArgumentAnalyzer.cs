@@ -50,7 +50,7 @@ namespace Gripe.Analyzer.Analyzers.Logging
         public override void Initialize(AnalysisContext context)
         {
             context.EnableConcurrentExecution();
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.Analyze | GeneratedCodeAnalysisFlags.ReportDiagnostics);
+            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
             context.RegisterSyntaxNodeAction(AnalyzeConstructorDeclaration, SyntaxKind.ConstructorDeclaration);
         }
 
@@ -79,7 +79,10 @@ namespace Gripe.Analyzer.Analyzers.Logging
 
             // skip if the class implements whipstaff ILogMessageActions<T> or ILogMessageActionsWrapper<T>
             // or Splat IEnableLogger<T>
-            var baseClasses = Array.Empty<string>();
+            var baseClasses = new[]
+            {
+                "global::System.Windows.Application"
+            };
 
             var interfaces = new[]
             {
@@ -88,6 +91,7 @@ namespace Gripe.Analyzer.Analyzers.Logging
                 "global::Splat.IEnableLogger"
             };
 
+            var symbol = context.SemanticModel.GetDeclaredSymbol(classDeclarationSyntax);
             if (classDeclarationSyntax.HasImplementedAnyOfType(baseClasses, interfaces, context.SemanticModel))
             {
                 return;
@@ -168,6 +172,21 @@ namespace Gripe.Analyzer.Analyzers.Logging
                     && namedTypeSymbol.TypeArguments.Any(x => x.GetFullName().Equals(myType, StringComparison.Ordinal)))
                 {
                     return;
+                }
+            }
+
+            if (argType is ITypeParameterSymbol typeParameterSymbol)
+            {
+                var constraintTypes = typeParameterSymbol.ConstraintTypes;
+                foreach (var constraintType in constraintTypes)
+                {
+                    var interfaceName = constraintType.GetFullName();
+                    if (interfaceName.Equals(
+                            $"global::Whipstaff.Core.Logging.ILogMessageActionsWrapper",
+                            StringComparison.Ordinal))
+                    {
+                        return;
+                    }
                 }
             }
 
