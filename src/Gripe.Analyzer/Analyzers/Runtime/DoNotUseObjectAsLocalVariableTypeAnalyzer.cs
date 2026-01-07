@@ -62,6 +62,13 @@ namespace Gripe.Analyzer.Analyzers.Runtime
                 return;
             }
 
+            if (type.IsVar)
+            {
+                // if the left side is var, we can't analyze it here.
+                // we need other analyzers to catch downstream issues.
+                return;
+            }
+
             var baseTypeInfo = semanticModel.GetTypeInfo(type);
             var baseTypeSymbol = baseTypeInfo.Type;
 
