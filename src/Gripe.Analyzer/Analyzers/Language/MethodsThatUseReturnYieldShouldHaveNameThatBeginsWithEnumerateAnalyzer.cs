@@ -73,7 +73,8 @@ namespace Gripe.Analyzer.Analyzers.Language
             }
 
             var identifier = methodDeclarationSyntax.Identifier;
-            if (identifier.Text.StartsWith("Enumerate", StringComparison.OrdinalIgnoreCase))
+            if (identifier.Text.StartsWith("Enumerate", StringComparison.OrdinalIgnoreCase)
+                || identifier.Text.StartsWith("InternalEnumerate", StringComparison.OrdinalIgnoreCase))
             {
                 return;
             }
