@@ -18,14 +18,14 @@ namespace Gripe.Analyzer.Analyzers.Language
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class BooleanTryMethodShouldBeUsedInLogicalNotIfStatementAnalyzer : DiagnosticAnalyzer
     {
-        internal const string Title = "TryParse should be used inside an If Statement with a unary operation";
+        internal const string Title = "Boolean Try method should be used inside an If Statement";
 
         private const string MessageFormat = Title;
 
         private const string Category = SupportedCategories.Usage;
 
         private const string Description =
-            "TryParse should be used inside an If Statement with a unary operation. This allows mitigating errors with parsing.";
+            "TryParse should be used inside an If Statement. This allows mitigating errors with parsing.";
 
         private readonly DiagnosticDescriptor _rule;
 
@@ -107,16 +107,8 @@ namespace Gripe.Analyzer.Analyzers.Language
 
         private bool IsInIfStatementWithLogicalNotOperation(SyntaxNode syntaxNode)
         {
-            var prefixUnaryExpressionSyntax = GetParentNodeOfType<PrefixUnaryExpressionSyntax>(syntaxNode);
-
-            if (prefixUnaryExpressionSyntax == null)
-            {
-                return false;
-            }
-
-            var ifStatementSyntax = GetParentNodeOfType<PrefixUnaryExpressionSyntax>(prefixUnaryExpressionSyntax);
-
-            return ifStatementSyntax != null;
+            return GetParentNodeOfType<IfStatementSyntax>(syntaxNode) != null
+                || GetParentNodeOfType<ReturnStatementSyntax>(syntaxNode) != null;
         }
     }
 }
