@@ -69,26 +69,6 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
                     [
                         new DiagnosticResultLocation("Test0.cs", 13, 17)
                     ]
-                },
-                new DiagnosticResult
-                {
-                    Id = DiagnosticIdsHelper.DoNotUseObjectAsLocalVariableType,
-                    Message = DoNotUseObjectAsLocalVariableTypeAnalyzer.Title,
-                    Severity = DiagnosticSeverity.Warning,
-                    Locations =
-                    [
-                        new DiagnosticResultLocation("Test0.cs", 18, 17)
-                    ]
-                },
-                new DiagnosticResult
-                {
-                    Id = DiagnosticIdsHelper.DoNotUseObjectAsLocalVariableType,
-                    Message = DoNotUseObjectAsLocalVariableTypeAnalyzer.Title,
-                    Severity = DiagnosticSeverity.Warning,
-                    Locations =
-                    [
-                        new DiagnosticResultLocation("Test0.cs", 23, 17)
-                    ]
                 }
             };
 

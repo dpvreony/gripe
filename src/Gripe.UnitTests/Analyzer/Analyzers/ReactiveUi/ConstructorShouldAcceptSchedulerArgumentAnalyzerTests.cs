@@ -64,7 +64,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.ReactiveUi
     {
         public class TestObject : ReactiveUI.ReactiveObject
         {
-            public TestObject(System.Reactive.Concurrency.Scheduler scheduler)
+            public TestObject(System.Reactive.Concurrency.IScheduler scheduler)
             {
             }
         }
