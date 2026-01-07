@@ -108,7 +108,7 @@ namespace Gripe.Analyzer.Analyzers.ReactiveUi
 
                 var typeFullName = argType.GetFullName();
                 if (typeFullName.Equals(
-                        $"global::System.Reactive.Concurrency.Scheduler",
+                        $"global::System.Reactive.Concurrency.IScheduler",
                         StringComparison.Ordinal))
                 {
                     return;
