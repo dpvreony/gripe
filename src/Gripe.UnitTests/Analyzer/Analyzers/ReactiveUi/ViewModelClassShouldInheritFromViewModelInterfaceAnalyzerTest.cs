@@ -1,0 +1,61 @@
+﻿// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
+// This file is licensed to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
+
+using Gripe.Analyzer;
+using Gripe.Analyzer.Analyzers.ReactiveUi;
+using Gripe.UnitTests.Analyzer.Helpers;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Diagnostics;
+using Xunit;
+
+namespace Gripe.UnitTests.Analyzer.Analyzers.ReactiveUi
+{
+    /// <summary>
+    /// Unit Tests for <see cref="ViewModelClassShouldInheritFromViewModelInterfaceAnalyzer"/>.
+    /// </summary>
+    public sealed class ViewModelClassShouldInheritFromViewModelInterfaceAnalyzerTest : CodeFixVerifier
+    {
+        /// <summary>
+        /// Test to ensure bad code returns a warning.
+        /// </summary>
+        [Fact]
+        public void ReturnsWarning()
+        {
+            var test = @"
+    namespace ReactiveUi
+    {
+        public interface IReactiveObject
+        {
+        }
+
+        public class ReactiveObject : IReactiveObject
+        {
+        }
+
+        public class TestViewModel : ReactiveObject
+        {
+        }
+    }";
+            var expected = new DiagnosticResult
+            {
+                Id = DiagnosticIdsHelper.ViewModelClassShouldInheritFromViewModelInterface,
+                Message = "ViewModel classes should inherit from ViewModel interface: .ITestViewModel",
+                Severity = DiagnosticSeverity.Warning,
+                Locations =
+                    new[]
+                    {
+                        new DiagnosticResultLocation("Test0.cs", 12, 22)
+                    }
+            };
+
+            VerifyCSharpDiagnostic(test, expected);
+        }
+
+        /// <inheritdoc/>
+        protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
+        {
+            return new ViewModelClassShouldInheritFromViewModelInterfaceAnalyzer();
+        }
+    }
+}
