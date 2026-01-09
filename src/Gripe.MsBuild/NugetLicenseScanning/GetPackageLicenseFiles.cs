@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
+// This file is licensed to you under the MIT license.
+// See the LICENSE file in the project root for full license information.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,8 +10,9 @@ using System.Text.Json;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
-namespace Gripe.MsBuild
+namespace Gripe.MsBuild.NugetLicenseScanning
 {
+#if TBC
     public class GetPackageLicenseFiles : Task
     {
         // Input: PackageReference items (pass @(PackageReference))
@@ -243,4 +248,5 @@ namespace Gripe.MsBuild
             return all;
         }
     }
+#endif
 }
