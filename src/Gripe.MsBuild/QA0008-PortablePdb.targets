@@ -1,0 +1,7 @@
+﻿<Project>
+  <Target Name="WarnIfDebugTypeNotPortable" BeforeTargets="Build">
+    <Warning Code="QA0008"
+             Text="Warning: DebugType is set to '$(DebugType)'. Consider using 'portable' for better compatibility."
+             Condition="'$(DebugType)' != 'portable'" />
+  </Target>
+</Project>
