@@ -1,26 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net472;net10.0</TargetFrameworks>
-    <Authors>dhgmssolutions dpvreony</Authors>
-    <Company>DHGMS Solutions</Company>
-    <Product>DHGMS Quality Assurance Pack</Product>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <Authors>dpvreony</Authors>
     <Description>Collection of packages for assisting in QA during .NET software development</Description>
-    <PackageProjectUrl>https://github.com/DHGMS-Solutions/qualityassurancepack</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/DHGMS-Solutions/qualityassurancepack</RepositoryUrl>
     <PackageLicense>MIT</PackageLicense>
     <PackageTags>Roslyn Analyzer</PackageTags>
     <DebugType>full</DebugType>
     <DebugSymbols>True</DebugSymbols>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
     <DevelopmentDependency>true</DevelopmentDependency>
-    <NoWarn>$(NoWarn);NU5128;NU5100</NoWarn>
+    <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <BuildOutputTargetFolder>tasks</BuildOutputTargetFolder>
-    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
-    <TargetsForTfmSpecificBuildOutput>
-      $(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage
-    </TargetsForTfmSpecificBuildOutput>
+    <NoWarn>NU1702</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -42,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gripe.Analyzer\Gripe.Analyzer.csproj"  OutputItemType="Analyzer" PrivateAssets="all" ReferenceOutputAssembly="false" />
-    <ProjectReference Include="..\Gripe.MsBuild\Gripe.MsBuild.csproj" />
+    <ProjectReference Include="..\Gripe.Analyzer\Gripe.Analyzer.csproj" OutputItemType="Analyzer" PrivateAssets="all" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\Gripe.MsBuild\Gripe.MsBuild.csproj" ExcludeAssets="all" PrivateAssets="all" ReferenceOutputAssembly="false" />
   </ItemGroup>
 </Project>
