@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <Authors>dpvreony</Authors>
+    <Description>Collection of packages for assisting in QA during .NET software development</Description>
+    <PackageLicense>MIT</PackageLicense>
+    <PackageTags>Roslyn Analyzer</PackageTags>
+    <DebugType>full</DebugType>
+    <DebugSymbols>True</DebugSymbols>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <NoWarn>$(NoWarn);NU1702;NU5100;NU5128</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--<PackageReference Include="ClrHeapAllocationAnalyzer" Version="3.0.0" />-->
+    <PackageReference Include="Desktop.Analyzers" Version="1.1.0" />
+    <PackageReference Include="InclusivenessAnalyzer" Version="1.3.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
+    <PackageReference Include="MemoryAnalyzers" Version="0.1.0-beta.5" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="4.14.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.14.15" />
+    <PackageReference Include="SecurityCodeScan.VS2019" Version="5.6.7" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.18.0.131500" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="*.targets" Pack="true" PackagePath="build" />
+    <None Include="readme.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gripe.Analyzer\Gripe.Analyzer.csproj" OutputItemType="Analyzer" PrivateAssets="all" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\Gripe.MsBuild\Gripe.MsBuild.csproj" ExcludeAssets="all" PrivateAssets="all" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+</Project>

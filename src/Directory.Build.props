@@ -3,13 +3,12 @@
     <Company>DPVreony and Contributors</Company>
     <StartYear>2015</StartYear>
     <Copyright>© $(StartYear)-$([System.DateTime]::Now.Year) $(Company)</Copyright>
-    <Product>Gripe With Roslyn</Product>
+    <Product>Gripe</Product>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>dpvreony</Authors>
     <Owners>dpvreony</Owners>
-    <PackageTags>Roslyn Analysis</PackageTags>
-    <PackageReleaseNotes>https://github.com/DHGMS-Solutions/gripewithroslyn/releases</PackageReleaseNotes>
-    <RepositoryUrl>https://github.com/DHGMS-Solutions/gripewithroslyn</RepositoryUrl>
+    <PackageTags>MSBuild</PackageTags>
+    <RepositoryUrl>https://github.com/dpvreony/gripe</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)analyzers.ruleset</CodeAnalysisRuleSet>
@@ -60,7 +59,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" PrivateAssets="all" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="3.9.50" PrivateAssets="all" />
   </ItemGroup>
 

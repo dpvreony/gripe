@@ -1,0 +1,11 @@
+﻿<Project>
+  <Import Project="QA0001-CheckAnalyzerNotBeingUsedAsAssemblyReference.targets" />
+  <Import Project="QA0002-CheckProjectNameStartsWithSolutionName.targets" />
+  <Import Project="QA0003-CheckProjectFolder.targets" />
+  <Import Project="QA0004-CheckProjectReferencesForExe.targets" />
+  <Import Project="QA0005-CheckDotNetToolProjectNameSuffix.targets" />
+  <Import Project="QA0006-NetCoreApp.targets" />
+  <Import Project="QA0007-FrameworkReferences.targets" />
+  <Import Project="QA0008-PortablePdb.targets" />
+  <Import Project="QA0009-RequireReadMeInNugetPackage.targets" />
+</Project>

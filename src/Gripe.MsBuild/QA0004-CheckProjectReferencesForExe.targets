@@ -1,0 +1,45 @@
+﻿<Project>
+  <PropertyGroup>
+    <QualityAssurancePackTasks_TFM Condition=" '$(MSBuildRuntimeType)' != 'Core' ">net472</QualityAssurancePackTasks_TFM>
+    <QualityAssurancePackTasks_TFM Condition=" '$(MSBuildRuntimeType)' == 'Core' ">net10.0</QualityAssurancePackTasks_TFM>
+    <QualityAssurancePackTasks_Assembly Condition="'$(QualityAssurancePackTasks_Assembly)' == ''">$(MSBuildThisFileDirectory)../tasks/$(QualityAssurancePackTasks_TFM)/Dhgms.QualityAssurancePack.dll</QualityAssurancePackTasks_Assembly>
+  </PropertyGroup>
+    <UsingTask TaskName="Dhgms.QualityAssurancePack.Features.CheckProjectOutputType.GetProjectOutputTypeTask"
+             AssemblyFile="$(QualityAssurancePackTasks_Assembly)" 
+             Condition="Exists('$(QualityAssurancePackTasks_Assembly)')" />
+
+    <Target Name="GetOutputType" Returns="@(OutputTypeItem)">
+        <ItemGroup>
+            <OutputTypeItem Include="$(OutputType)" />
+        </ItemGroup>
+    </Target>
+
+    <Target Name="CheckProjectReferencesForExe" BeforeTargets="Build" Condition="'@(ProjectReference)' != ''">
+        <Message Importance="normal" Text="Checking Project References for EXE output types..." />
+        <Message Importance="high" Text="Searching for MSBuild assembly: $(QualityAssurancePackTasks_Assembly)" />
+        <ItemGroup>
+            <ExeReferences Include="@(ProjectReference)" />
+        </ItemGroup>
+
+        <GetProjectOutputTypeTask ProjectPath="%(ExeReferences.Identity)" 
+                                  TargetFramework="$(TargetFramework)">
+            <Output TaskParameter="OutputType" ItemName="_OutputTypes" />
+            <Output TaskParameter="Success" PropertyName="_Success" />
+        </GetProjectOutputTypeTask>
+
+        <!-- Create a combined list with metadata -->
+        <ItemGroup>
+            <_ReferencesWithOutputType Include="@(ExeReferences)">
+                <OutputType>%(_OutputTypes.Identity)</OutputType>
+            </_ReferencesWithOutputType>
+      
+            <ExeProjects Include="@(_ReferencesWithOutputType)" 
+                         Condition="'%(_ReferencesWithOutputType.OutputType)' == 'Exe'" />
+        </ItemGroup>
+
+        <!-- Emit error if any referenced project outputs an Exe -->
+        <Warning Code="QA0004"
+               Text="Project '$(MSBuildProjectName)' references project '%(ExeProjects.Identity)' which outputs an EXE."
+               Condition="'@(ExeProjects)' != ''" />
+    </Target>
+</Project>

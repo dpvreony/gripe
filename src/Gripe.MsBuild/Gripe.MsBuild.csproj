@@ -1,13 +1,44 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFrameworks>net472;net10.0</TargetFrameworks>
+    <Authors>dhgmssolutions dpvreony</Authors>
+    <Company>DHGMS Solutions</Company>
+    <Product>DHGMS Quality Assurance Pack</Product>
+    <Description>Collection of packages for assisting in QA during .NET software development</Description>
+    <PackageProjectUrl>https://github.com/DHGMS-Solutions/qualityassurancepack</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/DHGMS-Solutions/qualityassurancepack</RepositoryUrl>
+    <PackageLicense>MIT</PackageLicense>
+    <PackageTags>Roslyn Analyzer</PackageTags>
+    <DebugType>full</DebugType>
+    <DebugSymbols>True</DebugSymbols>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <NoWarn>$(NoWarn);NU5128;NU5100</NoWarn>
+    <LangVersion>latest</LangVersion>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <BuildOutputTargetFolder>tasks</BuildOutputTargetFolder>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
     <Nullable>enable</Nullable>
+    <TargetsForTfmSpecificBuildOutput>
+      $(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage
+    </TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Build.Framework" Version="18.0.2" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="18.0.2" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Build.Framework" Version="18.0.2" PrivateAssets="All" ExcludeAssets="Runtime" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="18.0.2" PrivateAssets="All" ExcludeAssets="Runtime" />
+    <PackageReference Include="Microsoft.Build" Version="18.0.2" PrivateAssets="All" ExcludeAssets="Runtime" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="*.targets" Pack="true" PackagePath="build" />
+    <None Include="readme.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+    <ItemGroup>
+      <!-- The TargetPath is the path inside the package that the source file will be placed. This is already precomputed in the ReferenceCopyLocalPaths items' DestinationSubPath, so reuse it here. -->
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths)" TargetPath="%(ReferenceCopyLocalPaths.DestinationSubPath)" />
+    </ItemGroup>
+  </Target>
 </Project>

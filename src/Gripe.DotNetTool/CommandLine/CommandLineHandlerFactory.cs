@@ -22,7 +22,9 @@ namespace Gripe.DotNetTool.CommandLine
 
             var solutionArgument = new Argument<IFileInfo>("solution") { CustomParser = x => CustomParser(fileSystem, x) }
                 .AcceptExistingOnly(fileSystem)
-                .SpecificFileExtensionOnly(fileSystem, ".sln");
+                .SpecificFileExtensionsOnly(
+                    fileSystem,
+                    [ ".sln", ".slnx" ]);
 
             var msBuildInstanceNameArgument = new Option<string>("msbuild-instance-name")
             {

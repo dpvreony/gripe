@@ -15,7 +15,7 @@ namespace Gripe.Analyzer.Analyzers.Project
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class ProjectShouldEnableNullableReferenceTypesAnalyzer : DiagnosticAnalyzer
     {
-        internal const string Title = "ViewModel Constructor should have accept Scheduler as a parameter.";
+        internal const string Title = "Projects should enable nullable reference types.";
 
         private const string MessageFormat = Title;
 

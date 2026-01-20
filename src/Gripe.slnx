@@ -13,5 +13,6 @@
   <Project Path="Gripe.DotNetTool/Gripe.DotNetTool.csproj" />
   <Project Path="Gripe.MsBuild/Gripe.MsBuild.csproj" />
   <Project Path="Gripe.MSBuildBinLogStats.DotNetTool/Gripe.MSBuildBinLogStats.DotNetTool.csproj" />
+  <Project Path="Gripe.QualityAssurancePack/Gripe.QualityAssurancePack.csproj" />
   <Project Path="Gripe.SourceGenerator/Gripe.SourceGenerator.csproj" />
 </Solution>

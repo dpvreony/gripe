@@ -1,0 +1,8 @@
+﻿<Project>
+  <Target Name="CheckProjectFolder" BeforeTargets="Build">
+    <!-- Compare the project folder name with the project file name -->
+    <Error Code="QA0003"
+           Text="Project path '$(ProjectPath)' does not match expected project file path '$(SolutionDir)$(ProjectName)\$(ProjectFileName)'." 
+           Condition="'$(ProjectPath)' != '$(SolutionDir)$(ProjectName)\$(ProjectFileName)'" />
+  </Target>
+</Project>

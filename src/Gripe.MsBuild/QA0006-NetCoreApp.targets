@@ -1,0 +1,13 @@
+﻿<Project>
+  <Target Name="WarnOnTargetFramework" BeforeTargets="BeforeBuild">
+    <PropertyGroup>
+      <!-- Extract the framework version number from TargetFramework -->
+      <NetCoreAppFrameworkVersion Condition="$(TargetFramework.StartsWith('netcoreapp'))">$([System.String]::Copy($(TargetFramework)).Substring(10))</NetCoreAppFrameworkVersion>
+    </PropertyGroup>
+
+    <!-- Emit a warning if TargetFramework is netcoreapp and the version is >= 5 -->
+    <Warning Code="QA0006"
+             Text="NetCoreApp profiles were made obsolete as of net5. Change the profile to net."
+             Condition="$(NetCoreAppFrameworkVersion) != '' And $(NetCoreAppFrameworkVersion) >= 5" />
+  </Target>
+</Project>
