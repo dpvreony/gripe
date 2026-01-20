@@ -92,7 +92,7 @@ namespace Gripe.DotNetTool
         }
 
         /// <inheritdoc/>
-        protected override async Task<int> OnHandleCommand(CommandLineArgModel commandLineArgModel, CancellationToken cancellationToken)
+        protected override async Task<int> OnHandleCommandAsync(CommandLineArgModel commandLineArgModel, CancellationToken cancellationToken)
         {
             // Attempt to set the version of MSBuild.
             var visualStudioInstances = MSBuildLocator.QueryVisualStudioInstances().ToArray();

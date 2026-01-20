@@ -38,7 +38,7 @@ namespace Gripe.DotNetTool
             Func<ParserConfiguration>? parserConfigurationFunc,
             Func<InvocationConfiguration>? invocationConfigurationFunc)
         {
-            return HostRunner.RunSimpleCliJob<
+            return HostRunner.RunSimpleCliJobAsync<
                 Job,
                 CommandLineArgModel,
                 CommandLineArgModelBinder,
