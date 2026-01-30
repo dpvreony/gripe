@@ -12,10 +12,10 @@ namespace Gripe.Analyzer.Analyzers.Winforms
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class MessageBoxShowShouldBeCalledFromUiElementMemberAnalyzer : AbstractInvocationWithAdditionalCheckAnalyzer
     {
-        internal const string Title = "MessageBox.Show should be called from a non-static method inside a class the inherits from assigned to a variable.";
+        internal const string Title = "MessageBox.Show should be called from a member of a UI control.";
         private const string MessageFormat = Title;
         private const string Category = SupportedCategories.Performance;
-        private const string Description = "Reactive Marbles events should be assigned to a variable. To prevent multiple instances of the Event Proxy being created.";
+        private const string Description = "MessageBox.Show should be called from a non-static member of a UI control. This is to prevent issues where the MessageBox can't establish the Window handle and thus the message box is not modal.";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MessageBoxShowShouldBeCalledFromUiElementMemberAnalyzer"/> class.
