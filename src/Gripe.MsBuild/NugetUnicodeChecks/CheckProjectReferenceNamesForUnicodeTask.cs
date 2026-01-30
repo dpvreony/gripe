@@ -7,6 +7,9 @@ using System.Linq;
 
 namespace Gripe.MsBuild.NugetUnicodeChecks
 {
+    /// <summary>
+    /// MSBuild task that checks project reference names for Unicode characters.
+    /// </summary>
     public sealed class CheckProjectReferenceNamesForUnicodeTask : Microsoft.Build.Utilities.Task
     {
         /// <summary>
