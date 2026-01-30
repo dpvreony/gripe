@@ -22,7 +22,7 @@ namespace Gripe.Analyzer.Analyzers.Winforms
         /// </summary>
         public MessageBoxShowShouldBeCalledFromUiElementMemberAnalyzer()
             : base(
-                DiagnosticIdsHelper.ReactiveMarblesEventsShouldBeToAVariableAssignment,
+                DiagnosticIdsHelper.WinformsMessageBoxShowShouldBeCalledFromUiControl,
                 Title,
                 MessageFormat,
                 Category,
