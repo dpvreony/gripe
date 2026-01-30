@@ -15,7 +15,7 @@ namespace Gripe.Analyzer.Analyzers.Winforms
         internal const string Title = "MessageBox.Show should be called from a member of a UI control.";
         private const string MessageFormat = Title;
         private const string Category = SupportedCategories.Performance;
-        private const string Description = "MessageBox.Show should be called from a non-static member of a UI control. This is to prevent issues where the MessageBox can't establish the Window handle and thus the message box is not modal.";
+        private const string Description = "MessageBox.Show should be called from a non-static member of a UI control. This is to prevent issues where the MessageBox can't establish the Window handle and thus the message box is not modal. It would also suggest a design issue where UI based calls are happening outside of the control flow of the UI. This means patterns such as MVVM, MVP or MVU are not being followed.";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MessageBoxShowShouldBeCalledFromUiElementMemberAnalyzer"/> class.

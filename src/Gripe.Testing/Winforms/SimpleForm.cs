@@ -10,7 +10,7 @@
         /// </summary>
         public void CallMessageBoxAsMember()
         {
-            System.Windows.Forms.MessageBox.Show("This is a message box called from a UI element member.");
+            System.Windows.Forms.MessageBox.Show("This is a message box NOT called from a UI element member.");
         }
 
         /// <summary>
