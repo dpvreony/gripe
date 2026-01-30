@@ -107,5 +107,7 @@ namespace Gripe.Analyzer
         internal const string UseFileProviderOverload = "GR0050";
 
         internal const string PublicMethodsShouldHaveDocumentedCodeExamples = "GR0051";
+
+        internal const string WinformsMessageBoxShowShouldBeCalledFromUiControl = "GR0052";
     }
 }
