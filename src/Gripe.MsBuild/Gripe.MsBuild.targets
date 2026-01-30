@@ -9,4 +9,5 @@
   <Import Project="QA0008-PortablePdb.targets" />
   <Import Project="QA0009-RequireReadMeInNugetPackage.targets" />
   <Import Project="QA0010-WarnOnPackageReferenceWithUnicodeIdentifier.targets" />
+  <Import Project="QA0011-DotNetToolPrefix.targets" />
 </Project>
