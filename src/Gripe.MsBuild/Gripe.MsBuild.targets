@@ -8,4 +8,5 @@
   <Import Project="QA0007-FrameworkReferences.targets" />
   <Import Project="QA0008-PortablePdb.targets" />
   <Import Project="QA0009-RequireReadMeInNugetPackage.targets" />
+  <Import Project="QA0010-WarnOnPackageReferenceWithUnicodeIdentifier.targets" />
 </Project>
