@@ -91,6 +91,10 @@ namespace Gripe.Analyzer.Analyzers.Abstractions
             }
 
             var typeFullName = typeInfo.Type.GetFullName();
+            if (ContainingTypes.All(className => !typeFullName.Equals(className, StringComparison.Ordinal)))
+            {
+                return;
+            }
 
             context.ReportDiagnostic(Diagnostic.Create(_rule, invocationExpression.GetLocation()));
         }

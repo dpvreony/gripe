@@ -43,7 +43,7 @@ namespace Gripe.Analyzer.Analyzers.EfCore
         /// <inheritdoc />
         protected override string[] ContainingTypes => new[]
         {
-            "Microsoft.EntityFrameworkCore.DbSet",
+            "global::Microsoft.EntityFrameworkCore.DbSet",
         };
     }
 }

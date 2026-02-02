@@ -42,8 +42,8 @@ namespace Gripe.Analyzer.Analyzers.Runtime
 
         /// <inheritdoc />
         protected override string[] ContainingTypes => [
-            "System.IO.Directory",
-            "System.IO.Abstractions.IDirectory"
+            "global::System.IO.Directory",
+            "global::System.IO.Abstractions.IDirectory"
         ];
     }
 }
