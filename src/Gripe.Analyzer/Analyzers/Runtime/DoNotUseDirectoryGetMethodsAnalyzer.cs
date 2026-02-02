@@ -9,7 +9,7 @@ using System.Text;
 namespace Gripe.Analyzer.Analyzers.Runtime
 {
     [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public sealed class DoNotUseDirectoryGetFilesAnalyzer : BaseInvocationExpressionAnalyzer
+    public sealed class DoNotUseDirectoryGetMethodsAnalyzer : BaseInvocationExpressionAnalyzer
     {
         private const string Title = "Do not use System.IO.Directory.GetFiles()";
 
@@ -21,11 +21,11 @@ namespace Gripe.Analyzer.Analyzers.Runtime
             "System.IO.Directory.GetFiles can lead to performance issues when there are a large number of files. Use System.IO.Directory.EnumerateFiles().";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DoNotUseDirectoryGetFilesAnalyzer"/> class.
+        /// Initializes a new instance of the <see cref="DoNotUseDirectoryGetMethodsAnalyzer"/> class.
         /// </summary>
-        public DoNotUseDirectoryGetFilesAnalyzer()
+        public DoNotUseDirectoryGetMethodsAnalyzer()
             : base(
-                DiagnosticIdsHelper.DoNotUseDirectoryGetFiles,
+                DiagnosticIdsHelper.DoNotUseDirectoryGetMethods,
                 Title,
                 MessageFormat,
                 Category,

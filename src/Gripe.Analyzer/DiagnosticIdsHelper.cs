@@ -110,6 +110,6 @@ namespace Gripe.Analyzer
 
         internal const string WinformsMessageBoxShowShouldBeCalledFromUiControl = "GR0052";
 
-        internal const string DoNotUseDirectoryGetFiles = "GR0053";
+        internal const string DoNotUseDirectoryGetMethods = "GR0053";
     }
 }
