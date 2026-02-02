@@ -38,7 +38,7 @@ namespace Gripe.Analyzer.Analyzers.EfCore
         }
 
         /// <inheritdoc />
-        protected override string MethodName => "UpdateRange";
+        protected override string[] MethodNames => ["UpdateRange"];
 
         /// <inheritdoc />
         protected override string[] ContainingTypes => new[]

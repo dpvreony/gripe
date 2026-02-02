@@ -1,24 +1,23 @@
 ﻿using Gripe.Analyzer.Analyzers.Abstractions;
-using Gripe.Analyzer.Analyzers.EfCore;
 using Gripe.Analyzer.CodeCracker.Extensions;
 using Microsoft.CodeAnalysis;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Gripe.Analyzer.Analyzers.Runtime
 {
+    /// <summary>
+    /// Analyzer to detect usage of Get methods on System.IO.Directory and suggest using Enumerate methods instead.
+    /// </summary>
     [Microsoft.CodeAnalysis.Diagnostics.DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class DoNotUseDirectoryGetMethodsAnalyzer : BaseInvocationExpressionAnalyzer
     {
-        private const string Title = "Do not use System.IO.Directory.GetFiles()";
+        private const string Title = "Do not use Get methods in System.IO.Directory";
 
         private const string MessageFormat = Title;
 
         private const string Category = SupportedCategories.Performance;
 
         private const string Description =
-            "System.IO.Directory.GetFiles can lead to performance issues when there are a large number of files. Use System.IO.Directory.EnumerateFiles().";
+            "\"Get\" methods in System.IO.Directory can lead to performance issues when there are a large number of entries. Use \"Enumerate\" methods instead.";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DoNotUseDirectoryGetMethodsAnalyzer"/> class.
@@ -35,11 +34,16 @@ namespace Gripe.Analyzer.Analyzers.Runtime
         }
 
         /// <inheritdoc />
-        protected override string MethodName => "GetFiles";
+        protected override string[] MethodNames => [
+            "GetDirectories",
+            "GetFiles",
+            "GetFileSystemEntries"
+        ];
 
         /// <inheritdoc />
         protected override string[] ContainingTypes => [
-            "System.IO.Directory"
+            "System.IO.Directory",
+            "System.IO.Abstractions.IDirectory"
         ];
     }
 }

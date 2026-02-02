@@ -38,7 +38,7 @@ namespace Gripe.Analyzer.Analyzers.EfCore
         }
 
         /// <inheritdoc />
-        protected override string MethodName => "EnsureCreatedAsync";
+        protected override string[] MethodNames => ["EnsureCreatedAsync"];
 
         /// <inheritdoc />
         protected override string[] ContainingTypes => new[]

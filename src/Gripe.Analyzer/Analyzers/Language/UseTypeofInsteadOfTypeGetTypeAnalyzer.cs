@@ -39,7 +39,7 @@ namespace Gripe.Analyzer.Analyzers.Language
         }
 
         /// <inheritdoc />
-        protected override string MethodName => "GetType";
+        protected override string[] MethodNames => ["GetType"];
 
         /// <inheritdoc />
         protected override string[] ContainingTypes => new[] { "global::System.Type" };
