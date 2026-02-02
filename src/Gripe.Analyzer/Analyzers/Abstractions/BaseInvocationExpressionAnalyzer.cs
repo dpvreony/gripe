@@ -78,7 +78,7 @@ namespace Gripe.Analyzer.Analyzers.Abstractions
             var invocationExpression = (InvocationExpressionSyntax)context.Node;
 
             var memberExpression = invocationExpression.Expression as MemberAccessExpressionSyntax;
-            if (memberExpression == null || MethodNames.Any(methodName => !memberExpression.Name.ToString().Equals(methodName, StringComparison.Ordinal)))
+            if (memberExpression == null || MethodNames.All(methodName => !memberExpression.Name.ToString().Equals(methodName, StringComparison.Ordinal)))
             {
                 return;
             }
