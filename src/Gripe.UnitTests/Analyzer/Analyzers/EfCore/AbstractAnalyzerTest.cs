@@ -67,7 +67,10 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.EfCore
                     AnalyseDiagnostic(diagnostic, i, expectedDiagnostics, issues, expectedDiagnosticId);
                 }
 
-                foreach (var expectedDiagnostic in expectedDiagnostics.Where(ed => !ed.Matched))
+                foreach (var expectedDiagnostic in expectedDiagnostics.Where(ed => !ed.Matched)
+                             .OrderBy(ob => ob.FilePath)
+                             .ThenBy(tb => tb.LineNumber)
+                             .ThenBy(tb => tb.CharacterPosition))
                 {
                     issues.Add($"Expected diagnostic {expectedDiagnostic.FilePath} {expectedDiagnostic.Severity} Line:{expectedDiagnostic.LineNumber} Pos:{expectedDiagnostic.CharacterPosition} wasn't found in reported diagnostics.");
                 }

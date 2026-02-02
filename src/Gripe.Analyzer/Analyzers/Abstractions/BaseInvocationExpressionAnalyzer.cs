@@ -2,13 +2,15 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
-using System;
-using System.Collections.Immutable;
 using JetBrains.Annotations;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
+using System;
+using System.Collections.Immutable;
+using System.Linq;
+using System.Reflection;
 
 namespace Gripe.Analyzer.Analyzers.Abstractions
 {
@@ -46,7 +48,7 @@ namespace Gripe.Analyzer.Analyzers.Abstractions
         /// Gets the name of the method to check for.
         /// </summary>
         [NotNull]
-        protected abstract string MethodName { get; }
+        protected abstract string[] MethodNames { get; }
 
         /// <summary>
         /// Gets the containing types the method may belong to.
@@ -76,7 +78,7 @@ namespace Gripe.Analyzer.Analyzers.Abstractions
             var invocationExpression = (InvocationExpressionSyntax)context.Node;
 
             var memberExpression = invocationExpression.Expression as MemberAccessExpressionSyntax;
-            if (memberExpression == null || !memberExpression.Name.ToString().Equals(MethodName, StringComparison.Ordinal))
+            if (memberExpression == null || MethodNames.All(methodName => !memberExpression.Name.ToString().Equals(methodName, StringComparison.Ordinal)))
             {
                 return;
             }
@@ -89,6 +91,10 @@ namespace Gripe.Analyzer.Analyzers.Abstractions
             }
 
             var typeFullName = typeInfo.Type.GetFullName();
+            if (ContainingTypes.All(className => !typeFullName.Equals(className, StringComparison.Ordinal)))
+            {
+                return;
+            }
 
             context.ReportDiagnostic(Diagnostic.Create(_rule, invocationExpression.GetLocation()));
         }

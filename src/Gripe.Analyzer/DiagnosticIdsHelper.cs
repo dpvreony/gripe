@@ -109,5 +109,7 @@ namespace Gripe.Analyzer
         internal const string PublicMethodsShouldHaveDocumentedCodeExamples = "GR0051";
 
         internal const string WinformsMessageBoxShowShouldBeCalledFromUiControl = "GR0052";
+
+        internal const string DoNotUseDirectoryGetMethods = "GR0053";
     }
 }

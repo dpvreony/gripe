@@ -38,7 +38,7 @@ namespace Gripe.Analyzer.Analyzers.ReactiveExtensions
         }
 
         /// <inheritdoc/>
-        protected override string MethodName => "FromEventPattern";
+        protected override string[] MethodNames => ["FromEventPattern"];
 
         /// <inheritdoc />
         protected override string[] ContainingTypes => new[]
