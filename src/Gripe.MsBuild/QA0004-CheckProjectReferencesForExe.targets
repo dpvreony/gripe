@@ -40,6 +40,6 @@
         <!-- Emit error if any referenced project outputs an Exe -->
         <Warning Code="QA0004"
                Text="Project '$(MSBuildProjectName)' references project '%(ExeProjects.Identity)' which outputs an EXE."
-               Condition="'@(ExeProjects)' != ''" />
+               Condition="@(ExeProjects->Count()) > 0" />
     </Target>
 </Project>
