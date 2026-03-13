@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
   pull_request:
-    types: [opened, synchronize, reopened, closed]
+    types: [opened, synchronize, reopened]
     branches: [ main ]
 
 permissions:
@@ -21,9 +21,9 @@ jobs:
       pull-requests: write
       packages: read
       security-events: write
-    uses: dpvreony/github-action-workflows/.github/workflows/dotnet-ci.yml@1.8.1
+    uses: dpvreony/github-action-workflows/.github/workflows/dotnet-ci.yml@2.0.1
     with:
-      buildOs: "linux"
+      primary-build-mode: "linux-only"
       solutionName: "Gripe"
       useSlnx: true
     secrets:
