@@ -6,6 +6,7 @@
     <IsPackable>False</IsPackable>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <UseWindowsForms>True</UseWindowsForms>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
