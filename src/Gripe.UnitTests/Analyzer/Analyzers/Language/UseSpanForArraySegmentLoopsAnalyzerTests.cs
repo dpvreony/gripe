@@ -32,7 +32,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
                     ProofFilePath,
                     DiagnosticSeverity.Info,
                     24,
-                    13),
+                    12),
             ];
         }
     }

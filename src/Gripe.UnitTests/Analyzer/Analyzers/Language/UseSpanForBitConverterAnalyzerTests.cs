@@ -32,21 +32,21 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
                     ProofFilePath,
                     DiagnosticSeverity.Info,
                     25,
-                    17),
+                    16),
 
                 // BitConverter.GetBytes(12345) on line 39 (0-based: 38), column position 17
                 new ExpectedDiagnosticModel(
                     ProofFilePath,
                     DiagnosticSeverity.Info,
                     38,
-                    17),
+                    16),
 
                 // BitConverter.ToDouble(bytes, 0) on line 53 (0-based: 52), column position 17
                 new ExpectedDiagnosticModel(
                     ProofFilePath,
                     DiagnosticSeverity.Info,
                     52,
-                    17),
+                    16),
             ];
         }
     }

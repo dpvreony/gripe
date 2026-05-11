@@ -23,20 +23,31 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
         /// <inheritdoc/>
         protected override ExpectedDiagnosticModel[] GetExpectedDiagnosticLines()
         {
-            const string ProofFilePath = "Language\\UseSpanForSubstringProof.cs";
+            const string UseSpanForStringComparisonProof = "Language\\UseSpanForStringComparisonProof.cs";
+            const string UseSpanForSubstringProofPath = "Language\\UseSpanForSubstringProof.cs";
 
             return
             [
-                // text.Substring(0, 5) on line 25 (0-based: 24), column position 17
                 new ExpectedDiagnosticModel(
-                    ProofFilePath,
+                    UseSpanForStringComparisonProof,
+                    DiagnosticSeverity.Info,
+                    25,
+                    16),
+
+                new ExpectedDiagnosticModel(
+                    UseSpanForStringComparisonProof,
+                    DiagnosticSeverity.Info,
+                    40,
+                    16),
+
+                new ExpectedDiagnosticModel(
+                    UseSpanForSubstringProofPath,
                     DiagnosticSeverity.Info,
                     24,
                     16),
 
-                // text.Substring(7) on line 39 (0-based: 38), column position 17
                 new ExpectedDiagnosticModel(
-                    ProofFilePath,
+                    UseSpanForSubstringProofPath,
                     DiagnosticSeverity.Info,
                     38,
                     16),

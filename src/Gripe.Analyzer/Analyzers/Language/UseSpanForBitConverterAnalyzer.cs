@@ -52,11 +52,15 @@ namespace Gripe.Analyzer.Analyzers.Language
             var invocation = (InvocationExpressionSyntax)context.Node;
 
             if (invocation.Expression is MemberAccessExpressionSyntax memberAccess &&
-                (memberAccess.Name.Identifier.Text.StartsWith("To") || memberAccess.Name.Identifier.Text.StartsWith("Get")) &&
-                context.SemanticModel.GetSymbolInfo(memberAccess.Expression).Symbol?.ContainingType?.Name == "BitConverter")
+                (memberAccess.Name.Identifier.Text.StartsWith("To") || memberAccess.Name.Identifier.Text.StartsWith("Get")))
             {
-                var diagnostic = Diagnostic.Create(_rule, invocation.GetLocation());
-                context.ReportDiagnostic(diagnostic);
+                var methodSymbol = context.SemanticModel.GetSymbolInfo(invocation).Symbol as IMethodSymbol;
+                if (methodSymbol?.ContainingType?.Name == "BitConverter" &&
+                    methodSymbol.ContainingType.ContainingNamespace?.ToDisplayString() == "System")
+                {
+                    var diagnostic = Diagnostic.Create(_rule, invocation.GetLocation());
+                    context.ReportDiagnostic(diagnostic);
+                }
             }
         }
     }

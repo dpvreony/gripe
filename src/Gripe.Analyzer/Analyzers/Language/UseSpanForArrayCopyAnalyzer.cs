@@ -51,13 +51,28 @@ namespace Gripe.Analyzer.Analyzers.Language
         {
             var invocation = (InvocationExpressionSyntax)context.Node;
 
-            if (invocation.Expression is MemberAccessExpressionSyntax memberAccess &&
-                (memberAccess.Name.Identifier.Text == "Copy" || memberAccess.Name.Identifier.Text == "Clone"))
+            if (invocation.Expression is MemberAccessExpressionSyntax memberAccess)
             {
-                if (context.SemanticModel.GetSymbolInfo(memberAccess.Expression).Symbol is IArrayTypeSymbol)
+                var methodSymbol = context.SemanticModel.GetSymbolInfo(invocation).Symbol as IMethodSymbol;
+
+                // Check for Array.Copy
+                if (memberAccess.Name.Identifier.Text == "Copy" &&
+                    methodSymbol?.ContainingType?.SpecialType == SpecialType.System_Array)
                 {
                     var diagnostic = Diagnostic.Create(_rule, invocation.GetLocation());
                     context.ReportDiagnostic(diagnostic);
+                    return;
+                }
+
+                // Check for array.Clone()
+                if (memberAccess.Name.Identifier.Text == "Clone")
+                {
+                    var expressionType = context.SemanticModel.GetTypeInfo(memberAccess.Expression).Type;
+                    if (expressionType is IArrayTypeSymbol)
+                    {
+                        var diagnostic = Diagnostic.Create(_rule, invocation.GetLocation());
+                        context.ReportDiagnostic(diagnostic);
+                    }
                 }
             }
         }
