@@ -10,4 +10,5 @@
   <Import Project="QA0009-RequireReadMeInNugetPackage.targets" />
   <Import Project="QA0010-WarnOnPackageReferenceWithUnicodeIdentifier.targets" />
   <Import Project="QA0011-DotNetToolPrefix.targets" />
+  <Import Project="QA0012-NugetPackageReplacement.targets" />
 </Project>
