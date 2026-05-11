@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Dhgms.GripeWithRoslyn.Testing.Strings
+namespace Gripe.Testing.Strings
 {
     /// <summary>
     /// Proofs for Unicode ranges.

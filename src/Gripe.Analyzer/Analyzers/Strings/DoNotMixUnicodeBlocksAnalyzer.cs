@@ -2,17 +2,16 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Text.Unicode;
-using Dhgms.GripeWithRoslyn.Analyzer.CodeCracker.Extensions;
+using Gripe.Analyzer.CodeCracker.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Strings
+namespace Gripe.Analyzer.Analyzers.Strings
 {
     /// <summary>
     /// Analyzer to check for mixed Unicode blocks in string literals.

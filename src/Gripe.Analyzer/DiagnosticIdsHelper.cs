@@ -129,5 +129,7 @@ namespace Gripe.Analyzer
         internal const string UseSpanForPInvoke = "GR0061";
 
         internal const string UseSpanForStringComparison = "GR0062";
+
+        internal const string DoNotMixUnicodeBlocks = "GR0063";
     }
 }

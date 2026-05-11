@@ -2,13 +2,12 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
-using Dhgms.GripeWithRoslyn.Analyzer;
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Language;
-using Dhgms.GripeWithRoslyn.Analyzer.Analyzers.Strings;
-using Dhgms.GripeWithRoslyn.UnitTests.Analyzer.Analyzers.EfCore;
+using Gripe.Analyzer;
+using Gripe.Analyzer.Analyzers.Strings;
+using Gripe.UnitTests.Analyzer.Analyzers.EfCore;
 using Microsoft.CodeAnalysis;
 
-namespace Dhgms.GripeWithRoslyn.UnitTests.Analyzer.Analyzers.Strings
+namespace Gripe.UnitTests.Analyzer.Analyzers.Strings
 {
     /// <summary>
     /// Unit Tests for <see cref="DoNotMixUnicodeBlocksAnalyzer"/>.
@@ -30,7 +29,7 @@ namespace Dhgms.GripeWithRoslyn.UnitTests.Analyzer.Analyzers.Strings
             [
                 new ExpectedDiagnosticModel(
                     TupleProofFilePath,
-                    DiagnosticSeverity.Error,
+                    DiagnosticSeverity.Warning,
                     26,
                     45)
             ];
