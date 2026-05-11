@@ -1,0 +1,12 @@
+﻿<Project>
+  <Target Name="CheckProjectNameStartsWithSolutionName" BeforeTargets="Build">
+    <PropertyGroup>
+      <ProjectFileNameNoExt>$(MSBuildProjectName)</ProjectFileNameNoExt>
+      <SolutionFileNameNoExt>$(SolutionName)</SolutionFileNameNoExt>
+    </PropertyGroup>
+
+    <Error Code="QA0002"
+           Text="Project '$(MSBuildProjectName)' does not start with the solution name '$(SolutionName)'. Ensure naming conventions are followed."
+           Condition="!$(ProjectFileNameNoExt.StartsWith($(SolutionFileNameNoExt)))" />
+  </Target>
+</Project>

@@ -1,0 +1,35 @@
+﻿<Project>
+  <Target Name="ListFrameworkReferences" DependsOnTargets="ResolveTargetingPackAssets">
+
+    <!-- Log resolved framework references -->
+    <Message Text="Resolved Framework Reference: %(Reference.AssemblyName)" Importance="High" />
+  </Target>
+
+  <Target Name="CheckPackagesForMatchingFrameworkReferences"
+          BeforeTargets="Compile">
+  
+    <ResolveTargetingPackAssets FrameworkReferences="@(FrameworkReference)"
+                                ProjectLanguage="$(Language)"
+                                ResolvedTargetingPacks="@(ResolvedTargetingPack)"
+                                RuntimeFrameworks="@(RuntimeFramework)"
+                                GenerateErrorForMissingTargetingPacks="$(GenerateErrorForMissingTargetingPacks)"
+                                NuGetRestoreSupported="$(_NuGetRestoreSupported)"
+                                DisableTransitiveFrameworkReferenceDownloads="$(DisableTransitiveFrameworkReferenceDownloads)"
+                                NetCoreTargetingPackRoot="$(NetCoreTargetingPackRoot)">
+      <Output TaskParameter="ReferencesToAdd" ItemName="TargetingPackReferencesForQA" />
+    </ResolveTargetingPackAssets>
+
+    <ItemGroup>
+      <AllPackageReferences Include="@(PackageReference)" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <MatchingReferences Include="@(TargetingPackReferencesForQA)"
+                          Condition="'%(TargetingPackReferencesForQA.AssemblyName)' == '@(AllPackageReferences->WithMetadataValue('Identity', '%(Reference.AssemblyName)'))'" />
+    </ItemGroup>
+
+    <Warning Code="QA0007"
+             Text="PackageReference matches a reference assembly: %(MatchingReferences.Identity). Consider replacing the package with a FrameworkReference."
+             Condition="'@(MatchingReferences)' != ''" />
+  </Target>
+</Project>

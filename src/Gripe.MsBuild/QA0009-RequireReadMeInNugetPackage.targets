@@ -1,0 +1,38 @@
+﻿<Project>
+  <Target Name="EnsureSingleRootReadmePackedCorrectly" BeforeTargets="Pack" Condition="$(IsPackable) != 'false'">
+    <ItemGroup>
+      <!-- Gather all files that will be packed -->
+      <PackableFiles Include="@(Content)" Condition="'%(Content.Pack)' == 'true'" />
+      <PackableFiles Include="@(None)" Condition="'%(None.Pack)' == 'true'" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <!-- Find ALL readme.md files -->
+      <ReadmeCandidates Include="@(PackableFiles)"
+                        Condition="'%(Filename)%(Extension)' == 'readme.md'" />
+    </ItemGroup>
+
+    <!-- Error if no readme.md is found -->
+    <Error
+      Code="QA0009"
+      Condition="'@(ReadmeCandidates)' == ''"
+      Text="Pre-Packing requirement failed: No 'readme.md' is included in the package." />
+
+    <!-- Find the ones that are at the root -->
+    <ItemGroup>
+      <RootReadmes Include="@(ReadmeCandidates)"
+                   Condition="'%(PackagePath)' == '' or '%(PackagePath)' == '/' or '%(PackagePath)' == '\'" />
+    </ItemGroup>
+
+    <!-- Error if there is not exactly one root readme.md -->
+    <Error
+      Code="QA0009"
+      Condition="'@(RootReadmes)' == ''"
+      Text="Pre-Packing requirement failed: No 'readme.md' found at package root (PackagePath='')." />
+
+    <Error
+      Code="QA0009"
+      Condition="'@(RootReadmes->Count())' != '1'"
+      Text="Pre-Packing requirement failed: Multiple 'readme.md' files found at package root. Only one is allowed." />
+  </Target>
+</Project>

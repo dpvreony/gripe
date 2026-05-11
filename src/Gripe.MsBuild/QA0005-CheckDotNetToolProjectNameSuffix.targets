@@ -1,0 +1,8 @@
+﻿<Project>
+  <Target Name="CheckProjectNameForDotNetTool" BeforeTargets="Build">
+    <!-- Check if the project name ends with ".DotNetTool" -->
+    <Error Code="QA0005"
+           Text="Error: Project name must end with '.DotNetTool'. Current project name is '$(ProjectName)'."
+           Condition="'$(PackAsTool)' == 'true' and !$(ProjectName.EndsWith('.DotNetTool'))" />
+  </Target>
+</Project>

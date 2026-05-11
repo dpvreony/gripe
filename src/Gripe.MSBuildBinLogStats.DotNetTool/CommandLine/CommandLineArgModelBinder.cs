@@ -6,13 +6,14 @@ using System;
 using System.CommandLine;
 using System.CommandLine.Binding;
 using System.IO;
+using Whipstaff.CommandLine;
 
 namespace Gripe.MSBuildBinLogStats.DotNetTool.CommandLine
 {
     /// <summary>
     /// Binding logic for the command line arguments.
     /// </summary>
-    public sealed class CommandLineArgModelBinder : BinderBase<CommandLineArgModel>
+    public sealed class CommandLineArgModelBinder : IBinderBase<CommandLineArgModel>
     {
         private readonly Option<FileInfo> _binLogPathOption;
 
@@ -28,11 +29,11 @@ namespace Gripe.MSBuildBinLogStats.DotNetTool.CommandLine
         }
 
         /// <inheritdoc/>
-        protected override CommandLineArgModel GetBoundValue(BindingContext bindingContext)
+        public CommandLineArgModel GetBoundValue(ParseResult parseResult)
         {
-            ArgumentNullException.ThrowIfNull(bindingContext);
+            ArgumentNullException.ThrowIfNull(parseResult);
 
-            var binLogPath = bindingContext.ParseResult.GetValueForOption(_binLogPathOption);
+            var binLogPath = parseResult.GetRequiredValue(_binLogPathOption);
 
             return new CommandLineArgModel(binLogPath!);
         }

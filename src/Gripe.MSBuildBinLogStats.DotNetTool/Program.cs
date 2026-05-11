@@ -21,7 +21,7 @@ namespace Gripe.MSBuildBinLogStats.DotNetTool
         /// <returns>0 for success, 1 for failure.</returns>
         public static Task<int> Main(string[] args)
         {
-            return HostRunner.RunSimpleCliJob<
+            return HostRunner.RunSimpleCliJobAsync<
                 CommandLineJob,
                 CommandLineArgModel,
                 CommandLineArgModelBinder,

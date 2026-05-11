@@ -1,0 +1,5 @@
+﻿<Target Name="CheckDotNetToolPrefix" BeforeTargets="Build,Pack">
+	<Error
+		Text="AssemblyName must start with 'dotnettool-' when PackAsTool is true (current: '$(AssemblyName)')."
+		Condition=" '$(PackAsTool)' == 'true' and $([System.String]::Copy('$(AssemblyName)').StartsWith('dotnettool-')) == 'false' " />
+</Target>
