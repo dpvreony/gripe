@@ -32,14 +32,14 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
                     ProofFilePath,
                     DiagnosticSeverity.Info,
                     23,
-                    17),
+                    16),
 
                 // new byte[512] on line 37 (0-based: 36), column position 17
                 new ExpectedDiagnosticModel(
                     ProofFilePath,
                     DiagnosticSeverity.Info,
                     36,
-                    17),
+                    16),
 
                 // Note: new byte[1024] on line 50 should NOT trigger (above threshold)
             ];

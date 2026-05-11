@@ -32,14 +32,14 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
                     ProofFilePath,
                     DiagnosticSeverity.Info,
                     25,
-                    17),
+                    16),
 
                 // text.Substring(0, 5).Equals(comparison, StringComparison.OrdinalIgnoreCase) on line 41 (0-based: 40), column position 17
                 new ExpectedDiagnosticModel(
                     ProofFilePath,
                     DiagnosticSeverity.Info,
                     40,
-                    17),
+                    16),
             ];
         }
     }

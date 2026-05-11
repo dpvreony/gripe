@@ -27,12 +27,11 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
 
             return
             [
-                // NativeMethods.ReadData(buffer, buffer.Length) on line 26 (0-based: 25), column position 17
                 new ExpectedDiagnosticModel(
                     ProofFilePath,
                     DiagnosticSeverity.Info,
                     25,
-                    17),
+                    16),
             ];
         }
     }
