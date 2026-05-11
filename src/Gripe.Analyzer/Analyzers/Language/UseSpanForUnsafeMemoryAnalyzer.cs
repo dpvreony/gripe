@@ -44,15 +44,14 @@ namespace Gripe.Analyzer.Analyzers.Language
         {
             context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
             context.EnableConcurrentExecution();
-            context.RegisterSyntaxNodeAction(AnalyzeSyntax, SyntaxKind.InvocationExpression);
+            context.RegisterSyntaxNodeAction(AnalyzeSyntax, SyntaxKind.FixedStatement);
         }
 
         private void AnalyzeSyntax(SyntaxNodeAnalysisContext context)
         {
-            var invocation = (InvocationExpressionSyntax)context.Node;
+            var fixedStatement = (FixedStatementSyntax)context.Node;
 
-            if (invocation.Parent is FixedStatementSyntax fixedStatement &&
-                fixedStatement.Declaration.Type is PointerTypeSyntax)
+            if (fixedStatement.Declaration.Type is PointerTypeSyntax)
             {
                 var diagnostic = Diagnostic.Create(_rule, fixedStatement.GetLocation());
                 context.ReportDiagnostic(diagnostic);

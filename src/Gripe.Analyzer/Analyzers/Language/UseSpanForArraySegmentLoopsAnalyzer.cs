@@ -44,15 +44,14 @@ namespace Gripe.Analyzer.Analyzers.Language
         {
             context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
             context.EnableConcurrentExecution();
-            context.RegisterSyntaxNodeAction(AnalyzeSyntax, SyntaxKind.InvocationExpression);
+            context.RegisterSyntaxNodeAction(AnalyzeSyntax, SyntaxKind.ForStatement);
         }
 
         private void AnalyzeSyntax(SyntaxNodeAnalysisContext context)
         {
-            var invocation = (InvocationExpressionSyntax)context.Node;
+            var forLoop = (ForStatementSyntax)context.Node;
 
-            if (invocation.Parent is ForStatementSyntax forLoop &&
-                forLoop.Declaration?.Type is ArrayTypeSyntax arrayType &&
+            if (forLoop.Declaration?.Type is ArrayTypeSyntax arrayType &&
                 context.SemanticModel.GetTypeInfo(arrayType).Type is IArrayTypeSymbol)
             {
                 var diagnostic = Diagnostic.Create(_rule, forLoop.GetLocation());

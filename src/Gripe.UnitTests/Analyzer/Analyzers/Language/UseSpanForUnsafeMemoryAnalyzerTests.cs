@@ -32,14 +32,14 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
                     ProofFilePath,
                     DiagnosticSeverity.Info,
                     24,
-                    13),
+                    12),
 
                 // fixed statement on line 42 (0-based: 41), column position 13
                 new ExpectedDiagnosticModel(
                     ProofFilePath,
                     DiagnosticSeverity.Info,
                     41,
-                    13),
+                    12),
             ];
         }
     }
