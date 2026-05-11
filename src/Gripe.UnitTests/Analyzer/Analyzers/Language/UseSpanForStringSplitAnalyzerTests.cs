@@ -30,14 +30,14 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
                 // text.Split(',') on line 25 (0-based: 24), column position 17
                 new ExpectedDiagnosticModel(
                     ProofFilePath,
-                    DiagnosticSeverity.Info,
+                    DiagnosticSeverity.Warning,
                     24,
                     16),
 
                 // text.Split(',', ';') on line 39 (0-based: 38), column position 17
                 new ExpectedDiagnosticModel(
                     ProofFilePath,
-                    DiagnosticSeverity.Info,
+                    DiagnosticSeverity.Warning,
                     38,
                     16),
             ];

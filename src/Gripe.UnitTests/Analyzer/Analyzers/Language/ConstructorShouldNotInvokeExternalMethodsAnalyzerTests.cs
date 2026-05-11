@@ -29,17 +29,17 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
             [
                 new ExpectedDiagnosticModel(
                     TupleProofFilePath,
-                    DiagnosticSeverity.Error,
+                    DiagnosticSeverity.Warning,
                     32,
                     16),
                 new ExpectedDiagnosticModel(
                     TupleProofFilePath,
-                    DiagnosticSeverity.Error,
+                    DiagnosticSeverity.Warning,
                     38,
                     12),
                 new ExpectedDiagnosticModel(
                     TupleProofFilePath,
-                    DiagnosticSeverity.Error,
+                    DiagnosticSeverity.Warning,
                     43,
                     12),
             ];

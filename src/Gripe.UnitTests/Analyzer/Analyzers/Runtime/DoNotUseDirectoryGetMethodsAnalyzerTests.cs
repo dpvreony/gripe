@@ -23,32 +23,32 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
             [
                 new ExpectedDiagnosticModel(
                     "Runtime\\DoNotUseDirectoryGetMethodsAnalyzerProof.cs",
-                    DiagnosticSeverity.Error,
+                    DiagnosticSeverity.Warning,
                     20,
                     16),
                 new ExpectedDiagnosticModel(
                     "Runtime\\DoNotUseDirectoryGetMethodsAnalyzerProof.cs",
-                    DiagnosticSeverity.Error,
+                    DiagnosticSeverity.Warning,
                     34,
                     16),
                 new ExpectedDiagnosticModel(
                     "Runtime\\DoNotUseDirectoryGetMethodsAnalyzerProof.cs",
-                    DiagnosticSeverity.Error,
+                    DiagnosticSeverity.Warning,
                     47,
                     16),
                 new ExpectedDiagnosticModel(
                     "Runtime\\DoNotUseDirectoryGetMethodsAnalyzerProof.cs",
-                    DiagnosticSeverity.Error,
+                    DiagnosticSeverity.Warning,
                     61,
                     16),
                 new ExpectedDiagnosticModel(
                     "Runtime\\DoNotUseDirectoryGetMethodsAnalyzerProof.cs",
-                    DiagnosticSeverity.Error,
+                    DiagnosticSeverity.Warning,
                     74,
                     16),
                 new ExpectedDiagnosticModel(
                     "Runtime\\DoNotUseDirectoryGetMethodsAnalyzerProof.cs",
-                    DiagnosticSeverity.Error,
+                    DiagnosticSeverity.Warning,
                     88,
                     16),
             ];

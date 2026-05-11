@@ -26,7 +26,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.EfCore
             [
                 new ExpectedDiagnosticModel(
                     "EfCore\\DbSetUpdateProof.cs",
-                    DiagnosticSeverity.Error,
+                    DiagnosticSeverity.Warning,
                     53,
                     12)
             ];

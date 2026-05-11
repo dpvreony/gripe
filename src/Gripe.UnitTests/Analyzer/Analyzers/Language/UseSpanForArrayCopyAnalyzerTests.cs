@@ -30,14 +30,14 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
                 // Array.Copy on line 27 (0-based: 26), column position 13
                 new ExpectedDiagnosticModel(
                     ProofFilePath,
-                    DiagnosticSeverity.Info,
+                    DiagnosticSeverity.Warning,
                     26,
                     12),
 
                 // source.Clone() on line 41 (0-based: 40), column position 17
                 new ExpectedDiagnosticModel(
                     ProofFilePath,
-                    DiagnosticSeverity.Info,
+                    DiagnosticSeverity.Warning,
                     40,
                     16),
             ];

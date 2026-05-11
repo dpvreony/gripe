@@ -30,25 +30,25 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
             [
                 new ExpectedDiagnosticModel(
                     UseSpanForStringComparisonProof,
-                    DiagnosticSeverity.Info,
+                    DiagnosticSeverity.Warning,
                     25,
                     16),
 
                 new ExpectedDiagnosticModel(
                     UseSpanForStringComparisonProof,
-                    DiagnosticSeverity.Info,
+                    DiagnosticSeverity.Warning,
                     40,
                     16),
 
                 new ExpectedDiagnosticModel(
                     UseSpanForSubstringProofPath,
-                    DiagnosticSeverity.Info,
+                    DiagnosticSeverity.Warning,
                     24,
                     16),
 
                 new ExpectedDiagnosticModel(
                     UseSpanForSubstringProofPath,
-                    DiagnosticSeverity.Info,
+                    DiagnosticSeverity.Warning,
                     38,
                     16),
             ];

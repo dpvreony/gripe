@@ -31,7 +31,7 @@ namespace Gripe.Analyzer.Analyzers.Language
                         Title,
                         MessageFormat,
                         Category,
-                        DiagnosticSeverity.Info,
+                        DiagnosticSeverity.Warning,
                         isEnabledByDefault: true,
                         description: "Recommends Span<T> usage instead of fixed statements for safer memory access.");
         }

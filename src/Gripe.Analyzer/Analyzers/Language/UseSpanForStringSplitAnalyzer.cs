@@ -31,7 +31,7 @@ namespace Gripe.Analyzer.Analyzers.Language
                         Title,
                         MessageFormat,
                         Category,
-                        DiagnosticSeverity.Info,
+                        DiagnosticSeverity.Warning,
                         isEnabledByDefault: true,
                         description: "Recommends ReadOnlySpan<char> usage for string tokenization to avoid intermediate strings.");
         }

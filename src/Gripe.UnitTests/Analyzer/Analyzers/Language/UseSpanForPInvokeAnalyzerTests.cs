@@ -29,7 +29,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
             [
                 new ExpectedDiagnosticModel(
                     ProofFilePath,
-                    DiagnosticSeverity.Info,
+                    DiagnosticSeverity.Warning,
                     25,
                     16),
             ];

@@ -32,7 +32,7 @@ namespace Gripe.Analyzer.Analyzers.Language
                         Title,
                         MessageFormat,
                         Category,
-                        DiagnosticSeverity.Info,
+                        DiagnosticSeverity.Warning,
                         isEnabledByDefault: true,
                         description: "Recommends stackalloc Span<byte> usage for small buffers.");
         }

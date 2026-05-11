@@ -32,7 +32,7 @@ namespace Gripe.Analyzer.Analyzers.Language
                         Title,
                         MessageFormat,
                         Category,
-                        DiagnosticSeverity.Info,
+                        DiagnosticSeverity.Warning,
                         isEnabledByDefault: true,
                         description: "Recommends Span<byte> usage for efficient P/Invoke calls.");
         }

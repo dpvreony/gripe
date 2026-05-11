@@ -30,14 +30,14 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
                 // text.Substring(0, 5).Equals(comparison) on line 26 (0-based: 25), column position 17
                 new ExpectedDiagnosticModel(
                     ProofFilePath,
-                    DiagnosticSeverity.Info,
+                    DiagnosticSeverity.Warning,
                     25,
                     16),
 
                 // text.Substring(0, 5).Equals(comparison, StringComparison.OrdinalIgnoreCase) on line 41 (0-based: 40), column position 17
                 new ExpectedDiagnosticModel(
                     ProofFilePath,
-                    DiagnosticSeverity.Info,
+                    DiagnosticSeverity.Warning,
                     40,
                     16),
             ];

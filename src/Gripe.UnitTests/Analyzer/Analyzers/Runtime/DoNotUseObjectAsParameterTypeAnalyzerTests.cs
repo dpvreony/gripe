@@ -27,17 +27,17 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
             [
                 new ExpectedDiagnosticModel(
                     "Runtime\\DoNotUseObjectAsParameterTypeProof.cs",
-                    DiagnosticSeverity.Error,
+                    DiagnosticSeverity.Warning,
                     66,
                     12),
                 new ExpectedDiagnosticModel(
                     "Runtime\\DoNotUseObjectAsParameterTypeProof.cs",
-                    DiagnosticSeverity.Error,
+                    DiagnosticSeverity.Warning,
                     86,
                     31),
                 new ExpectedDiagnosticModel(
                     "Runtime\\DoNotUseObjectAsParameterTypeProof.cs",
-                    DiagnosticSeverity.Error,
+                    DiagnosticSeverity.Warning,
                     104,
                     32),
             ];

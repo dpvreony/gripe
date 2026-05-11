@@ -30,7 +30,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
                 // for loop on line 25 (0-based: 24), column position 13
                 new ExpectedDiagnosticModel(
                     ProofFilePath,
-                    DiagnosticSeverity.Info,
+                    DiagnosticSeverity.Warning,
                     24,
                     12),
             ];
