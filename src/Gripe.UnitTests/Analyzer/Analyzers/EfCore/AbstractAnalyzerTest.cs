@@ -54,6 +54,10 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.EfCore
                     throw new InvalidOperationException("Failed to get compilation object");
                 }
 
+                // Override TreatWarningsAsErrors from Directory.Build.props
+                var options = compilation.Options.WithGeneralDiagnosticOption(ReportDiagnostic.Warn);
+                compilation = compilation.WithOptions(options);
+
                 var compilationWithAnalyzers = compilation.WithAnalyzers(analyzers);
                 var diagnostics = await compilationWithAnalyzers.GetAnalyzerDiagnosticsAsync(TestContext.Current.CancellationToken);
 

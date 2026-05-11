@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
+// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
@@ -10,38 +10,38 @@ using Microsoft.CodeAnalysis;
 namespace Gripe.UnitTests.Analyzer.Analyzers.Language
 {
     /// <summary>
-    /// Unit Tests for checking if a Constructor invokes external methods.
+    /// Unit Tests for <see cref="UseSpanForStackAllocBuffersAnalyzer"/>.
     /// </summary>
-    public sealed class ConstructorShouldNotInvokeExternalMethodsAnalyzerTests : AbstractAnalyzerTest<ConstructorShouldNotInvokeExternalMethodsAnalyzer>
+    public sealed class UseSpanForStackAllocBuffersAnalyzerTests : AbstractAnalyzerTest<UseSpanForStackAllocBuffersAnalyzer>
     {
         /// <inheritdoc/>
         protected override string GetExpectedDiagnosticId()
         {
-            return DiagnosticIdsHelper.ConstructorShouldNotInvokeExternalMethods;
+            return DiagnosticIdsHelper.UseSpanForStackAllocBuffers;
         }
 
         /// <inheritdoc/>
         protected override ExpectedDiagnosticModel[] GetExpectedDiagnosticLines()
         {
-            const string TupleProofFilePath = "Language\\ConstructorExternalMethodInvocationProof.cs";
+            const string ProofFilePath = "Language\\UseSpanForStackAllocBuffersProof.cs";
 
             return
             [
+                // new byte[256] on line 24 (0-based: 23), column position 17
                 new ExpectedDiagnosticModel(
-                    TupleProofFilePath,
+                    ProofFilePath,
                     DiagnosticSeverity.Warning,
-                    32,
+                    23,
                     16),
+
+                // new byte[512] on line 37 (0-based: 36), column position 17
                 new ExpectedDiagnosticModel(
-                    TupleProofFilePath,
+                    ProofFilePath,
                     DiagnosticSeverity.Warning,
-                    38,
-                    12),
-                new ExpectedDiagnosticModel(
-                    TupleProofFilePath,
-                    DiagnosticSeverity.Warning,
-                    43,
-                    12),
+                    36,
+                    16),
+
+                // Note: new byte[1024] on line 50 should NOT trigger (above threshold)
             ];
         }
     }

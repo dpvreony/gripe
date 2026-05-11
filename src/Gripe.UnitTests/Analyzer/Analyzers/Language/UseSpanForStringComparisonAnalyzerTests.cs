@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
+// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
@@ -10,38 +10,36 @@ using Microsoft.CodeAnalysis;
 namespace Gripe.UnitTests.Analyzer.Analyzers.Language
 {
     /// <summary>
-    /// Unit Tests for checking if a Constructor invokes external methods.
+    /// Unit Tests for <see cref="UseSpanForStringComparisonAnalyzer"/>.
     /// </summary>
-    public sealed class ConstructorShouldNotInvokeExternalMethodsAnalyzerTests : AbstractAnalyzerTest<ConstructorShouldNotInvokeExternalMethodsAnalyzer>
+    public sealed class UseSpanForStringComparisonAnalyzerTests : AbstractAnalyzerTest<UseSpanForStringComparisonAnalyzer>
     {
         /// <inheritdoc/>
         protected override string GetExpectedDiagnosticId()
         {
-            return DiagnosticIdsHelper.ConstructorShouldNotInvokeExternalMethods;
+            return DiagnosticIdsHelper.UseSpanForStringComparison;
         }
 
         /// <inheritdoc/>
         protected override ExpectedDiagnosticModel[] GetExpectedDiagnosticLines()
         {
-            const string TupleProofFilePath = "Language\\ConstructorExternalMethodInvocationProof.cs";
+            const string ProofFilePath = "Language\\UseSpanForStringComparisonProof.cs";
 
             return
             [
+                // text.Substring(0, 5).Equals(comparison) on line 26 (0-based: 25), column position 17
                 new ExpectedDiagnosticModel(
-                    TupleProofFilePath,
+                    ProofFilePath,
                     DiagnosticSeverity.Warning,
-                    32,
+                    25,
                     16),
+
+                // text.Substring(0, 5).Equals(comparison, StringComparison.OrdinalIgnoreCase) on line 41 (0-based: 40), column position 17
                 new ExpectedDiagnosticModel(
-                    TupleProofFilePath,
+                    ProofFilePath,
                     DiagnosticSeverity.Warning,
-                    38,
-                    12),
-                new ExpectedDiagnosticModel(
-                    TupleProofFilePath,
-                    DiagnosticSeverity.Warning,
-                    43,
-                    12),
+                    40,
+                    16),
             ];
         }
     }

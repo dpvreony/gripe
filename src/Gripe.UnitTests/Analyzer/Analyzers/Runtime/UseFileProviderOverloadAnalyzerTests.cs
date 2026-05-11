@@ -27,7 +27,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
             [
                 new ExpectedDiagnosticModel(
                     "Runtime\\Extensions\\FileProviderProof.cs",
-                    DiagnosticSeverity.Error,
+                    DiagnosticSeverity.Warning,
                     24,
                     12)
             ];

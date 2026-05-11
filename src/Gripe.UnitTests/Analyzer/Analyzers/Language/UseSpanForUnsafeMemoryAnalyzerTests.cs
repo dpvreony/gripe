@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
+// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
@@ -10,37 +10,35 @@ using Microsoft.CodeAnalysis;
 namespace Gripe.UnitTests.Analyzer.Analyzers.Language
 {
     /// <summary>
-    /// Unit Tests for checking if a Constructor invokes external methods.
+    /// Unit Tests for <see cref="UseSpanForUnsafeMemoryAnalyzer"/>.
     /// </summary>
-    public sealed class ConstructorShouldNotInvokeExternalMethodsAnalyzerTests : AbstractAnalyzerTest<ConstructorShouldNotInvokeExternalMethodsAnalyzer>
+    public sealed class UseSpanForUnsafeMemoryAnalyzerTests : AbstractAnalyzerTest<UseSpanForUnsafeMemoryAnalyzer>
     {
         /// <inheritdoc/>
         protected override string GetExpectedDiagnosticId()
         {
-            return DiagnosticIdsHelper.ConstructorShouldNotInvokeExternalMethods;
+            return DiagnosticIdsHelper.UseSpanForUnsafeMemory;
         }
 
         /// <inheritdoc/>
         protected override ExpectedDiagnosticModel[] GetExpectedDiagnosticLines()
         {
-            const string TupleProofFilePath = "Language\\ConstructorExternalMethodInvocationProof.cs";
+            const string ProofFilePath = "Language\\UseSpanForUnsafeMemoryProof.cs";
 
             return
             [
+                // fixed statement on line 25 (0-based: 24), column position 13
                 new ExpectedDiagnosticModel(
-                    TupleProofFilePath,
+                    ProofFilePath,
                     DiagnosticSeverity.Warning,
-                    32,
-                    16),
-                new ExpectedDiagnosticModel(
-                    TupleProofFilePath,
-                    DiagnosticSeverity.Warning,
-                    38,
+                    24,
                     12),
+
+                // fixed statement on line 42 (0-based: 41), column position 13
                 new ExpectedDiagnosticModel(
-                    TupleProofFilePath,
+                    ProofFilePath,
                     DiagnosticSeverity.Warning,
-                    43,
+                    41,
                     12),
             ];
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
+// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
@@ -10,26 +10,28 @@ using Microsoft.CodeAnalysis;
 namespace Gripe.UnitTests.Analyzer.Analyzers.Language
 {
     /// <summary>
-    /// Unit test for <see cref="PublicMethodsShouldHaveDocumentedCodeExamplesAnalyzer"/>.
+    /// Unit Tests for <see cref="UseSpanForPInvokeAnalyzer"/>.
     /// </summary>
-    public sealed class PublicMethodsShouldHaveDocumentedCodeExamplesAnalyzerTests : AbstractAnalyzerTest<PublicMethodsShouldHaveDocumentedCodeExamplesAnalyzer>
+    public sealed class UseSpanForPInvokeAnalyzerTests : AbstractAnalyzerTest<UseSpanForPInvokeAnalyzer>
     {
         /// <inheritdoc/>
         protected override string GetExpectedDiagnosticId()
         {
-            return DiagnosticIdsHelper.PublicMethodsShouldHaveDocumentedCodeExamples;
+            return DiagnosticIdsHelper.UseSpanForPInvoke;
         }
 
         /// <inheritdoc/>
         protected override ExpectedDiagnosticModel[] GetExpectedDiagnosticLines()
         {
+            const string ProofFilePath = "Language\\UseSpanForPInvokeProof.cs";
+
             return
             [
                 new ExpectedDiagnosticModel(
-                    "EfCore\\DbSetUpdateProof.cs",
+                    ProofFilePath,
                     DiagnosticSeverity.Warning,
-                    27,
-                    27)
+                    25,
+                    16),
             ];
         }
     }
