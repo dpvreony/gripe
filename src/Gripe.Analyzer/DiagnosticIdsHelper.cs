@@ -112,6 +112,22 @@ namespace Gripe.Analyzer
 
         internal const string DoNotUseDirectoryGetMethods = "GR0053";
 
-        internal const string UseSpan = "GR0054";
+        internal const string UseSpanForArrayCopy = "GR0054";
+
+        internal const string UseSpanForSubstring = "GR0055";
+
+        internal const string UseSpanForArraySegmentLoops = "GR0056";
+
+        internal const string UseSpanForUnsafeMemory = "GR0057";
+
+        internal const string UseSpanForStackAllocBuffers = "GR0058";
+
+        internal const string UseSpanForStringSplit = "GR0059";
+
+        internal const string UseSpanForBitConverter = "GR0060";
+
+        internal const string UseSpanForPInvoke = "GR0061";
+
+        internal const string UseSpanForStringComparison = "GR0062";
     }
 }
