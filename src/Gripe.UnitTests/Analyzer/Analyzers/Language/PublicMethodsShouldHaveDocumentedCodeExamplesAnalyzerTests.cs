@@ -29,7 +29,12 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
                     "EfCore\\DbSetUpdateProof.cs",
                     DiagnosticSeverity.Warning,
                     27,
-                    27)
+                    27),
+                new ExpectedDiagnosticModel(
+                    "Language\\AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfacesProof.cs",
+                    DiagnosticSeverity.Warning,
+                    28,
+                    24)
             ];
         }
     }
