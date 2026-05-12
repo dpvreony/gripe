@@ -131,5 +131,7 @@ namespace Gripe.Analyzer
         internal const string UseSpanForStringComparison = "GR0062";
 
         internal const string DoNotMixUnicodeBlocks = "GR0063";
+
+        internal const string DoNotUseNewInstanceOfJsonSerializerOptions = "GR0064";
     }
 }
