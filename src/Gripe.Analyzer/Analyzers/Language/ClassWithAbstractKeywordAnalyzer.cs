@@ -29,7 +29,7 @@ namespace Gripe.Analyzer.Analyzers.Language
                 DiagnosticIdsHelper.ClassWithAbstractKeyword,
                 Title,
                 Title,
-                SupportedCategories.Naming,
+                SupportedCategories.Design,
                 DiagnosticSeverity.Warning,
                 isEnabledByDefault: true,
                 description: Title);
@@ -88,6 +88,11 @@ namespace Gripe.Analyzer.Analyzers.Language
                     case EventFieldDeclarationSyntax _:
                         return true;
                     case PropertyDeclarationSyntax propertyDeclarationSyntax:
+                        if (!propertyDeclarationSyntax.Modifiers.Any(SyntaxKind.AbstractKeyword))
+                        {
+                            return true;
+                        }
+
                         if (propertyDeclarationSyntax.ExpressionBody != null)
                         {
                             return true;
@@ -106,6 +111,11 @@ namespace Gripe.Analyzer.Analyzers.Language
 
                         break;
                     case EventDeclarationSyntax eventDeclarationSyntax:
+                        if (!eventDeclarationSyntax.Modifiers.Any(SyntaxKind.AbstractKeyword))
+                        {
+                            return true;
+                        }
+
                         if (eventDeclarationSyntax.AccessorList?.Accessors != null)
                         {
                             foreach (var accessor in eventDeclarationSyntax.AccessorList.Accessors)

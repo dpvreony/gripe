@@ -94,6 +94,24 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
             VerifyCSharpDiagnostic(test);
         }
 
+        /// <summary>
+        /// Test to ensure abstract classes with auto-implemented properties do not return a warning.
+        /// </summary>
+        [Fact]
+        public void ReturnsNoWarningWhenAbstractClassContainsAutoProperty()
+        {
+            const string test = @"
+    namespace ConsoleApplication1
+    {
+        public abstract class AbstractTypeName
+        {
+            public int Value { get; set; }
+        }
+    }";
+
+            VerifyCSharpDiagnostic(test);
+        }
+
         /// <inheritdoc />
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         {
