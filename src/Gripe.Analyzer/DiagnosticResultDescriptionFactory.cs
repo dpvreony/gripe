@@ -31,5 +31,7 @@ namespace Gripe.Analyzer
         internal static string DoNotUseTuples() => $"Do not use Tuples. Consider the use of Record types or Classes. This allows for easier to read and more sustainable code.";
 
         internal static string DoNotMixUnicodeBlocks() => $"Avoid mixing characters from different scripts (e.g., Latin and Cyrillic) in the same string literal.";
+
+        internal static string DoNotUseNewInstanceOfJsonSerializerOptions() => "Reuse JsonSerializerOptions instances for better performance. Creating new instances repeatedly causes the metadata cache to be rebuilt each time. The metadata caches on the options instance are thread-safe, and the instance is immutable after the first serialization or deserialization.";
     }
 }
