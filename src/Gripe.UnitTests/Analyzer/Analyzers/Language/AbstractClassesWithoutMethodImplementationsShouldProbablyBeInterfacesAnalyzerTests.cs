@@ -4,101 +4,40 @@
 
 using Gripe.Analyzer;
 using Gripe.Analyzer.Analyzers.Language;
-using Gripe.UnitTests.Analyzer.Helpers;
+using Gripe.UnitTests.Analyzer.Analyzers.EfCore;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Diagnostics;
-using Xunit;
 
 namespace Gripe.UnitTests.Analyzer.Analyzers.Language
 {
     /// <summary>
     /// Unit tests for <see cref="AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfacesAnalyzer"/>.
     /// </summary>
-    public sealed class AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfacesAnalyzerTests : CodeFixVerifier
+    public sealed class AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfacesAnalyzerTests : AbstractAnalyzerTest<AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfacesAnalyzer>
     {
-        /// <summary>
-        /// Test to ensure bad code returns a warning.
-        /// </summary>
-        [Fact]
-        public void ReturnsWarning()
+        /// <inheritdoc/>
+        protected override string GetExpectedDiagnosticId()
         {
-            const string test = @"
-    namespace ConsoleApplication1
-    {
-        public abstract class TypeName
-        {
-        }
-    }";
-
-            var expected = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfaces,
-                Message = AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfacesAnalyzer.Title,
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 4, 31),
-                    },
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
+            return DiagnosticIdsHelper.AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfaces;
         }
 
-        /// <summary>
-        /// Test to ensure abstract classes with a concrete method do not return a warning.
-        /// </summary>
-        [Fact]
-        public void ReturnsNoWarningWhenAbstractClassContainsMethodImplementation()
+        /// <inheritdoc/>
+        protected override ExpectedDiagnosticModel[] GetExpectedDiagnosticLines()
         {
-            const string test = @"
-    namespace ConsoleApplication1
-    {
-        public abstract class TypeName
-        {
-            public void DoWork()
-            {
-            }
-        }
-    }";
+            const string ProofFilePath = "Language\\AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfacesProof.cs";
 
-            VerifyCSharpDiagnostic(test);
-        }
-
-        /// <summary>
-        /// Test to ensure abstract classes with only auto properties still return a warning.
-        /// </summary>
-        [Fact]
-        public void ReturnsWarningWhenAbstractClassContainsOnlyAutoProperty()
-        {
-            const string test = @"
-    namespace ConsoleApplication1
-    {
-        public abstract class TypeName
-        {
-            public int Value { get; set; }
-        }
-    }";
-
-            var expected = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfaces,
-                Message = AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfacesAnalyzer.Title,
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 4, 31),
-                    },
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
-        }
-
-        /// <inheritdoc />
-        protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
-        {
-            return new AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfacesAnalyzer();
+            return
+            [
+                new ExpectedDiagnosticModel(
+                    ProofFilePath,
+                    DiagnosticSeverity.Warning,
+                    13,
+                    30),
+                new ExpectedDiagnosticModel(
+                    ProofFilePath,
+                    DiagnosticSeverity.Warning,
+                    24,
+                    30),
+            ];
         }
     }
 }
