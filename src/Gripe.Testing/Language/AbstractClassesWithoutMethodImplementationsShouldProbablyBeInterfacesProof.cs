@@ -11,19 +11,34 @@ namespace Gripe.Testing.Language
     /// </summary>
     public static class AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfacesProof
     {
+        /// <summary>
+        /// Proof type for an abstract class without method implementations.
+        /// </summary>
         public abstract class TypeNameWithoutMethodImplementation
         {
         }
 
+        /// <summary>
+        /// Proof type for an abstract class with a method implementation.
+        /// </summary>
         public abstract class TypeNameWithMethodImplementation
         {
+            /// <summary>
+            /// Does work.
+            /// </summary>
             public void DoWork()
             {
             }
         }
 
+        /// <summary>
+        /// Proof type for an abstract class with only an auto property.
+        /// </summary>
         public abstract class TypeNameWithAutoProperty
         {
+            /// <summary>
+            /// Gets or sets a value.
+            /// </summary>
             public int Value { get; set; }
         }
     }

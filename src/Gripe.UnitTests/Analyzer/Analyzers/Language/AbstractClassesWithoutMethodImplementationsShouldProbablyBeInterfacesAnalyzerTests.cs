@@ -30,12 +30,12 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
                 new ExpectedDiagnosticModel(
                     ProofFilePath,
                     DiagnosticSeverity.Warning,
-                    13,
+                    16,
                     30),
                 new ExpectedDiagnosticModel(
                     ProofFilePath,
                     DiagnosticSeverity.Warning,
-                    24,
+                    36,
                     30),
             ];
         }
