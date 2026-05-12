@@ -22,11 +22,9 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
         [Fact]
         public void ReturnsWarning()
         {
-            var test = @"
+            const string test = @"
     namespace ConsoleApplication1
     {
-        using System.Text;
-
         public abstract class TypeName
         {
         }
@@ -40,11 +38,60 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
                 Locations =
                     new[]
                     {
-                        new DiagnosticResultLocation("Test0.cs", 6, 31)
+                        new DiagnosticResultLocation("Test0.cs", 4, 31)
                     }
             };
 
             VerifyCSharpDiagnostic(test, expected);
+        }
+
+        /// <summary>
+        /// Test to ensure classes with abstract prefix still return a warning if they have no implementations.
+        /// </summary>
+        [Fact]
+        public void ReturnsWarningForAbstractPrefixedTypeWithoutImplementation()
+        {
+            const string test = @"
+    namespace ConsoleApplication1
+    {
+        public abstract class AbstractTypeName
+        {
+        }
+    }";
+
+            var expected = new DiagnosticResult
+            {
+                Id = DiagnosticIdsHelper.ClassWithAbstractKeyword,
+                Message = ClassWithAbstractKeywordAnalyzer.Title,
+                Severity = DiagnosticSeverity.Warning,
+                Locations =
+                    new[]
+                    {
+                        new DiagnosticResultLocation("Test0.cs", 4, 31)
+                    }
+            };
+
+            VerifyCSharpDiagnostic(test, expected);
+        }
+
+        /// <summary>
+        /// Test to ensure abstract classes with implementations do not return a warning.
+        /// </summary>
+        [Fact]
+        public void ReturnsNoWarningWhenAbstractClassContainsImplementation()
+        {
+            const string test = @"
+    namespace ConsoleApplication1
+    {
+        public abstract class AbstractTypeName
+        {
+            public void DoWork()
+            {
+            }
+        }
+    }";
+
+            VerifyCSharpDiagnostic(test);
         }
 
         /// <inheritdoc />

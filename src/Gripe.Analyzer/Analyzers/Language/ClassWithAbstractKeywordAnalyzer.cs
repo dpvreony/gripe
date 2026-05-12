@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Immutable;
 using Gripe.Analyzer.CodeCracker.Extensions;
 using Microsoft.CodeAnalysis;
@@ -13,12 +12,12 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace Gripe.Analyzer.Analyzers.Language
 {
     /// <summary>
-    /// Analyzer to check if a class with the abstract keyword starts with the word "Abstract".
+    /// Analyzer to check if abstract classes without implementations should be interfaces.
     /// </summary>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class ClassWithAbstractKeywordAnalyzer : DiagnosticAnalyzer
     {
-        internal const string Title = "Class with abstract keyword should start with Abstract";
+        internal const string Title = "Abstract classes without method implementations should probably be interfaces";
         private readonly DiagnosticDescriptor _rule;
 
         /// <summary>
@@ -28,12 +27,12 @@ namespace Gripe.Analyzer.Analyzers.Language
         {
             _rule = new DiagnosticDescriptor(
                 DiagnosticIdsHelper.ClassWithAbstractKeyword,
-                "Class with abstract keyword should start with Abstract",
-                "Class with abstract keyword should start with Abstract",
+                Title,
+                Title,
                 SupportedCategories.Naming,
                 DiagnosticSeverity.Warning,
                 isEnabledByDefault: true,
-                description: "Class with abstract keyword should start with Abstract");
+                description: Title);
         }
 
         /// <inheritdoc/>
@@ -59,13 +58,70 @@ namespace Gripe.Analyzer.Analyzers.Language
                 return;
             }
 
-            var identifier = classDeclarationSyntax.Identifier;
-            if (identifier.Text.StartsWith("Abstract", StringComparison.OrdinalIgnoreCase))
+            if (HasMemberImplementation(classDeclarationSyntax))
             {
                 return;
             }
 
+            var identifier = classDeclarationSyntax.Identifier;
             context.ReportDiagnostic(Diagnostic.Create(_rule, identifier.GetLocation()));
+        }
+
+        private static bool HasMemberImplementation(ClassDeclarationSyntax classDeclarationSyntax)
+        {
+            foreach (var member in classDeclarationSyntax.Members)
+            {
+                switch (member)
+                {
+                    case MethodDeclarationSyntax methodDeclarationSyntax:
+                        if (!methodDeclarationSyntax.Modifiers.Any(SyntaxKind.AbstractKeyword))
+                        {
+                            return true;
+                        }
+
+                        break;
+                    case ConstructorDeclarationSyntax _:
+                    case DestructorDeclarationSyntax _:
+                    case OperatorDeclarationSyntax _:
+                    case ConversionOperatorDeclarationSyntax _:
+                    case FieldDeclarationSyntax _:
+                    case EventFieldDeclarationSyntax _:
+                        return true;
+                    case PropertyDeclarationSyntax propertyDeclarationSyntax:
+                        if (propertyDeclarationSyntax.ExpressionBody != null)
+                        {
+                            return true;
+                        }
+
+                        if (propertyDeclarationSyntax.AccessorList?.Accessors != null)
+                        {
+                            foreach (var accessor in propertyDeclarationSyntax.AccessorList.Accessors)
+                            {
+                                if (accessor.Body != null || accessor.ExpressionBody != null)
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+
+                        break;
+                    case EventDeclarationSyntax eventDeclarationSyntax:
+                        if (eventDeclarationSyntax.AccessorList?.Accessors != null)
+                        {
+                            foreach (var accessor in eventDeclarationSyntax.AccessorList.Accessors)
+                            {
+                                if (accessor.Body != null || accessor.ExpressionBody != null)
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+
+                        break;
+                }
+            }
+
+            return false;
         }
     }
 }
