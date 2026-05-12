@@ -59,7 +59,7 @@ namespace Gripe.Analyzer.Analyzers.Language
                 return;
             }
 
-            if (HasMemberImplementation(classDeclarationSyntax))
+            if (HasMethodImplementation(classDeclarationSyntax))
             {
                 return;
             }
@@ -68,7 +68,7 @@ namespace Gripe.Analyzer.Analyzers.Language
             context.ReportDiagnostic(Diagnostic.Create(_rule, identifier.GetLocation()));
         }
 
-        private static bool HasMemberImplementation(ClassDeclarationSyntax classDeclarationSyntax)
+        private static bool HasMethodImplementation(ClassDeclarationSyntax classDeclarationSyntax)
         {
             foreach (var member in classDeclarationSyntax.Members)
             {
@@ -85,52 +85,7 @@ namespace Gripe.Analyzer.Analyzers.Language
                     case DestructorDeclarationSyntax _:
                     case OperatorDeclarationSyntax _:
                     case ConversionOperatorDeclarationSyntax _:
-                    case FieldDeclarationSyntax _:
-                    case EventFieldDeclarationSyntax _:
                         return true;
-                    case PropertyDeclarationSyntax propertyDeclarationSyntax:
-                        if (!propertyDeclarationSyntax.Modifiers.Any(SyntaxKind.AbstractKeyword))
-                        {
-                            return true;
-                        }
-
-                        if (propertyDeclarationSyntax.ExpressionBody != null
-                            || HasAccessorBodyImplementation(propertyDeclarationSyntax.AccessorList))
-                        {
-                            return true;
-                        }
-
-                        break;
-                    case EventDeclarationSyntax eventDeclarationSyntax:
-                        if (!eventDeclarationSyntax.Modifiers.Any(SyntaxKind.AbstractKeyword))
-                        {
-                            return true;
-                        }
-
-                        if (HasAccessorBodyImplementation(eventDeclarationSyntax.AccessorList))
-                        {
-                            return true;
-                        }
-
-                        break;
-                }
-            }
-
-            return false;
-        }
-
-        private static bool HasAccessorBodyImplementation(AccessorListSyntax accessorListSyntax)
-        {
-            if (accessorListSyntax?.Accessors == null)
-            {
-                return false;
-            }
-
-            foreach (var accessor in accessorListSyntax.Accessors)
-            {
-                if (accessor.Body != null || accessor.ExpressionBody != null)
-                {
-                    return true;
                 }
             }
 

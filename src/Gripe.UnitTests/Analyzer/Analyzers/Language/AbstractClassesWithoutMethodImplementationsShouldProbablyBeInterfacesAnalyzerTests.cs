@@ -66,10 +66,10 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
         }
 
         /// <summary>
-        /// Test to ensure abstract classes with auto properties do not return a warning.
+        /// Test to ensure abstract classes with only auto properties still return a warning.
         /// </summary>
         [Fact]
-        public void ReturnsNoWarningWhenAbstractClassContainsAutoProperty()
+        public void ReturnsWarningWhenAbstractClassContainsOnlyAutoProperty()
         {
             const string test = @"
     namespace ConsoleApplication1
@@ -80,7 +80,19 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
         }
     }";
 
-            VerifyCSharpDiagnostic(test);
+            var expected = new DiagnosticResult
+            {
+                Id = DiagnosticIdsHelper.AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfaces,
+                Message = AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfacesAnalyzer.Title,
+                Severity = DiagnosticSeverity.Warning,
+                Locations =
+                    new[]
+                    {
+                        new DiagnosticResultLocation("Test0.cs", 4, 31),
+                    },
+            };
+
+            VerifyCSharpDiagnostic(test, expected);
         }
 
         /// <inheritdoc />
