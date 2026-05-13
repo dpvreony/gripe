@@ -133,5 +133,7 @@ namespace Gripe.Analyzer
         internal const string DoNotMixUnicodeBlocks = "GR0063";
 
         internal const string DoNotUseNewInstanceOfJsonSerializerOptions = "GR0064";
+
+        internal const string AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfaces = "GR0065";
     }
 }

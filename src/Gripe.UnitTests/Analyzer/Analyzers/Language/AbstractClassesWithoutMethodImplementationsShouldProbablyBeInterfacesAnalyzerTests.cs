@@ -10,31 +10,33 @@ using Microsoft.CodeAnalysis;
 namespace Gripe.UnitTests.Analyzer.Analyzers.Language
 {
     /// <summary>
-    /// Unit test for <see cref="PublicMethodsShouldHaveDocumentedCodeExamplesAnalyzer"/>.
+    /// Unit tests for <see cref="AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfacesAnalyzer"/>.
     /// </summary>
-    public sealed class PublicMethodsShouldHaveDocumentedCodeExamplesAnalyzerTests : AbstractAnalyzerTest<PublicMethodsShouldHaveDocumentedCodeExamplesAnalyzer>
+    public sealed class AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfacesAnalyzerTests : AbstractAnalyzerTest<AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfacesAnalyzer>
     {
         /// <inheritdoc/>
         protected override string GetExpectedDiagnosticId()
         {
-            return DiagnosticIdsHelper.PublicMethodsShouldHaveDocumentedCodeExamples;
+            return DiagnosticIdsHelper.AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfaces;
         }
 
         /// <inheritdoc/>
         protected override ExpectedDiagnosticModel[] GetExpectedDiagnosticLines()
         {
+            const string ProofFilePath = "Language\\AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfacesProof.cs";
+
             return
             [
                 new ExpectedDiagnosticModel(
-                    "EfCore\\DbSetUpdateProof.cs",
+                    ProofFilePath,
                     DiagnosticSeverity.Warning,
-                    27,
-                    27),
+                    16,
+                    30),
                 new ExpectedDiagnosticModel(
-                    "Language\\AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfacesProof.cs",
+                    ProofFilePath,
                     DiagnosticSeverity.Warning,
-                    28,
-                    24)
+                    36,
+                    30),
             ];
         }
     }
