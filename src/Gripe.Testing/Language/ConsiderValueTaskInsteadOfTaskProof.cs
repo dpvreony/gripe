@@ -38,6 +38,11 @@ namespace Gripe.Testing.Language
         /// Negative proof: public method where the API contract change is too risky.
         /// Should not trigger <see cref="ConsiderValueTaskInsteadOfTaskAnalyzer"/>.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// var result = await ConsiderValueTaskInsteadOfTaskProof.PublicMethod();
+        /// </code>
+        /// </example>
         public static Task<int> PublicMethod() => Task.FromResult(42);
 
         // Negative: returns a cached/stored Task instance which may be shared or re-awaited.
@@ -75,6 +80,12 @@ namespace Gripe.Testing.Language
         /// Negative proof: abstract method with no body to analyse.
         /// Should not trigger <see cref="ConsiderValueTaskInsteadOfTaskAnalyzer"/>.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// // Override in a derived class:
+        /// public override Task&lt;int&gt; AbstractMethod() =&gt; Task.FromResult(42);
+        /// </code>
+        /// </example>
         public abstract Task<int> AbstractMethod();
 
         // Negative: virtual member - overriders may return Task<T> objects.
@@ -82,6 +93,12 @@ namespace Gripe.Testing.Language
         /// Negative proof: virtual method where overriders may rely on Task&lt;T&gt; semantics.
         /// Should not trigger <see cref="ConsiderValueTaskInsteadOfTaskAnalyzer"/>.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// AbstractConsiderValueTaskInsteadOfTaskProofBase instance = new ConsiderValueTaskInsteadOfTaskProofOverride();
+        /// var result = await instance.VirtualMethod();
+        /// </code>
+        /// </example>
         public virtual Task<int> VirtualMethod() => Task.FromResult(42);
     }
 
