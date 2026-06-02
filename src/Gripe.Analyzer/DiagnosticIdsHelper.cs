@@ -135,5 +135,7 @@ namespace Gripe.Analyzer
         internal const string DoNotUseNewInstanceOfJsonSerializerOptions = "GR0064";
 
         internal const string AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfaces = "GR0065";
+
+        internal const string ConsiderValueTaskInsteadOfTask = "GR0066";
     }
 }
