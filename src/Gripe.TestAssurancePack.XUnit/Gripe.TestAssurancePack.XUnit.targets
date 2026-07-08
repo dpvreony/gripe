@@ -1,0 +1,9 @@
+﻿<Project>
+  <PropertyGroup>
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+    <TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
+    <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
+    <EnableStaticNativeInstrumentation>False</EnableStaticNativeInstrumentation>
+    <EnableDynamicNativeInstrumentation>False</EnableDynamicNativeInstrumentation>
+  </PropertyGroup>
+</Project>

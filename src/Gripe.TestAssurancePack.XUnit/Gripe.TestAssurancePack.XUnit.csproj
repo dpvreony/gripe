@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net10.0</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+    <Authors>dpvreony</Authors>
+    <Description>Collection of packages for assisting in XUnit Unit Testing during .NET software development</Description>
+    <PackageLicense>MIT</PackageLicense>
+    <PackageTags>xUnit TestPack</PackageTags>
+    <DebugType>full</DebugType>
+    <DebugSymbols>True</DebugSymbols>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <NoWarn>$(NoWarn);NU1702;NU5100;NU5128</NoWarn>
+    <IsTestProject>False</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GitHubActionsTestLogger" Version="3.0.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.7.0" />
+    <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.9.0" />
+    <PackageReference Include="Microsoft.Testing.Platform" Version="2.3.0" />
+    <PackageReference Include="NetTestRegimentation" Version="2.0.8" />
+    <PackageReference Include="NetTestRegimentation.Xunit" Version="2.0.8" />
+    <PackageReference Include="Rocks" Version="10.3.0" PrivateAssets="all" />
+    <PackageReference Include="TestableIO.System.IO.Abstractions.TestingHelpers" Version="22.1.1" />
+    <PackageReference Include="xunit.v3.mtp-v2" Version="3.2.2" />
+    <PackageReference Include="xunit.analyzers" Version="1.27.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5" />
+    <PackageReference Include="Xunit.StaFact" Version="3.0.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="*.targets" Pack="true" PackagePath="build" />
+    <None Include="readme.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+</Project>

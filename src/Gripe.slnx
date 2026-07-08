@@ -15,4 +15,5 @@
   <Project Path="Gripe.MSBuildBinLogStats.DotNetTool/Gripe.MSBuildBinLogStats.DotNetTool.csproj" />
   <Project Path="Gripe.QualityAssurancePack/Gripe.QualityAssurancePack.csproj" />
   <Project Path="Gripe.SourceGenerator/Gripe.SourceGenerator.csproj" />
+  <Project Path="Gripe.TestAssurancePack.XUnit/Gripe.TestAssurancePack.XUnit.csproj" Id="f36ff145-5f42-479b-8905-46a47f39fae7" />
 </Solution>
