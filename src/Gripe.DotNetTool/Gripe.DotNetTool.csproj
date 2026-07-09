@@ -37,4 +37,7 @@
     <ProjectReference Include="..\Gripe.SourceGenerator\Gripe.SourceGenerator.csproj" OutputItemType="Analyzer" PrivateAssets="all" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="readme.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 </Project>
