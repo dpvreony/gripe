@@ -28,32 +28,32 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.EfCore
                 new ExpectedDiagnosticModel(
                     "EfCore\\EfCoreStaticLambdaProof.cs",
                     DiagnosticSeverity.Warning,
-                    21,
+                    34,
                     39),
                 new ExpectedDiagnosticModel(
                     "EfCore\\EfCoreStaticLambdaProof.cs",
                     DiagnosticSeverity.Warning,
-                    22,
+                    35,
                     40),
                 new ExpectedDiagnosticModel(
                     "EfCore\\EfCoreStaticLambdaProof.cs",
                     DiagnosticSeverity.Warning,
-                    23,
+                    36,
                     50),
                 new ExpectedDiagnosticModel(
                     "EfCore\\EfCoreStaticLambdaProof.cs",
                     DiagnosticSeverity.Warning,
-                    24,
+                    37,
                     40),
                 new ExpectedDiagnosticModel(
                     "EfCore\\EfCoreStaticLambdaProof.cs",
                     DiagnosticSeverity.Warning,
-                    25,
+                    38,
                     71),
                 new ExpectedDiagnosticModel(
                     "EfCore\\EfCoreStaticLambdaProof.cs",
                     DiagnosticSeverity.Warning,
-                    26,
+                    39,
                     40),
             ];
         }

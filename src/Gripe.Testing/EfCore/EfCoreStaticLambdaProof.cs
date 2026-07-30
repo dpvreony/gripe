@@ -17,6 +17,19 @@ namespace Gripe.Testing.EfCore
         /// Proof of Select, OrderBy, OrderByDescending, GroupBy, ThenBy and Include invocations to trigger the analyzer.
         /// </summary>
         /// <param name="dbContext">Identity Db Context instance.</param>
+        /// <example>
+        /// <code>
+        /// var dbContext = new IdentityDbContext();
+        /// EfCoreStaticLambdaProof.CallsQueryMethods(dbContext);
+        /// </code>
+        /// </example>
+        /// <remarks>
+        /// This code is just a proof for
+        /// 1) making sure the code builds
+        /// 2) making sure the analyzer triggers
+        ///
+        /// It is in no way meant to be regarded as usable code.
+        /// </remarks>
         public static void CallsQueryMethods(IdentityDbContext dbContext)
         {
             _ = dbContext.Users.Select(x => x.Id).ToList();
