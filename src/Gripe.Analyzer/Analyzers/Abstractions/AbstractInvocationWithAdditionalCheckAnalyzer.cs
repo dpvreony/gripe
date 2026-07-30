@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Immutable;
+using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -77,6 +78,22 @@ namespace Gripe.Analyzer.Analyzers.Abstractions
             if (memberExpression == null || !memberExpression.Name.ToString().Equals(MethodName, StringComparison.Ordinal))
             {
                 return;
+            }
+
+            var containingTypes = ContainingTypes;
+            if (containingTypes.Length > 0)
+            {
+                var symbolInfo = context.SemanticModel.GetSymbolInfo(invocationExpression);
+                if (symbolInfo.Symbol is not IMethodSymbol invokedMethodSymbol)
+                {
+                    return;
+                }
+
+                var containingTypeName = invokedMethodSymbol.ContainingType.ToDisplayString();
+                if (!containingTypes.Any(t => containingTypeName.Equals(t, StringComparison.Ordinal)))
+                {
+                    return;
+                }
             }
 
             if (!GetIfShouldReport(context.SemanticModel, memberExpression))
