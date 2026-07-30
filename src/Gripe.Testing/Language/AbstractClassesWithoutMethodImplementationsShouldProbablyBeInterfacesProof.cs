@@ -41,5 +41,24 @@ namespace Gripe.Testing.Language
             /// </summary>
             public int Value { get; set; }
         }
+
+        /// <summary>
+        /// Proof base type for demonstrating generic constraint restriction scenario.
+        /// </summary>
+        /// <typeparam name="T">The type parameter.</typeparam>
+        public class TypeNameGenericBase<T>
+            where T : System.IDisposable
+        {
+        }
+
+        /// <summary>
+        /// Proof type for an abstract class inheriting from a generic class with restricted constraints.
+        /// Should NOT be flagged by GR0065.
+        /// </summary>
+        /// <typeparam name="T">The type parameter.</typeparam>
+        public abstract class TypeNameInheritingFromGenericClassWithConstraints<T> : TypeNameGenericBase<T>
+            where T : System.IDisposable, System.IComparable
+        {
+        }
     }
 }
