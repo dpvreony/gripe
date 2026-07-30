@@ -64,8 +64,33 @@ namespace Gripe.Analyzer.Analyzers.Language
                 return;
             }
 
+            if (HasBaseClass(classDeclarationSyntax, context))
+            {
+                return;
+            }
+
             var identifier = classDeclarationSyntax.Identifier;
             context.ReportDiagnostic(Diagnostic.Create(_rule, identifier.GetLocation()));
+        }
+
+        private static bool HasBaseClass(ClassDeclarationSyntax classDeclarationSyntax, SyntaxNodeAnalysisContext context)
+        {
+            if (classDeclarationSyntax.BaseList == null)
+            {
+                return false;
+            }
+
+            var semanticModel = context.SemanticModel;
+            foreach (var baseTypeSyntax in classDeclarationSyntax.BaseList.Types)
+            {
+                var typeSymbol = semanticModel.GetTypeInfo(baseTypeSyntax.Type).Type;
+                if (typeSymbol is INamedTypeSymbol namedTypeSymbol && namedTypeSymbol.TypeKind == TypeKind.Class)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private static bool HasMethodImplementation(ClassDeclarationSyntax classDeclarationSyntax)
