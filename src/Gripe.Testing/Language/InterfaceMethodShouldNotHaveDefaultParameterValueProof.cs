@@ -14,6 +14,12 @@ namespace Gripe.Testing.Language
         /// </summary>
         /// <param name="name">The item name.</param>
         /// <param name="quantity">The item quantity.</param>
+        /// <example>
+        /// <code>
+        /// IInterfaceMethodShouldNotHaveDefaultParameterValueProof proof = null;
+        /// proof!.AddItem("foo");
+        /// </code>
+        /// </example>
         void AddItem(string name, int quantity = 2);
 
         /// <summary>
@@ -21,6 +27,12 @@ namespace Gripe.Testing.Language
         /// </summary>
         /// <param name="name">The item name.</param>
         /// <param name="quantity">The item quantity.</param>
+        /// <example>
+        /// <code>
+        /// IInterfaceMethodShouldNotHaveDefaultParameterValueProof proof = null;
+        /// proof!.AddItemNoDefault("foo", 2);
+        /// </code>
+        /// </example>
         void AddItemNoDefault(string name, int quantity);
     }
 
@@ -34,6 +46,12 @@ namespace Gripe.Testing.Language
         /// </summary>
         /// <param name="name">The item name.</param>
         /// <param name="quantity">The item quantity.</param>
+        /// <example>
+        /// <code>
+        /// var proof = new InterfaceMethodShouldNotHaveDefaultParameterValueProof();
+        /// proof.AddItem("foo");
+        /// </code>
+        /// </example>
         public void AddItem(string name, int quantity = 2)
         {
         }
