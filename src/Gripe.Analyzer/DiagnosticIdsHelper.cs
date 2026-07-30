@@ -137,5 +137,7 @@ namespace Gripe.Analyzer
         internal const string AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfaces = "GR0065";
 
         internal const string ConsiderValueTaskInsteadOfTask = "GR0066";
+
+        internal const string InterfaceMethodShouldNotHaveDefaultParameterValue = "GR0067";
     }
 }
