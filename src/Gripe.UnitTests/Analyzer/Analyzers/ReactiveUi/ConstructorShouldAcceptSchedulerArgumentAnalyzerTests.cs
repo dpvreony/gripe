@@ -54,17 +54,17 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.ReactiveUi
         }
 
         /// <summary>
-        /// Test to ensure good code doesn't return a warning.
+        /// Test to ensure good code using ReactiveUI 24 ISequencer doesn't return a warning.
         /// </summary>
         [Fact]
-        public void ReturnsNoWarning()
+        public void ReturnsNoWarningForISequencer()
         {
             const string test = @"
     namespace TestConsole
     {
         public class TestObject : ReactiveUI.ReactiveObject
         {
-            public TestObject(System.Reactive.Concurrency.IScheduler scheduler)
+            public TestObject(ReactiveUI.Primitives.Concurrency.ISequencer sequencer)
             {
             }
         }
