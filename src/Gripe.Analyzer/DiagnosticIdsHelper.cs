@@ -139,5 +139,7 @@ namespace Gripe.Analyzer
         internal const string ConsiderValueTaskInsteadOfTask = "GR0066";
 
         internal const string InterfaceMethodShouldNotHaveDefaultParameterValue = "GR0067";
+
+        internal const string UseStaticLambdaForEntityFrameworkCoreQueryMethods = "GR0068";
     }
 }
