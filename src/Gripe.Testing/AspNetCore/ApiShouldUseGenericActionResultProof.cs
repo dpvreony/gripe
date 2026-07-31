@@ -2,13 +2,6 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
-namespace System.Web.Http
-{
-    public interface IHttpActionResult
-    {
-    }
-}
-
 namespace System.System.Web.Http
 {
     public class ApiController
@@ -21,7 +14,7 @@ namespace Gripe.Testing.AspNetCore
     public sealed class ApiShouldUseGenericActionResultProof : System.System.Web.Http.ApiController
     {
         /// <summary>
-        /// Method returning legacy <see cref="System.Web.Http.IHttpActionResult"/>.
+        /// Method returning <see cref="Microsoft.AspNetCore.Mvc.IActionResult"/>.
         /// </summary>
         /// <example>
         /// <code>
@@ -29,7 +22,7 @@ namespace Gripe.Testing.AspNetCore
         /// _ = proof.Get();
         /// </code>
         /// </example>
-        public System.Web.Http.IHttpActionResult? Get()
+        public Microsoft.AspNetCore.Mvc.IActionResult? Get()
         {
             return null;
         }
