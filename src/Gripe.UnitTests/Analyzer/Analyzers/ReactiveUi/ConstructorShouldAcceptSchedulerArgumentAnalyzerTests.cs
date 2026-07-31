@@ -1,82 +1,36 @@
-﻿// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
+// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
 using Gripe.Analyzer;
 using Gripe.Analyzer.Analyzers.ReactiveUi;
-using Gripe.UnitTests.Analyzer.Helpers;
+using Gripe.UnitTests.Analyzer.Analyzers.EfCore;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Diagnostics;
-using Xunit;
 
 namespace Gripe.UnitTests.Analyzer.Analyzers.ReactiveUi
 {
     /// <summary>
     /// Unit Tests for <see cref="ConstructorShouldAcceptSchedulerArgumentAnalyzer"/>.
     /// </summary>
-    public sealed class ConstructorShouldAcceptSchedulerArgumentAnalyzerTests : CodeFixVerifier
+    public sealed class ConstructorShouldAcceptSchedulerArgumentAnalyzerTests : AbstractAnalyzerTest<ConstructorShouldAcceptSchedulerArgumentAnalyzer>
     {
-        /// <summary>
-        /// Test to ensure bad code returns a warning.
-        /// </summary>
-        [Fact]
-        public void ReturnsWarning()
+        /// <inheritdoc/>
+        protected override string GetExpectedDiagnosticId()
         {
-            const string test = @"
-    namespace TestConsole
-    {
-        public class TestViewModel : ReactiveUI.ReactiveObject
-        {
-            public TestObject()
-            {
-                SomeMethod();
-            }
-
-            private static void SomeMethod()
-            {
-            }
-        }
-    }";
-
-            var expected = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.ConstructorShouldAcceptSchedulerArgument,
-                Message = ConstructorShouldAcceptSchedulerArgumentAnalyzer.Title,
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 6, 13)
-                    }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
+            return DiagnosticIdsHelper.ConstructorShouldAcceptSchedulerArgument;
         }
 
-        /// <summary>
-        /// Test to ensure good code using ReactiveUI 24 ISequencer doesn't return a warning.
-        /// </summary>
-        [Fact]
-        public void ReturnsNoWarningForISequencer()
+        /// <inheritdoc/>
+        protected override ExpectedDiagnosticModel[] GetExpectedDiagnosticLines()
         {
-            const string test = @"
-    namespace TestConsole
-    {
-        public class TestObject : ReactiveUI.ReactiveObject
-        {
-            public TestObject(ReactiveUI.Primitives.Concurrency.ISequencer sequencer)
-            {
-            }
-        }
-    }";
-
-            VerifyCSharpDiagnostic(test);
-        }
-
-        /// <inheritdoc />
-        protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
-        {
-            return new ConstructorShouldAcceptSchedulerArgumentAnalyzer();
+            return
+            [
+                new ExpectedDiagnosticModel(
+                    @"ReactiveUi\ConstructorShouldAcceptSchedulerArgumentProof.cs",
+                    DiagnosticSeverity.Warning,
+                    30,
+                    8)
+            ];
         }
     }
 }

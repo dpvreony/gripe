@@ -1,76 +1,33 @@
-﻿// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
+// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
 using Gripe.Analyzer;
 using Gripe.Analyzer.Analyzers.Runtime;
-using Gripe.UnitTests.Analyzer.Helpers;
+using Gripe.UnitTests.Analyzer.Analyzers.EfCore;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Diagnostics;
-using Xunit;
 
 namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
 {
     /// <summary>
     /// Unit Tests for <see cref="DoNotUseObjectAsReturnTypeAnalyzer"/>.
     /// </summary>
-    public sealed class DoNotUseObjectAsReturnTypeAnalyzerTests : CodeFixVerifier
+    public sealed class DoNotUseObjectAsReturnTypeAnalyzerTests : AbstractAnalyzerTest<DoNotUseObjectAsReturnTypeAnalyzer>
     {
-        /// <summary>
-        /// Test to ensure bad code returns a warning.
-        /// </summary>
-        [Fact]
-        public void ReturnsWarning()
+        /// <inheritdoc/>
+        protected override string GetExpectedDiagnosticId()
         {
-            var test = @"
-    namespace ConsoleApplication1
-    {
-        class TypeName
-        {
-            public object MethodName()
-            {
-                return new object();
-            }
-
-            public System.Object MethodName2(System.Object arg)
-            {
-                return new System.Object();
-            }
-        }
-    }";
-            var expected = new[]
-            {
-                new DiagnosticResult
-                {
-                    Id = DiagnosticIdsHelper.DoNotUseObjectAsReturnType,
-                    Message = DoNotUseObjectAsReturnTypeAnalyzer.Title,
-                    Severity = DiagnosticSeverity.Warning,
-                    Locations =
-                    [
-                        new DiagnosticResultLocation("Test0.cs", 6, 20)
-                    ]
-                },
-                new DiagnosticResult
-                {
-                    Id = DiagnosticIdsHelper.DoNotUseObjectAsReturnType,
-                    Message = DoNotUseObjectAsReturnTypeAnalyzer.Title,
-                    Severity = DiagnosticSeverity.Warning,
-                    Locations =
-                    [
-                        new DiagnosticResultLocation("Test0.cs", 11, 20)
-                    ]
-                }
-            };
-
-            VerifyCSharpDiagnostic(
-                test,
-                expected);
+            return DiagnosticIdsHelper.DoNotUseObjectAsReturnType;
         }
 
-        /// <inheritdoc />
-        protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
+        /// <inheritdoc/>
+        protected override ExpectedDiagnosticModel[] GetExpectedDiagnosticLines()
         {
-            return new DoNotUseObjectAsReturnTypeAnalyzer();
+            return
+            [
+                new ExpectedDiagnosticModel(@"Runtime\DoNotUseObjectAsReturnTypeProof.cs", DiagnosticSeverity.Warning, 17, 15),
+                new ExpectedDiagnosticModel(@"Runtime\DoNotUseObjectAsReturnTypeProof.cs", DiagnosticSeverity.Warning, 33, 15)
+            ];
         }
     }
 }

@@ -1,71 +1,32 @@
-﻿// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
+// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
 using Gripe.Analyzer;
 using Gripe.Analyzer.Analyzers.Runtime;
-using Gripe.UnitTests.Analyzer.Helpers;
+using Gripe.UnitTests.Analyzer.Analyzers.EfCore;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Diagnostics;
-using Xunit;
 
 namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
 {
     /// <summary>
     /// Unit Tests for <see cref="UseSystemTextJsonInsteadOfNewtonsoftJsonAnalyzer"/>.
     /// </summary>
-    public sealed class UseSystemTextJsonInsteadOfNewtonsoftJsonAnalyzerTests : CodeFixVerifier
+    public sealed class UseSystemTextJsonInsteadOfNewtonsoftJsonAnalyzerTests : AbstractAnalyzerTest<UseSystemTextJsonInsteadOfNewtonsoftJsonAnalyzer>
     {
-        /// <summary>
-        /// Test to ensure bad code returns a warning.
-        /// </summary>
-        [Fact]
-        public void ReturnsWarning()
+        /// <inheritdoc/>
+        protected override string GetExpectedDiagnosticId()
         {
-            var test = @"
-    namespace Newtonsoft.Json
-    {
-        public static class JsonConvert
-        {
-            public static object DeserializeObject(string value)
-            {
-                return value;
-            }
-        }
-    }
-
-    namespace ConsoleApplication1
-    {
-        using System.Text;
-
-        class TypeName
-        {
-            public void MethodName()
-            {
-                global::Newtonsoft.Json.JsonConvert.DeserializeObject(""{}"");
-            }
-        }
-    }";
-
-            var expected = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.UseSystemTextJsonInsteadOfNewtonsoftJson,
-                Message = UseSystemTextJsonInsteadOfNewtonsoftJsonAnalyzer.Title,
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 21, 17)
-                    }
-            };
-
-            VerifyCSharpDiagnostic(test, expected);
+            return DiagnosticIdsHelper.UseSystemTextJsonInsteadOfNewtonsoftJson;
         }
 
-        /// <inheritdoc />
-        protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
+        /// <inheritdoc/>
+        protected override ExpectedDiagnosticModel[] GetExpectedDiagnosticLines()
         {
-            return new UseSystemTextJsonInsteadOfNewtonsoftJsonAnalyzer();
+            return
+            [
+                new ExpectedDiagnosticModel(@"Runtime\UseSystemTextJsonInsteadOfNewtonsoftJsonProof.cs", DiagnosticSeverity.Warning, 30, 12)
+            ];
         }
     }
 }
