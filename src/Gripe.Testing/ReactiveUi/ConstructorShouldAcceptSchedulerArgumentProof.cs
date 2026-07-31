@@ -2,20 +2,6 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
-namespace ReactiveUI
-{
-    public class ReactiveObject
-    {
-    }
-}
-
-namespace ReactiveUI.Primitives.Concurrency
-{
-    public interface ISequencer
-    {
-    }
-}
-
 namespace Gripe.Testing.ReactiveUi
 {
     public sealed class ConstructorShouldAcceptSchedulerArgumentProof : ReactiveUI.ReactiveObject
@@ -43,14 +29,14 @@ namespace Gripe.Testing.ReactiveUi
         /// <summary>
         /// Initializes a new instance of the <see cref="ConstructorShouldAcceptSchedulerArgumentNoWarningProof"/> class.
         /// </summary>
-        /// <param name="sequencer">Sequencer argument.</param>
+        /// <param name="scheduler">Scheduler argument.</param>
         /// <example>
         /// <code>
-        /// ReactiveUI.Primitives.Concurrency.ISequencer sequencer = null!;
-        /// var proof = new ConstructorShouldAcceptSchedulerArgumentNoWarningProof(sequencer);
+        /// System.Reactive.Concurrency.IScheduler scheduler = null!;
+        /// var proof = new ConstructorShouldAcceptSchedulerArgumentNoWarningProof(scheduler);
         /// </code>
         /// </example>
-        public ConstructorShouldAcceptSchedulerArgumentNoWarningProof(ReactiveUI.Primitives.Concurrency.ISequencer sequencer)
+        public ConstructorShouldAcceptSchedulerArgumentNoWarningProof(System.Reactive.Concurrency.IScheduler scheduler)
         {
         }
     }

@@ -25,7 +25,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
         {
             return
             [
-                new ExpectedDiagnosticModel(@"Runtime\UseSystemTextJsonInsteadOfNewtonsoftJsonProof.cs", DiagnosticSeverity.Warning, 30, 12)
+                new ExpectedDiagnosticModel(@"Runtime\UseSystemTextJsonInsteadOfNewtonsoftJsonProof.cs", DiagnosticSeverity.Warning, 19, 16)
             ];
         }
     }

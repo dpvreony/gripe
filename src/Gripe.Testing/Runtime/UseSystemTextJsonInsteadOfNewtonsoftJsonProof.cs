@@ -2,17 +2,6 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
-namespace Newtonsoft.Json
-{
-    internal static class JsonConvert
-    {
-        internal static string DeserializeObject(string value)
-        {
-            return value;
-        }
-    }
-}
-
 namespace Gripe.Testing.Runtime
 {
     public sealed class UseSystemTextJsonInsteadOfNewtonsoftJsonProof
@@ -28,7 +17,7 @@ namespace Gripe.Testing.Runtime
         /// </example>
         public void MethodName()
         {
-            global::Newtonsoft.Json.JsonConvert.DeserializeObject("{}");
+            _ = new global::Newtonsoft.Json.JsonSerializer();
         }
     }
 }

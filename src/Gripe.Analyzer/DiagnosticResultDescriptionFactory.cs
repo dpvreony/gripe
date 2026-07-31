@@ -24,7 +24,7 @@ namespace Gripe.Analyzer
 
         internal static string DoNotUseDynamicAsParameterType() => $"Do not use dynamic as a parameter type.";
 
-        internal static string ConstructorShouldAcceptSchedulerArgument() => $"ReactiveUI ViewModel Constructors should accept a parameter of \nReactiveUI.Primitives.Concurrency.ISequencer.\n\nThis is to aid with Unit Testing time sensitive logic.";
+        internal static string ConstructorShouldAcceptSchedulerArgument() => $"ReactiveUI ViewModel Constructors should accept a parameter of \nSystem.Reactive.Concurrency.IScheduler.\n\nThis is to aid with Unit Testing time sensitive logic.";
 
         internal static string ProjectShouldEnableNullableReferenceTypes() => $"Project should enable Nullable Reference Types. This is to aid with code correctness and to avoid null reference exceptions.";
 
