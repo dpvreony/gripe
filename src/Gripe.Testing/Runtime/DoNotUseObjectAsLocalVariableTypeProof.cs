@@ -17,7 +17,7 @@ namespace Gripe.Testing.Runtime
         /// </example>
         public void MethodName()
         {
-            object name = null!;
+            object name = null!; _ = name;
         }
 
 #pragma warning disable SA1121 // Use built-in type alias
@@ -34,7 +34,7 @@ namespace Gripe.Testing.Runtime
         public void MethodName2(System.Object arg)
 #pragma warning restore SA1121 // Use built-in type alias
         {
-            System.Object name = null!;
+            System.Object name = arg; _ = name;
         }
 
         /// <summary>

@@ -11,5 +11,11 @@ namespace Gripe.Testing.Runtime
 #pragma warning disable SA1121 // Use built-in type alias
         private readonly System.Object _field2 = null!;
 #pragma warning restore SA1121 // Use built-in type alias
+
+        private void ConsumeFields()
+        {
+            System.GC.KeepAlive(this._field);
+            System.GC.KeepAlive(this._field2);
+        }
     }
 }
