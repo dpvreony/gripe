@@ -4,6 +4,7 @@
 
 namespace Gripe.Testing.Runtime
 {
+    /// <summary>Proof source for DoNotUseObjectAsLocalVariableType analyzer.</summary>
     public sealed class DoNotUseObjectAsLocalVariableTypeProof
     {
         /// <summary>

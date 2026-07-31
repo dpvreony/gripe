@@ -4,8 +4,10 @@
 
 namespace Gripe.Testing.Language
 {
+    /// <summary>Proof source for ClassWithAbstractKeyword analyzer.</summary>
     public abstract class ClassWithAbstractKeywordProof
     {
+        /// <summary>Abstract method used by the proof type.</summary>
         protected abstract void MethodName();
     }
 }

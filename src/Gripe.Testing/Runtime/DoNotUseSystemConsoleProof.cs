@@ -4,6 +4,7 @@
 
 namespace Gripe.Testing.Runtime
 {
+    /// <summary>Proof source for DoNotUseSystemConsole analyzer.</summary>
     public sealed class DoNotUseSystemConsoleProof
     {
         /// <summary>

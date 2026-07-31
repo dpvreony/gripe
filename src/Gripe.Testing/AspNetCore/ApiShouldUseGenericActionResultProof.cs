@@ -4,6 +4,7 @@
 
 namespace Gripe.Testing.AspNetCore
 {
+    /// <summary>Proof source for ApiShouldUseGenericActionResult analyzer.</summary>
     public sealed class ApiShouldUseGenericActionResultProof : Microsoft.AspNetCore.Mvc.ControllerBase
     {
         /// <summary>

@@ -25,7 +25,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
         {
             return
             [
-                new ExpectedDiagnosticModel(@"Language\DoNotUseDynamicKeywordProof.cs", DiagnosticSeverity.Warning, 18, 31)
+                new ExpectedDiagnosticModel(@"Language\DoNotUseDynamicKeywordProof.cs", DiagnosticSeverity.Warning, 19, 31)
             ];
         }
     }

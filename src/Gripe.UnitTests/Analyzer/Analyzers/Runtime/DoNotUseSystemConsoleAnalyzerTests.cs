@@ -25,7 +25,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
         {
             return
             [
-                new ExpectedDiagnosticModel(@"Runtime\DoNotUseSystemConsoleProof.cs", DiagnosticSeverity.Warning, 19, 12)
+                new ExpectedDiagnosticModel(@"Runtime\DoNotUseSystemConsoleProof.cs", DiagnosticSeverity.Warning, 20, 12)
             ];
         }
     }

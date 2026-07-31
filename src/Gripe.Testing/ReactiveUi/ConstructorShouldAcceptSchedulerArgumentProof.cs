@@ -4,6 +4,7 @@
 
 namespace Gripe.Testing.ReactiveUi
 {
+    /// <summary>Proof source for ConstructorShouldAcceptSchedulerArgument analyzer warning case.</summary>
     public sealed class ConstructorShouldAcceptSchedulerArgumentProof : ReactiveUI.ReactiveObject
     {
         /// <summary>
@@ -24,6 +25,7 @@ namespace Gripe.Testing.ReactiveUi
         }
     }
 
+    /// <summary>Proof source for ConstructorShouldAcceptSchedulerArgument analyzer non-warning case.</summary>
     public sealed class ConstructorShouldAcceptSchedulerArgumentNoWarningProof : ReactiveUI.ReactiveObject
     {
         /// <summary>

@@ -25,7 +25,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
         {
             return
             [
-                new ExpectedDiagnosticModel(@"Language\ClassWithAbstractKeywordProof.cs", DiagnosticSeverity.Warning, 6, 26),
+                new ExpectedDiagnosticModel(@"Language\ClassWithAbstractKeywordProof.cs", DiagnosticSeverity.Warning, 7, 26),
                 new ExpectedDiagnosticModel(@"Language\AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfacesProof.cs", DiagnosticSeverity.Warning, 16, 30),
                 new ExpectedDiagnosticModel(@"Language\AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfacesProof.cs", DiagnosticSeverity.Warning, 23, 30),
                 new ExpectedDiagnosticModel(@"Language\AbstractClassesWithoutMethodImplementationsShouldProbablyBeInterfacesProof.cs", DiagnosticSeverity.Warning, 36, 30),

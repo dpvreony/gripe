@@ -28,7 +28,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.ReactiveUi
                 new ExpectedDiagnosticModel(
                     @"ReactiveUi\ConstructorShouldAcceptSchedulerArgumentProof.cs",
                     DiagnosticSeverity.Warning,
-                    16,
+                    17,
                     8)
             ];
         }

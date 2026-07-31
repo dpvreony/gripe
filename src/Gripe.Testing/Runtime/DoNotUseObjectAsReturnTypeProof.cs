@@ -4,6 +4,7 @@
 
 namespace Gripe.Testing.Runtime
 {
+    /// <summary>Proof source for DoNotUseObjectAsReturnType analyzer.</summary>
     public sealed class DoNotUseObjectAsReturnTypeProof
     {
         /// <summary>

@@ -4,6 +4,7 @@
 
 namespace Gripe.Testing.Language
 {
+    /// <summary>Proof source for BooleanTryMethodShouldBeUsedInLogicalNotIfStatement analyzer.</summary>
     public sealed class BooleanTryMethodShouldBeUsedInLogicalNotIfStatementProof
     {
         /// <summary>

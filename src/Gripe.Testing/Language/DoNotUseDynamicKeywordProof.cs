@@ -4,6 +4,7 @@
 
 namespace Gripe.Testing.Language
 {
+    /// <summary>Proof source for DoNotUseDynamicKeyword analyzer.</summary>
     public sealed class DoNotUseDynamicKeywordProof
     {
         /// <summary>

@@ -4,6 +4,7 @@
 
 namespace Gripe.Testing.Runtime
 {
+    /// <summary>Proof source for UseSystemTextJsonInsteadOfNewtonsoftJson analyzer.</summary>
     public sealed class UseSystemTextJsonInsteadOfNewtonsoftJsonProof
     {
         /// <summary>

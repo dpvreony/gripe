@@ -4,6 +4,7 @@
 
 namespace Gripe.Testing.Runtime
 {
+    /// <summary>Proof source for DoNotUseObjectAsFieldType analyzer.</summary>
     public sealed class DoNotUseObjectAsFieldTypeProof
     {
         private readonly object _field = null!;

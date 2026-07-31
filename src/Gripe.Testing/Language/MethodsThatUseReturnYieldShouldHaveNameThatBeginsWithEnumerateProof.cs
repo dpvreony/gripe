@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace Gripe.Testing.Language
 {
+    /// <summary>Proof source for MethodsThatUseReturnYieldShouldHaveNameThatBeginsWithEnumerate analyzer.</summary>
     public sealed class MethodsThatUseReturnYieldShouldHaveNameThatBeginsWithEnumerateProof
     {
         /// <summary>

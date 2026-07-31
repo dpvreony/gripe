@@ -25,8 +25,8 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
         {
             return
             [
-                new ExpectedDiagnosticModel(@"Runtime\DoNotUseObjectAsPropertyTypeProof.cs", DiagnosticSeverity.Warning, 8, 15),
-                new ExpectedDiagnosticModel(@"Runtime\DoNotUseObjectAsPropertyTypeProof.cs", DiagnosticSeverity.Warning, 11, 15),
+                new ExpectedDiagnosticModel(@"Runtime\DoNotUseObjectAsPropertyTypeProof.cs", DiagnosticSeverity.Warning, 10, 15),
+                new ExpectedDiagnosticModel(@"Runtime\DoNotUseObjectAsPropertyTypeProof.cs", DiagnosticSeverity.Warning, 14, 15),
             ];
         }
     }

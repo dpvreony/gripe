@@ -25,10 +25,10 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
         {
             return
             [
-                new ExpectedDiagnosticModel(@"Runtime\DoNotUseObjectAsLocalVariableTypeProof.cs", DiagnosticSeverity.Warning, 19, 12),
-                new ExpectedDiagnosticModel(@"Runtime\DoNotUseObjectAsLocalVariableTypeProof.cs", DiagnosticSeverity.Warning, 36, 12),
-                new ExpectedDiagnosticModel(@"Runtime\DoNotUseObjectAsFieldTypeProof.cs", DiagnosticSeverity.Warning, 8, 25),
-                new ExpectedDiagnosticModel(@"Runtime\DoNotUseObjectAsFieldTypeProof.cs", DiagnosticSeverity.Warning, 11, 25),
+                new ExpectedDiagnosticModel(@"Runtime\DoNotUseObjectAsLocalVariableTypeProof.cs", DiagnosticSeverity.Warning, 20, 12),
+                new ExpectedDiagnosticModel(@"Runtime\DoNotUseObjectAsLocalVariableTypeProof.cs", DiagnosticSeverity.Warning, 37, 12),
+                new ExpectedDiagnosticModel(@"Runtime\DoNotUseObjectAsFieldTypeProof.cs", DiagnosticSeverity.Warning, 9, 25),
+                new ExpectedDiagnosticModel(@"Runtime\DoNotUseObjectAsFieldTypeProof.cs", DiagnosticSeverity.Warning, 12, 25),
             ];
         }
     }

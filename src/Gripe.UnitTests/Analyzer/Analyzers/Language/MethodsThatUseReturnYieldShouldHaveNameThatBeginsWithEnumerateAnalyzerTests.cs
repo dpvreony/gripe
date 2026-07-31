@@ -28,7 +28,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
                 new ExpectedDiagnosticModel(
                     @"Language\MethodsThatUseReturnYieldShouldHaveNameThatBeginsWithEnumerateProof.cs",
                     DiagnosticSeverity.Warning,
-                    21,
+                    22,
                     32)
             ];
         }
