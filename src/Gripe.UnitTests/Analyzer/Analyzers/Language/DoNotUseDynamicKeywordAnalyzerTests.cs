@@ -1,60 +1,32 @@
-﻿// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
+// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
 using Gripe.Analyzer;
 using Gripe.Analyzer.Analyzers.Language;
-using Gripe.UnitTests.Analyzer.Helpers;
+using Gripe.UnitTests.Analyzer.Analyzers.EfCore;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Diagnostics;
-using Xunit;
 
 namespace Gripe.UnitTests.Analyzer.Analyzers.Language
 {
     /// <summary>
     /// Unit Tests for <see cref="DoNotUseDynamicAsParameterTypeAnalyzer"/>.
     /// </summary>
-    public sealed class DoNotUseDynamicKeywordAnalyzerTests : CodeFixVerifier
+    public sealed class DoNotUseDynamicKeywordAnalyzerTests : AbstractAnalyzerTest<DoNotUseDynamicAsParameterTypeAnalyzer>
     {
-        /// <summary>
-        /// Test to ensure bad code returns a warning.
-        /// </summary>
-        [Fact]
-        public void ReturnsWarning()
+        /// <inheritdoc/>
+        protected override string GetExpectedDiagnosticId()
         {
-            var test = @"
-    namespace ConsoleApplication1
-    {
-        class TypeName
-        {
-            public void MethodName(dynamic arg)
-            {
-            }
-        }
-    }";
-            var expected = new[]
-            {
-                new DiagnosticResult
-                {
-                    Id = DiagnosticIdsHelper.DoNotUseDynamicAsParameterType,
-                    Message = DoNotUseDynamicAsParameterTypeAnalyzer.Title,
-                    Severity = DiagnosticSeverity.Warning,
-                    Locations =
-                    [
-                        new DiagnosticResultLocation("Test0.cs", 6, 36)
-                    ]
-                }
-            };
-
-            VerifyCSharpDiagnostic(
-                test,
-                expected);
+            return DiagnosticIdsHelper.DoNotUseDynamicAsParameterType;
         }
 
-        /// <inheritdoc />
-        protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
+        /// <inheritdoc/>
+        protected override ExpectedDiagnosticModel[] GetExpectedDiagnosticLines()
         {
-            return new DoNotUseDynamicAsParameterTypeAnalyzer();
+            return
+            [
+                new ExpectedDiagnosticModel(@"Language\DoNotUseDynamicKeywordProof.cs", DiagnosticSeverity.Warning, 19, 31)
+            ];
         }
     }
 }

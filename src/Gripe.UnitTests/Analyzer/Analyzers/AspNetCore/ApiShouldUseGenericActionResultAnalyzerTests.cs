@@ -1,103 +1,37 @@
-﻿// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
+// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
 using Gripe.Analyzer;
 using Gripe.Analyzer.Analyzers.AspNetCore;
-using Gripe.UnitTests.Analyzer.Helpers;
+using Gripe.UnitTests.Analyzer.Analyzers.EfCore;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Diagnostics;
-using Xunit;
 
 namespace Gripe.UnitTests.Analyzer.Analyzers.AspNetCore
 {
     /// <summary>
     /// Unit Tests for <see cref="ApiShouldUseGenericActionResultAnalyzer"/>.
     /// </summary>
-    public sealed class ApiShouldUseGenericActionResultAnalyzerTests : CodeFixVerifier
+    public sealed class ApiShouldUseGenericActionResultAnalyzerTests : AbstractAnalyzerTest<ApiShouldUseGenericActionResultAnalyzer>
     {
-        /// <summary>
-        /// Test to ensure bad code returns a warning.
-        /// </summary>
-        [Fact]
-        public void ReturnsWarning()
+        /// <inheritdoc/>
+        protected override string GetExpectedDiagnosticId()
         {
-            var test = @"
-    namespace System.System.Web.Http
-    {
-        public class ApiController
-        {
-        }
-    }
-
-    namespace ConsoleApplication1
-    {
-        class TypeName : System.System.Web.Http.ApiController
-        {
-            public System.Web.Http.IHttpActionResult Get()
-            {
-                return null;
-            }
-
-            public Microsoft.AspNetCore.Mvc.ActionResult ActionResultGet()
-            {
-                return null;
-            }
-
-            public Microsoft.AspNetCore.Mvc.ActionResult<int> ActionResultGetWithInt()
-            {
-                return null;
-            }
-
-            public System.Threading.Task<Microsoft.AspNetCore.Mvc.ActionResult<int>> ActionResultGetAsync()
-            {
-                return null;
-            }
-        }
-    }";
-            var expected = new[]
-            {
-                new DiagnosticResult
-                {
-                    Id = DiagnosticIdsHelper.ApiShouldUseGenericActionResult,
-                    Message = ApiShouldUseGenericActionResultAnalyzer.Title,
-                    Severity = DiagnosticSeverity.Warning,
-                    Locations =
-                    [
-                        new DiagnosticResultLocation("Test0.cs", 13, 13)
-                    ]
-                },
-                new DiagnosticResult
-                {
-                    Id = DiagnosticIdsHelper.ApiShouldUseGenericActionResult,
-                    Message = ApiShouldUseGenericActionResultAnalyzer.Title,
-                    Severity = DiagnosticSeverity.Warning,
-                    Locations =
-                    [
-                        new DiagnosticResultLocation("Test0.cs", 18, 13)
-                    ]
-                },
-                new DiagnosticResult
-                {
-                    Id = DiagnosticIdsHelper.ApiShouldUseGenericActionResult,
-                    Message = ApiShouldUseGenericActionResultAnalyzer.Title,
-                    Severity = DiagnosticSeverity.Warning,
-                    Locations =
-                    [
-                        new DiagnosticResultLocation("Test0.cs", 23, 13)
-                    ]
-                }
-            };
-
-            VerifyCSharpDiagnostic(
-                test,
-                expected);
+            return DiagnosticIdsHelper.ApiShouldUseGenericActionResult;
         }
 
-        /// <inheritdoc />
-        protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
+        /// <inheritdoc/>
+        protected override ExpectedDiagnosticModel[] GetExpectedDiagnosticLines()
         {
-            return new ApiShouldUseGenericActionResultAnalyzer();
+            const string proofFilePath = @"AspNetCore\ApiShouldUseGenericActionResultProof.cs";
+
+            return
+            [
+                new ExpectedDiagnosticModel(proofFilePath, DiagnosticSeverity.Warning, 18, 8),
+                new ExpectedDiagnosticModel(proofFilePath, DiagnosticSeverity.Warning, 32, 8),
+                new ExpectedDiagnosticModel(proofFilePath, DiagnosticSeverity.Warning, 46, 8),
+                new ExpectedDiagnosticModel(proofFilePath, DiagnosticSeverity.Warning, 60, 8),
+            ];
         }
     }
 }

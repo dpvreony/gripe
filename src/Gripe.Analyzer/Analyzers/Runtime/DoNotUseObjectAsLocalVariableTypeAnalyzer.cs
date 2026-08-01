@@ -62,6 +62,13 @@ namespace Gripe.Analyzer.Analyzers.Runtime
                 return;
             }
 
+            var parent = parameterSyntax.Parent;
+            if (parent is FieldDeclarationSyntax)
+            {
+                // we analyze fields in a different analyzer, so we don't want to analyze them here.
+                return;
+            }
+
             if (type.IsVar)
             {
                 // if the left side is var, we can't analyze it here.

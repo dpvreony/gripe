@@ -28,6 +28,11 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
             return
             [
                 new ExpectedDiagnosticModel(
+                    "Language\\ClassWithAbstractKeywordProof.cs",
+                    DiagnosticSeverity.Warning,
+                    7,
+                    26),
+                new ExpectedDiagnosticModel(
                     ProofFilePath,
                     DiagnosticSeverity.Warning,
                     16,

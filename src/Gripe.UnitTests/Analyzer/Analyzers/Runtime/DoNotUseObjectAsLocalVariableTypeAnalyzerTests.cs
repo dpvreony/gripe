@@ -1,86 +1,34 @@
-﻿// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
+// Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
 using Gripe.Analyzer;
 using Gripe.Analyzer.Analyzers.Runtime;
-using Gripe.UnitTests.Analyzer.Helpers;
+using Gripe.UnitTests.Analyzer.Analyzers.EfCore;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Diagnostics;
-using Xunit;
 
 namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
 {
     /// <summary>
     /// Unit Tests for <see cref="DoNotUseObjectAsLocalVariableTypeAnalyzer"/>.
     /// </summary>
-    public sealed class DoNotUseObjectAsLocalVariableTypeAnalyzerTests : CodeFixVerifier
+    public sealed class DoNotUseObjectAsLocalVariableTypeAnalyzerTests : AbstractAnalyzerTest<DoNotUseObjectAsLocalVariableTypeAnalyzer>
     {
-        /// <summary>
-        /// Test to ensure bad code returns a warning.
-        /// </summary>
-        [Fact]
-        public void ReturnsWarning()
+        /// <inheritdoc/>
+        protected override string GetExpectedDiagnosticId()
         {
-            var test = @"
-    namespace ConsoleApplication1
-    {
-        class TypeName
-        {
-            public void MethodName()
-            {
-                object name = new object();
-            }
-
-            public void MethodName2(System.Object arg)
-            {
-                System.Object name = new System.Object();
-            }
-
-            public void MethodName3()
-            {
-                var name = new object();
-            }
-
-            public void MethodName4()
-            {
-                var name = new System.Object;
-            }
-        }
-    }";
-            var expected = new[]
-            {
-                new DiagnosticResult
-                {
-                    Id = DiagnosticIdsHelper.DoNotUseObjectAsLocalVariableType,
-                    Message = DoNotUseObjectAsLocalVariableTypeAnalyzer.Title,
-                    Severity = DiagnosticSeverity.Warning,
-                    Locations =
-                    [
-                        new DiagnosticResultLocation("Test0.cs", 8, 17)
-                    ]
-                },
-                new DiagnosticResult
-                {
-                    Id = DiagnosticIdsHelper.DoNotUseObjectAsLocalVariableType,
-                    Message = DoNotUseObjectAsLocalVariableTypeAnalyzer.Title,
-                    Severity = DiagnosticSeverity.Warning,
-                    Locations =
-                    [
-                        new DiagnosticResultLocation("Test0.cs", 13, 17)
-                    ]
-                }
-            };
-
-            VerifyCSharpDiagnostic(
-                test,
-                expected);
+            return DiagnosticIdsHelper.DoNotUseObjectAsLocalVariableType;
         }
 
-        /// <inheritdoc />
-        protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
+        /// <inheritdoc/>
+        protected override ExpectedDiagnosticModel[] GetExpectedDiagnosticLines()
         {
-            return new DoNotUseObjectAsLocalVariableTypeAnalyzer();
+            return
+            [
+                new ExpectedDiagnosticModel(@"Runtime\DoNotUseObjectAsLocalVariableTypeProof.cs", DiagnosticSeverity.Warning, 20, 12),
+                new ExpectedDiagnosticModel(@"Runtime\DoNotUseObjectAsLocalVariableTypeProof.cs", DiagnosticSeverity.Warning, 37, 12),
+                new ExpectedDiagnosticModel(@"Runtime\DoNotUseObjectAsLocalVariableTypeProof.cs", DiagnosticSeverity.Warning, 80, 12),
+            ];
         }
     }
 }
