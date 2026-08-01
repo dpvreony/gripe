@@ -18,7 +18,7 @@ namespace Gripe.Testing.Runtime
         /// </example>
         public void MethodName()
         {
-            object name = null!; _ = name;
+            object name = new object();
         }
 
 #pragma warning disable SA1121 // Use built-in type alias
@@ -32,10 +32,10 @@ namespace Gripe.Testing.Runtime
         /// proof.MethodName2(new object());
         /// </code>
         /// </example>
-        public void MethodName2(System.Object arg)
+        public void MethodName2(int arg)
 #pragma warning restore SA1121 // Use built-in type alias
         {
-            System.Object name = arg; _ = name;
+            System.Object name = new object();
         }
 
         /// <summary>
@@ -64,6 +64,22 @@ namespace Gripe.Testing.Runtime
         public void MethodName4()
         {
             var name = new System.Object();
+        }
+
+        /// <summary>
+        /// Method using implicit var with fully qualified object initializer.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// var proof = new DoNotUseObjectAsLocalVariableTypeProof();
+        /// proof.MethodName4();
+        /// </code>
+        /// </example>
+        public void MethodName5()
+        {
+#pragma warning disable CS0219 // Variable is assigned but its value is never used
+            object? name = null;
+#pragma warning restore CS0219 // Variable is assigned but its value is never used
         }
     }
 }

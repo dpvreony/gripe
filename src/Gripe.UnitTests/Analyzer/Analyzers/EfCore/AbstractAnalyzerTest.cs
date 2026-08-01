@@ -70,7 +70,6 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.EfCore
                     var diagnostic = diagnostics[i];
                     var span = diagnostic.Location.GetLineSpan();
                     var start = span.StartLinePosition;
-                    Console.WriteLine($"{i}: {diagnostic.Id} {diagnostic.Severity} {span.Path} L{start.Line} C{start.Character}");
                     AnalyseDiagnostic(diagnostic, i, expectedDiagnostics, issues, expectedDiagnosticId);
                 }
 
