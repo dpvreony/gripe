@@ -50,6 +50,34 @@ namespace Gripe.Testing.AspNetCore
         }
 
         /// <summary>
+        /// Method returning generic ActionResult directly.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// var proof = new ApiShouldUseGenericActionResultProof();
+        /// _ = proof.ActionResultGetWithInt();
+        /// </code>
+        /// </example>
+        public Microsoft.AspNetCore.Mvc.ActionResult<int> ActionResultGetWithInt(int id)
+        {
+            return 1;
+        }
+
+        /// <summary>
+        /// Method returning generic ActionResult directly.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// var proof = new ApiShouldUseGenericActionResultProof();
+        /// _ = proof.ActionResultGetWithInt();
+        /// </code>
+        /// </example>
+        public Microsoft.AspNetCore.Mvc.ActionResult<int?> ActionResultGetWithNullableInt(int id)
+        {
+            return 1;
+        }
+
+        /// <summary>
         /// Method returning generic ActionResult asynchronously.
         /// </summary>
         /// <example>
@@ -61,6 +89,38 @@ namespace Gripe.Testing.AspNetCore
         public System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.ActionResult<int>>? ActionResultGetAsync()
         {
             return null;
+        }
+
+        /// <summary>
+        /// Method returning generic ActionResult asynchronously.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// var proof = new ApiShouldUseGenericActionResultProof();
+        /// _ = proof.ActionResultGetAsync();
+        /// </code>
+        /// </example>
+        public async System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.ActionResult<int>> ActionResultGetAsync(int id)
+        {
+            return 1;
+        }
+
+        /// <summary>
+        /// Method returning generic ActionResult asynchronously.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// var proof = new ApiShouldUseGenericActionResultProof();
+        /// _ = proof.ActionResultGetAsync();
+        /// </code>
+        /// </example>
+        public async System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.ActionResult<int?>> ActionResultGetNullableIntAsync(int id)
+        {
+            return 1;
+        }
+
+        private void SomeProtectedMethod(int id)
+        {
         }
     }
 }

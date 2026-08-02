@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Immutable;
+using System.Linq;
 using Gripe.Analyzer.CodeCracker.Extensions;
 using Gripe.Analyzer.Extensions;
 using Microsoft.CodeAnalysis;
@@ -59,6 +60,11 @@ namespace Gripe.Analyzer.Analyzers.AspNetCore
 
             var methodDeclarationSyntax = (MethodDeclarationSyntax)node;
 
+            if (methodDeclarationSyntax.Modifiers.Any(x => x.IsKind(SyntaxKind.PrivateKeyword) || x.IsKind(SyntaxKind.ProtectedKeyword) || x.IsKind(SyntaxKind.StaticKeyword)))
+            {
+                return;
+            }
+
             // Check if the class is an API controller
             var classDeclarationSyntax = methodDeclarationSyntax.GetAncestor<ClassDeclarationSyntax>();
             if (classDeclarationSyntax == null)
@@ -79,23 +85,9 @@ namespace Gripe.Analyzer.Analyzers.AspNetCore
                 return;
             }
 
-            // Check if the method is an API method
-            foreach (var modifier in methodDeclarationSyntax.Modifiers)
-            {
-                var kind = modifier.Kind();
-
-                // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
-                switch (kind)
-                {
-                    case SyntaxKind.PublicKeyword:
-                        break;
-                    case SyntaxKind.StaticKeyword:
-                        return;
-                }
-            }
-
             // Get the return type of the method
             var returnType = methodDeclarationSyntax.ReturnType;
+            var isNullableReturnType = returnType is NullableTypeSyntax;
             var typeInfo = ModelExtensions.GetTypeInfo(context.SemanticModel, returnType);
 
             if (typeInfo.Type == null)
@@ -110,25 +102,45 @@ namespace Gripe.Analyzer.Analyzers.AspNetCore
 
             var typeFullName = namedTypeSymbol.GetFullName();
 
-            if (typeFullName.Equals("global::System.Threading.Task", StringComparison.Ordinal))
+            // Check if return type is ActionResult<T> (generic version is OK)
+            if (!isNullableReturnType)
             {
-                var typeArguments = namedTypeSymbol.TypeArguments;
-                var typeArgument = typeArguments[0];
-                var argFullName = typeArgument.GetFullName();
-                if (typeArgument is not INamedTypeSymbol typeArgNamedTypeSymbol)
+                if (typeFullName.Equals("global::Microsoft.AspNetCore.Mvc.ActionResult", StringComparison.Ordinal))
                 {
-                    return;
-                }
-
-                if (argFullName.Equals("global::Microsoft.AspNetCore.Mvc.ActionResult", StringComparison.Ordinal))
-                {
-                    if (typeArgNamedTypeSymbol.MetadataName.Equals("ActionResult`1"))
+                    // If it's ActionResult<T> (generic), that's OK
+                    if (namedTypeSymbol.MetadataName.Equals("ActionResult`1"))
                     {
                         return;
                     }
                 }
+                else if (typeFullName.Equals("global::System.Threading.Tasks.Task", StringComparison.Ordinal))
+                {
+                    if (namedTypeSymbol.TypeArguments.Length == 0)
+                    {
+                        return;
+                    }
+
+                    var typeArguments = namedTypeSymbol.TypeArguments;
+                    var typeArgument = typeArguments[0];
+                    var argFullName = typeArgument.GetFullName();
+
+                    if (typeArgument is not INamedTypeSymbol typeArgNamedTypeSymbol)
+                    {
+                        return;
+                    }
+
+                    if (argFullName.Equals("global::Microsoft.AspNetCore.Mvc.ActionResult", StringComparison.Ordinal))
+                    {
+                        // If it's Task<ActionResult<T>> (generic), that's OK
+                        if (typeArgNamedTypeSymbol.MetadataName.Equals("ActionResult`1"))
+                        {
+                            return;
+                        }
+                    }
+                }
             }
 
+            // Everything else (IActionResult, etc.) should be reported
             context.ReportDiagnostic(Diagnostic.Create(_rule, node.GetLocation()));
         }
     }

@@ -30,7 +30,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.AspNetCore
                 new ExpectedDiagnosticModel(proofFilePath, DiagnosticSeverity.Warning, 18, 8),
                 new ExpectedDiagnosticModel(proofFilePath, DiagnosticSeverity.Warning, 32, 8),
                 new ExpectedDiagnosticModel(proofFilePath, DiagnosticSeverity.Warning, 46, 8),
-                new ExpectedDiagnosticModel(proofFilePath, DiagnosticSeverity.Warning, 60, 8),
+                new ExpectedDiagnosticModel(proofFilePath, DiagnosticSeverity.Warning, 88, 8),
             ];
         }
     }
