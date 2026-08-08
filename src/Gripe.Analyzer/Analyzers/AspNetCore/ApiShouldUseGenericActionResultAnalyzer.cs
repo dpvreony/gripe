@@ -74,14 +74,21 @@ namespace Gripe.Analyzer.Analyzers.AspNetCore
 
             if (!classDeclarationSyntax.HasImplementedAnyOfType(
                     [
-                        "global::Microsoft.AspNetCore.Mvc.ControllerBase",
-                        "global::Microsoft.AspNetCore.Mvc.Controller",
-                        "global::System.Web.Http.ApiController",
-                        "global::System.System.Web.Http.ApiController",
+                        "global::Microsoft.AspNetCore.Mvc.ControllerBase"
                     ],
                     null,
                     context.SemanticModel))
             {
+                return;
+            }
+
+            if (classDeclarationSyntax.HasImplementedAnyOfType([
+                        "global::Microsoft.AspNetCore.Mvc.Controller"
+                    ],
+                    null,
+                    context.SemanticModel))
+            {
+                // ignore mvc controllers, only check API controllers
                 return;
             }
 
