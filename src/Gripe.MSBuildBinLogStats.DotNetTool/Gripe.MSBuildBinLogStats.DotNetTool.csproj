@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="MSBuild.StructuredLogger" Version="2.3.246" />
-    <PackageReference Include="Whipstaff.CommandLine" Version="9.1.241" />
+    <PackageReference Include="Whipstaff.CommandLine" Version="9.2.28" />
   </ItemGroup>
 
 </Project>
