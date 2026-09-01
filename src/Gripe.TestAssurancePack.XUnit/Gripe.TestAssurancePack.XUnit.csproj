@@ -29,7 +29,7 @@
     <PackageReference Include="xunit.v3.mtp-v2" Version="4.0.0" />
     <PackageReference Include="xunit.analyzers" Version="2.0.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="4.0.0" />
-    <PackageReference Include="Xunit.StaFact" Version="3.0.13" />
+    <PackageReference Include="Xunit.StaFact" Version="4.0.23" />
   </ItemGroup>
 
   <ItemGroup>
