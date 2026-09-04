@@ -31,7 +31,7 @@
 
   <ItemGroup Condition="$(IsTestProject)">
     <ProjectReference Include="$(MSBuildThisFileDirectory)\Gripe.TestAssurancePack.XUnit\Gripe.TestAssurancePack.XUnit.csproj" />
-    <PackageReference Include="Microsoft.Testing.Extensions.GitHubActionsReport" Version="1.0.0-alpha.26377.5" />
+    <PackageReference Include="Microsoft.Testing.Extensions.GitHubActionsReport" Version="2.4.0" />
   </ItemGroup>
   <Import Project="$(MSBuildThisFileDirectory)\Gripe.TestAssurancePack.XUnit\Gripe.TestAssurancePack.XUnit.targets" Condition="$(IsTestProject)" />
 
