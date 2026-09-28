@@ -145,6 +145,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Logging
             public void LogThings(System.Exception exception, System.InvalidOperationException invalidOperationException)
             {
                 _logger.LogError(""Oops"", exception);
+                _logger.LogWarning(""Oops {Arg}"", exception);
                 _logger.Log(LogLevel.Error, new EventId(), exception, null, (state, loggedException) => state.ToString() ?? string.Empty);
             }
         }
@@ -171,7 +172,18 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Logging
                     Locations =
                         new[]
                         {
-                            new DiagnosticResultLocation("Test0.cs", 54, 60),
+                            new DiagnosticResultLocation("Test0.cs", 54, 50),
+                        }
+                },
+                new DiagnosticResult
+                {
+                    Id = DiagnosticIdsHelper.DoNotPassExceptionIntoNonExceptionLoggingArgument,
+                    Message = DiagnosticResultTitleFactory.DoNotPassExceptionIntoNonExceptionLoggingArgument(),
+                    Severity = DiagnosticSeverity.Warning,
+                    Locations =
+                        new[]
+                        {
+                            new DiagnosticResultLocation("Test0.cs", 55, 60),
                         }
                 },
             };

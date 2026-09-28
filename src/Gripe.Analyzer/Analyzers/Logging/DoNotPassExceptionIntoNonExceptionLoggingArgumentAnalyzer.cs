@@ -88,7 +88,29 @@ namespace Gripe.Analyzer.Analyzers.Logging
             INamedTypeSymbol exceptionTypeSymbol)
         {
             return parameterSymbol != null
-                   && SymbolEqualityComparer.Default.Equals(parameterSymbol.Type, exceptionTypeSymbol);
+                   && IsExceptionType(parameterSymbol.Type, exceptionTypeSymbol);
+        }
+
+        private static IMethodSymbol GetMethodSymbol(
+            SyntaxNodeAnalysisContext context,
+            InvocationExpressionSyntax invocationExpression)
+        {
+            var symbolInfo = context.SemanticModel.GetSymbolInfo(invocationExpression, context.CancellationToken);
+            if (symbolInfo.Symbol is IMethodSymbol methodSymbol)
+            {
+                return methodSymbol;
+            }
+
+            foreach (var candidateSymbol in symbolInfo.CandidateSymbols)
+            {
+                if (candidateSymbol is IMethodSymbol candidateMethodSymbol
+                    && IsLoggingMethod(candidateMethodSymbol))
+                {
+                    return candidateMethodSymbol;
+                }
+            }
+
+            return null;
         }
 
         private static IParameterSymbol GetParameterSymbol(
@@ -127,7 +149,7 @@ namespace Gripe.Analyzer.Analyzers.Logging
         private void AnalyzeInvocationExpression(SyntaxNodeAnalysisContext context)
         {
             var invocationExpression = (InvocationExpressionSyntax)context.Node;
-            var methodSymbol = context.SemanticModel.GetSymbolInfo(invocationExpression, context.CancellationToken).Symbol as IMethodSymbol;
+            var methodSymbol = GetMethodSymbol(context, invocationExpression);
             if (methodSymbol == null)
             {
                 return;
