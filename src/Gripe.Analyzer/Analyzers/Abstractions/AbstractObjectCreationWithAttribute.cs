@@ -78,7 +78,21 @@ namespace Gripe.Analyzer.Analyzers.Abstractions
                 return;
             }
 
+            if (!ShouldWarn(objectCreationExpression, constructorSymbol, context))
+            {
+                return;
+            }
+
             context.ReportDiagnostic(Diagnostic.Create(_rule, objectCreationExpression.GetLocation()));
         }
+
+        /// <summary>
+        /// Controls whether the warning should be triggered. Used if there are other scenarios beyond the attribute, such as where there is a single constructor on the class.
+        /// </summary>
+        /// <param name="objectCreationExpression">The object creation expression being analyzed.</param>
+        /// <param name="constructorSymbol">The constructor symbol for the type being created.</param>
+        /// <param name="context">The syntax node analysis context for the current analysis invocation.</param>
+        /// <returns>True when a diagnostic should be reported for the object creation expression; otherwise false.</returns>
+        protected abstract bool ShouldWarn(ObjectCreationExpressionSyntax objectCreationExpression, ISymbol constructorSymbol, SyntaxNodeAnalysisContext context);
     }
 }

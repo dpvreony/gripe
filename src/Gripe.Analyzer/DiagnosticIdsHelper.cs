@@ -141,5 +141,7 @@ namespace Gripe.Analyzer
         internal const string InterfaceMethodShouldNotHaveDefaultParameterValue = "GR0067";
 
         internal const string UseStaticLambdaForEntityFrameworkCoreQueryMethods = "GR0068";
+
+        internal const string DoNotUseJsonConstructor = "GR0069";
     }
 }
