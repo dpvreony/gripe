@@ -79,12 +79,12 @@ namespace Gripe.Analyzer.Analyzers.Language
                 return;
             }
 
-            if (instanceFields.Any(field => !field.IsReadOnly || field.Type.IsReferenceType))
+            if (instanceFields.Any(field => !field.IsReadOnly || !field.Type.IsValueType))
             {
                 return;
             }
 
-            if (typeSymbol.GetMembers().OfType<IPropertySymbol>().Any(property => !property.IsStatic && property.SetMethod != null))
+            if (typeSymbol.GetMembers().OfType<IPropertySymbol>().Any(property => !property.IsStatic && property.SetMethod is { IsInitOnly: false }))
             {
                 return;
             }

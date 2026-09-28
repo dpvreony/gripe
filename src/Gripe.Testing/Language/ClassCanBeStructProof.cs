@@ -17,6 +17,13 @@ namespace Gripe.Testing.Language
         /// ClassCanBeStructProof.ClassesThatShouldWarn();
         /// </code>
         /// </example>
+        /// <remarks>
+        /// This code is just a proof for
+        /// 1) making sure the code builds
+        /// 2) making sure the analyzer triggers
+        ///
+        /// It is in no way meant to be regarded as usable code.
+        /// </remarks>
         public static void ClassesThatShouldWarn()
         {
             _ = new SmallImmutableClass(1, 2);
@@ -30,6 +37,13 @@ namespace Gripe.Testing.Language
         /// ClassCanBeStructProof.ClassesThatShouldNotWarn();
         /// </code>
         /// </example>
+        /// <remarks>
+        /// This code is just a proof for
+        /// 1) making sure the code builds
+        /// 2) making sure the analyzer triggers
+        ///
+        /// It is in no way meant to be regarded as usable code.
+        /// </remarks>
         public static void ClassesThatShouldNotWarn()
         {
             _ = new MutableClass(1);
@@ -41,7 +55,7 @@ namespace Gripe.Testing.Language
     /// <summary>
     /// Small immutable class that should be considered a struct candidate.
     /// </summary>
-    public sealed class SmallImmutableClass
+    internal sealed class SmallImmutableClass
     {
         private readonly int _x;
         private readonly int _y;
@@ -67,7 +81,7 @@ namespace Gripe.Testing.Language
     /// <summary>
     /// Mutable class which should not be considered a struct candidate.
     /// </summary>
-    public sealed class MutableClass
+    internal sealed class MutableClass
     {
         private int _value;
 
@@ -90,7 +104,7 @@ namespace Gripe.Testing.Language
     /// <summary>
     /// Class with a reference type field which should not be considered a struct candidate.
     /// </summary>
-    public sealed class ClassWithReferenceField
+    internal sealed class ClassWithReferenceField
     {
         private readonly string _value;
 
@@ -113,14 +127,14 @@ namespace Gripe.Testing.Language
     /// <summary>
     /// Base class used to ensure inherited classes do not trigger diagnostics.
     /// </summary>
-    public class BaseProofClass
+    internal class BaseProofClass
     {
     }
 
     /// <summary>
     /// Class inheriting from a custom base class which should not be considered a struct candidate.
     /// </summary>
-    public sealed class InheritingClass : BaseProofClass
+    internal sealed class InheritingClass : BaseProofClass
     {
         private readonly int _value;
 

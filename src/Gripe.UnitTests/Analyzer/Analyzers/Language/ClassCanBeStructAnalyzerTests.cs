@@ -25,7 +25,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
         {
             return
             [
-                new ExpectedDiagnosticModel(@"Language\ClassCanBeStructProof.cs", DiagnosticSeverity.Warning, 43, 24),
+                new ExpectedDiagnosticModel(@"Language\ClassCanBeStructProof.cs", DiagnosticSeverity.Warning, 57, 26),
             ];
         }
     }
