@@ -17,7 +17,7 @@ namespace Gripe.Analyzer.Extensions
         /// <typeparam name="TResult">The type of Syntax Node to find.</typeparam>
         /// <param name="instance">Current Syntax node to check.</param>
         /// <returns>Matching ancestor node, if any.</returns>
-        public static TResult GetAncestor<TResult>(this SyntaxNode instance)
+        public static TResult? GetAncestor<TResult>(this SyntaxNode instance)
             where TResult : SyntaxNode
         {
             var currentNode = instance.Parent;

@@ -25,7 +25,7 @@ namespace Gripe.Analyzer.Extensions
         public static bool HasImplementedAnyOfType(
             this BaseTypeSyntax baseTypeSyntax,
             string[] baseClasses,
-            string[] interfaces,
+            string[]? interfaces,
             SemanticModel semanticModel)
         {
             var typeSyntax = baseTypeSyntax.Type;

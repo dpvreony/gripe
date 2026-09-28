@@ -23,7 +23,7 @@ namespace Gripe.Analyzer.Extensions
         public static bool HasImplementedAnyOfType(
             this ClassDeclarationSyntax classDeclarationSyntax,
             string[] baseClasses,
-            string[] interfaces,
+            string[]? interfaces,
             SemanticModel semanticModel)
         {
             var baseList = classDeclarationSyntax.BaseList;

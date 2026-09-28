@@ -59,6 +59,10 @@ namespace Gripe.Analyzer.Analyzers.Logging
             ClassDeclarationSyntax classDeclarationSyntax)
         {
             var namespaceDeclarationSyntax = constructorDeclarationSyntax.GetAncestor<BaseNamespaceDeclarationSyntax>();
+            if (namespaceDeclarationSyntax == null)
+            {
+                return $"global::{classDeclarationSyntax.Identifier}";
+            }
 
             var namespaceName = namespaceDeclarationSyntax.Name.ToString();
             return $"global::{namespaceName}.{classDeclarationSyntax.Identifier}";

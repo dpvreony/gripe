@@ -116,7 +116,7 @@ namespace Gripe.Analyzer.Analyzers.Language
             // Get XML documentation of the method
             var xmlDocumentation = methodSymbol.GetDocumentationCommentXml();
 
-            if (!string.IsNullOrEmpty(xmlDocumentation))
+            if (xmlDocumentation != null && !string.IsNullOrWhiteSpace(xmlDocumentation))
             {
                 // Look for the <example> tag in the XML doc
                 var hasExampleTag = xmlDocumentation.Contains("<example>");

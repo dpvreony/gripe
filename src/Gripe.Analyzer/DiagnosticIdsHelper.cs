@@ -147,5 +147,11 @@ namespace Gripe.Analyzer
         internal const string ClassCanBeStruct = "GR0070";
 
         internal const string DoNotPassExceptionIntoNonExceptionLoggingArgument = "GR0071";
+
+        internal const string TypeBeingForwardedUsedAsBase = "GR0072";
+
+        internal const string TypeBeingForwardedUsedAsParameter = "GR0073";
+
+        internal const string TypeBeingForwardedUsedAsInstance = "GR0074";
     }
 }
