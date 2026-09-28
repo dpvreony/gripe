@@ -3,120 +3,10 @@
 // See the LICENSE file in the project root for full license information.
 
 using System;
-
-namespace Microsoft.Extensions.Logging
-{
-    /// <summary>
-    /// Log levels for logging proof code.
-    /// </summary>
-    internal enum LogLevel
-    {
-        /// <summary>
-        /// Error log level.
-        /// </summary>
-        Error
-    }
-
-    /// <summary>
-    /// Event id for logging proof code.
-    /// </summary>
-    internal readonly struct EventId
-    {
-    }
-
-    /// <summary>
-    /// Minimal logger interface for logging proof code.
-    /// </summary>
-    internal interface ILogger
-    {
-    }
-
-    /// <summary>
-    /// Logging extension methods for proof code.
-    /// </summary>
-    internal static class LoggerExtensions
-    {
-        /// <summary>
-        /// Proof logging overload with explicit exception.
-        /// </summary>
-        /// <param name="logger">The logger.</param>
-        /// <param name="exception">The exception.</param>
-        /// <param name="message">The message.</param>
-        /// <param name="args">The message arguments.</param>
-        internal static void LogError(
-            this ILogger logger,
-            Exception? exception,
-            string message,
-            params object[] args)
-        {
-        }
-
-        /// <summary>
-        /// Proof logging overload with params arguments only.
-        /// </summary>
-        /// <param name="logger">The logger.</param>
-        /// <param name="message">The message.</param>
-        /// <param name="args">The message arguments.</param>
-        internal static void LogError(
-            this ILogger logger,
-            string message,
-            params object[] args)
-        {
-        }
-
-        /// <summary>
-        /// Proof logging overload with explicit exception.
-        /// </summary>
-        /// <param name="logger">The logger.</param>
-        /// <param name="exception">The exception.</param>
-        /// <param name="message">The message.</param>
-        /// <param name="args">The message arguments.</param>
-        internal static void LogWarning(
-            this ILogger logger,
-            Exception? exception,
-            string message,
-            params object[] args)
-        {
-        }
-
-        /// <summary>
-        /// Proof logging overload with params arguments only.
-        /// </summary>
-        /// <param name="logger">The logger.</param>
-        /// <param name="message">The message.</param>
-        /// <param name="args">The message arguments.</param>
-        internal static void LogWarning(
-            this ILogger logger,
-            string message,
-            params object[] args)
-        {
-        }
-
-        /// <summary>
-        /// Proof direct log overload.
-        /// </summary>
-        /// <param name="logger">The logger.</param>
-        /// <param name="logLevel">The log level.</param>
-        /// <param name="eventId">The event id.</param>
-        /// <param name="state">The state.</param>
-        /// <param name="exception">The exception.</param>
-        /// <param name="formatter">The formatter.</param>
-        internal static void Log(
-            this ILogger logger,
-            LogLevel logLevel,
-            EventId eventId,
-            object state,
-            Exception? exception,
-            Func<object, Exception?, string> formatter)
-        {
-        }
-    }
-}
+using Microsoft.Extensions.Logging;
 
 namespace Gripe.Testing.Logging
 {
-    using Microsoft.Extensions.Logging;
-
     /// <summary>
     /// Analyzer proof for <see cref="Gripe.Analyzer.Analyzers.Logging.DoNotPassExceptionIntoNonExceptionLoggingArgumentAnalyzer"/>.
     /// </summary>
@@ -147,7 +37,7 @@ namespace Gripe.Testing.Logging
         /// It is in no way meant to be regarded as usable code.
         /// </remarks>
         public static void AllowedCalls(
-            Microsoft.Extensions.Logging.ILogger logger,
+            ILogger logger,
             Exception exception,
             InvalidOperationException invalidOperationException)
         {
@@ -157,8 +47,8 @@ namespace Gripe.Testing.Logging
                 message: "Oops {Arg}",
                 args: new object[] { 1 });
             logger.Log(
-                Microsoft.Extensions.Logging.LogLevel.Error,
-                new Microsoft.Extensions.Logging.EventId(),
+                LogLevel.Error,
+                new EventId(),
                 "state",
                 exception,
                 FormatState);
@@ -191,18 +81,18 @@ namespace Gripe.Testing.Logging
         /// It is in no way meant to be regarded as usable code.
         /// </remarks>
         public static void WarningCalls(
-            Microsoft.Extensions.Logging.ILogger logger,
+            ILogger logger,
             Exception exception,
             InvalidOperationException invalidOperationException,
             bool includeNull)
         {
-            logger.LogError("Oops", exception);
+            logger.LogError("Oops {Arg}", exception);
             logger.LogWarning(message: "Oops {Arg}", exception);
             logger.LogWarning("Oops {Arg}", invalidOperationException);
             logger.LogError("Oops {Arg}", includeNull ? null : exception);
             logger.Log(
-                Microsoft.Extensions.Logging.LogLevel.Error,
-                new Microsoft.Extensions.Logging.EventId(),
+                LogLevel.Error,
+                new EventId(),
                 exception,
                 null,
                 FormatState);
@@ -214,8 +104,27 @@ namespace Gripe.Testing.Logging
             return state.ToString() ?? string.Empty;
         }
 
-        private sealed class ProofLogger : Microsoft.Extensions.Logging.ILogger
+        private sealed class ProofLogger : ILogger
         {
+            public IDisposable? BeginScope<TState>(TState state)
+                where TState : notnull
+            {
+                return null;
+            }
+
+            public bool IsEnabled(LogLevel logLevel)
+            {
+                return true;
+            }
+
+            public void Log<TState>(
+                LogLevel logLevel,
+                EventId eventId,
+                TState state,
+                Exception? exception,
+                Func<TState, Exception?, string> formatter)
+            {
+            }
         }
     }
 }

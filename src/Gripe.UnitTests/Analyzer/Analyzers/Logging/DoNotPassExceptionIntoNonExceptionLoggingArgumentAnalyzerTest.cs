@@ -29,28 +29,23 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Logging
                 new ExpectedDiagnosticModel(
                     @"Logging\DoNotPassExceptionIntoNonExceptionLoggingArgumentProof.cs",
                     DiagnosticSeverity.Warning,
-                    198,
-                    36),
-                new ExpectedDiagnosticModel(
-                    @"Logging\DoNotPassExceptionIntoNonExceptionLoggingArgumentProof.cs",
-                    DiagnosticSeverity.Warning,
-                    199,
-                    53),
-                new ExpectedDiagnosticModel(
-                    @"Logging\DoNotPassExceptionIntoNonExceptionLoggingArgumentProof.cs",
-                    DiagnosticSeverity.Warning,
-                    200,
-                    44),
-                new ExpectedDiagnosticModel(
-                    @"Logging\DoNotPassExceptionIntoNonExceptionLoggingArgumentProof.cs",
-                    DiagnosticSeverity.Warning,
-                    201,
+                    88,
                     42),
                 new ExpectedDiagnosticModel(
                     @"Logging\DoNotPassExceptionIntoNonExceptionLoggingArgumentProof.cs",
                     DiagnosticSeverity.Warning,
-                    205,
-                    16),
+                    89,
+                    53),
+                new ExpectedDiagnosticModel(
+                    @"Logging\DoNotPassExceptionIntoNonExceptionLoggingArgumentProof.cs",
+                    DiagnosticSeverity.Warning,
+                    90,
+                    44),
+                new ExpectedDiagnosticModel(
+                    @"Logging\DoNotPassExceptionIntoNonExceptionLoggingArgumentProof.cs",
+                    DiagnosticSeverity.Warning,
+                    91,
+                    42),
             ];
         }
     }
