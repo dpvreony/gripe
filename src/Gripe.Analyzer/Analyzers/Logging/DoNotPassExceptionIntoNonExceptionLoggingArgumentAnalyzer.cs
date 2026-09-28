@@ -116,15 +116,27 @@ namespace Gripe.Analyzer.Analyzers.Logging
         private static IParameterSymbol GetParameterSymbol(
             ImmutableArray<IParameterSymbol> parameters,
             ArgumentSyntax argumentSyntax,
+            bool[] assignedParameters,
             ref int positionalParameterIndex)
         {
             if (argumentSyntax.NameColon != null)
             {
                 var parameterName = argumentSyntax.NameColon.Name.Identifier.ValueText;
-                foreach (var parameterSymbol in parameters)
+                for (int parameterIndex = 0; parameterIndex < parameters.Length; parameterIndex++)
                 {
+                    var parameterSymbol = parameters[parameterIndex];
                     if (parameterSymbol.Name.Equals(parameterName, StringComparison.Ordinal))
                     {
+                        if (!parameterSymbol.IsParams || parameterIndex < parameters.Length - 1)
+                        {
+                            assignedParameters[parameterIndex] = true;
+                            while (positionalParameterIndex < parameters.Length
+                                   && assignedParameters[positionalParameterIndex])
+                            {
+                                positionalParameterIndex++;
+                            }
+                        }
+
                         return parameterSymbol;
                     }
                 }
@@ -132,18 +144,25 @@ namespace Gripe.Analyzer.Analyzers.Logging
                 return null;
             }
 
-            if (positionalParameterIndex >= parameters.Length)
+            while (positionalParameterIndex < parameters.Length)
             {
-                return null;
-            }
+                var parameter = parameters[positionalParameterIndex];
+                if (parameter.IsParams && positionalParameterIndex == parameters.Length - 1)
+                {
+                    return parameter;
+                }
 
-            var parameter = parameters[positionalParameterIndex];
-            if (!parameter.IsParams || positionalParameterIndex < parameters.Length - 1)
-            {
+                if (!assignedParameters[positionalParameterIndex])
+                {
+                    assignedParameters[positionalParameterIndex] = true;
+                    positionalParameterIndex++;
+                    return parameter;
+                }
+
                 positionalParameterIndex++;
             }
 
-            return parameter;
+            return null;
         }
 
         private void AnalyzeInvocationExpression(SyntaxNodeAnalysisContext context)
@@ -167,11 +186,16 @@ namespace Gripe.Analyzer.Analyzers.Logging
             }
 
             int positionalParameterIndex = 0;
+            var assignedParameters = new bool[methodSymbol.Parameters.Length];
             foreach (var argumentSyntax in invocationExpression.ArgumentList.Arguments)
             {
-                var parameterSymbol = GetParameterSymbol(methodSymbol.Parameters, argumentSyntax, ref positionalParameterIndex);
+                var parameterSymbol = GetParameterSymbol(
+                    methodSymbol.Parameters,
+                    argumentSyntax,
+                    assignedParameters,
+                    ref positionalParameterIndex);
                 var typeInfo = context.SemanticModel.GetTypeInfo(argumentSyntax.Expression, context.CancellationToken);
-                if (!IsExceptionType(typeInfo.Type, exceptionTypeSymbol)
+                if (!IsExceptionType(typeInfo.Type ?? typeInfo.ConvertedType, exceptionTypeSymbol)
                     || IsSystemExceptionParameter(parameterSymbol, exceptionTypeSymbol))
                 {
                     continue;

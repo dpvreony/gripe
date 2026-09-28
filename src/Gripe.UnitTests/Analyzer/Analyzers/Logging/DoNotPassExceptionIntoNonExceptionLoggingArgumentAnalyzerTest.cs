@@ -123,6 +123,10 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Logging
             {
             }
 
+            public static void LogWarning(this ILogger logger, string message, params object[] args)
+            {
+            }
+
             public static void Log(this ILogger logger, LogLevel logLevel, EventId eventId, object state, System.Exception? exception, System.Func<object, System.Exception?, string> formatter)
             {
             }
@@ -145,6 +149,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Logging
             public void LogThings(System.Exception exception, System.InvalidOperationException invalidOperationException)
             {
                 _logger.LogError(""Oops"", exception);
+                _logger.LogWarning(message: ""Oops {Arg}"", exception);
                 _logger.LogWarning(""Oops {Arg}"", exception);
                 _logger.Log(LogLevel.Error, new EventId(), exception, null, (state, loggedException) => state.ToString() ?? string.Empty);
             }
@@ -161,7 +166,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Logging
                     Locations =
                         new[]
                         {
-                            new DiagnosticResultLocation("Test0.cs", 53, 42),
+                            new DiagnosticResultLocation("Test0.cs", 57, 42),
                         }
                 },
                 new DiagnosticResult
@@ -172,7 +177,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Logging
                     Locations =
                         new[]
                         {
-                            new DiagnosticResultLocation("Test0.cs", 54, 50),
+                            new DiagnosticResultLocation("Test0.cs", 58, 59),
                         }
                 },
                 new DiagnosticResult
@@ -183,7 +188,18 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Logging
                     Locations =
                         new[]
                         {
-                            new DiagnosticResultLocation("Test0.cs", 55, 60),
+                            new DiagnosticResultLocation("Test0.cs", 59, 50),
+                        }
+                },
+                new DiagnosticResult
+                {
+                    Id = DiagnosticIdsHelper.DoNotPassExceptionIntoNonExceptionLoggingArgument,
+                    Message = DiagnosticResultTitleFactory.DoNotPassExceptionIntoNonExceptionLoggingArgument(),
+                    Severity = DiagnosticSeverity.Warning,
+                    Locations =
+                        new[]
+                        {
+                            new DiagnosticResultLocation("Test0.cs", 60, 60),
                         }
                 },
             };
