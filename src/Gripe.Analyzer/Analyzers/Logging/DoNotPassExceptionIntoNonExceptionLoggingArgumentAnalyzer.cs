@@ -55,7 +55,7 @@ namespace Gripe.Analyzer.Analyzers.Logging
         }
 
         private static bool IsExceptionType(
-            ITypeSymbol typeSymbol,
+            ITypeSymbol? typeSymbol,
             INamedTypeSymbol exceptionTypeSymbol)
         {
             var currentType = typeSymbol;
@@ -84,14 +84,14 @@ namespace Gripe.Analyzer.Analyzers.Logging
         }
 
         private static bool IsSystemExceptionParameter(
-            IParameterSymbol parameterSymbol,
+            IParameterSymbol? parameterSymbol,
             INamedTypeSymbol exceptionTypeSymbol)
         {
             return parameterSymbol != null
                    && IsExceptionType(parameterSymbol.Type, exceptionTypeSymbol);
         }
 
-        private static IMethodSymbol GetMethodSymbol(
+        private static IMethodSymbol? GetMethodSymbol(
             SyntaxNodeAnalysisContext context,
             InvocationExpressionSyntax invocationExpression)
         {
@@ -113,7 +113,7 @@ namespace Gripe.Analyzer.Analyzers.Logging
             return null;
         }
 
-        private static IParameterSymbol GetParameterSymbol(
+        private static IParameterSymbol? GetParameterSymbol(
             ImmutableArray<IParameterSymbol> parameters,
             ArgumentSyntax argumentSyntax,
             bool[] assignedParameters,

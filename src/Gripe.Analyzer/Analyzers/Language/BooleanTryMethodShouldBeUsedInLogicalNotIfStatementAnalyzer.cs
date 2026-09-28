@@ -55,7 +55,7 @@ namespace Gripe.Analyzer.Analyzers.Language
             context.RegisterSyntaxNodeAction(AnalyzeInvocationExpression, SyntaxKind.InvocationExpression);
         }
 
-        private static T GetParentNodeOfType<T>(SyntaxNode syntaxNode)
+        private static T? GetParentNodeOfType<T>(SyntaxNode syntaxNode)
             where T : SyntaxNode
         {
             var currentNode = syntaxNode.Parent;

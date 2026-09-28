@@ -53,7 +53,7 @@ namespace Gripe.Analyzer.Analyzers.XUnit
 
             var typeInfo = ModelExtensions.GetTypeInfo(syntaxNodeAnalysisContext.SemanticModel, attributeSyntax);
 
-            var fullName = typeInfo.Type.GetFullName(true);
+            var fullName = typeInfo.Type?.GetFullName(true);
             if (fullName == null || !fullName.Equals("global::XUnit.InlineDataAttribute"))
             {
                 return;

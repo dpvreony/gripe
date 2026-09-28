@@ -125,7 +125,7 @@ namespace Gripe.Analyzer.Analyzers.Language
             context.RegisterSyntaxNodeAction(AnalyzeInvocationExpression, SyntaxKind.InvocationExpression);
         }
 
-        private static ConstructorDeclarationSyntax GetConstructorDeclarationSyntax(SyntaxNode syntaxNode)
+        private static ConstructorDeclarationSyntax? GetConstructorDeclarationSyntax(SyntaxNode syntaxNode)
         {
             var currentNode = syntaxNode.Parent;
             while (currentNode != null)
