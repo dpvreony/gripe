@@ -7,5 +7,7 @@ namespace Gripe.Analyzer
     internal static class DiagnosticResultTitleFactory
     {
         internal static string ConstructorShouldAcceptLoggingFrameworkArgument() => "Constructor should have a logging framework instance as the final parameter.";
+
+        internal static string DoNotPassExceptionIntoNonExceptionLoggingArgument() => "Do not pass System.Exception into a non-System.Exception logging argument.";
     }
 }

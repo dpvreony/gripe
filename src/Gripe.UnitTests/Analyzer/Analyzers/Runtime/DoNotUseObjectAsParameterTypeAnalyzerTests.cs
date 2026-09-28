@@ -40,6 +40,11 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
                     DiagnosticSeverity.Warning,
                     104,
                     32),
+                new ExpectedDiagnosticModel(
+                    "Logging\\DoNotPassExceptionIntoNonExceptionLoggingArgumentProof.cs",
+                    DiagnosticSeverity.Warning,
+                    100,
+                    42),
             ];
         }
     }

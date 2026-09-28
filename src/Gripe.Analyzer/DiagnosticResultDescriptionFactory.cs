@@ -35,5 +35,7 @@ namespace Gripe.Analyzer
         internal static string DoNotUseNewInstanceOfJsonSerializerOptions() => "Reuse JsonSerializerOptions instances for better performance. Creating new instances repeatedly causes the metadata cache to be rebuilt each time. The metadata caches on the options instance are thread-safe, and the instance is immutable after the first serialization or deserialization.";
 
         internal static string InterfaceMethodShouldNotHaveDefaultParameterValue() => "Do not define default parameter values on interface methods. Default argument values are decided at the call site and can lead to different behavior when invoking via interface versus concrete type.";
+
+        internal static string DoNotPassExceptionIntoNonExceptionLoggingArgument() => "Pass exceptions to logging APIs using an explicit System.Exception or System.Exception? parameter. This avoids accidentally placing exceptions into logging message arguments where stack trace and exception details can be lost.";
     }
 }
