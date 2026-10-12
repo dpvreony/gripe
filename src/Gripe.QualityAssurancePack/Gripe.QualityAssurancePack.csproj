@@ -24,7 +24,7 @@
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="5.9.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.401" />
     <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="18.7.23" />
-    <PackageReference Include="Microsoft.Sbom.Targets" Version="4.1.5" />
+    <PackageReference Include="Microsoft.Sbom.Targets" Version="4.1.13" />
     <PackageReference Update="Nerdbank.GitVersioning" Version="3.10.94" />
     <PackageReference Include="Roslynator.Analyzers" Version="5.0.1" />
     <PackageReference Include="SecurityCodeScan.VS2019" Version="5.6.7" />
