@@ -26,6 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gripe.QualityAssurancePack\Gripe.QualityAssurancePack.csproj" ExcludeAssets="all" PrivateAssets="all" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\Gripe.QualityAssurancePack\Gripe.QualityAssurancePack.csproj" />
   </ItemGroup>
 </Project>
