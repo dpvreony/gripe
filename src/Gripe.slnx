@@ -13,6 +13,7 @@
   <Project Path="Gripe.DotNetTool/Gripe.DotNetTool.csproj" />
   <Project Path="Gripe.MsBuild/Gripe.MsBuild.csproj" />
   <Project Path="Gripe.MSBuildBinLogStats.DotNetTool/Gripe.MSBuildBinLogStats.DotNetTool.csproj" />
+  <Project Path="Gripe.QualityAssurancePack.Github/Gripe.QualityAssurancePack.Github.csproj" Id="dee75980-deb1-4d32-ae89-4b8f21be77ef" />
   <Project Path="Gripe.QualityAssurancePack/Gripe.QualityAssurancePack.csproj" />
   <Project Path="Gripe.SourceGenerator/Gripe.SourceGenerator.csproj" />
   <Project Path="Gripe.TestAssurancePack.GithubActions/Gripe.TestAssurancePack.GithubActions.csproj" Id="e54cdb08-58d2-4a5f-9baf-3c0800abd5b6" />
