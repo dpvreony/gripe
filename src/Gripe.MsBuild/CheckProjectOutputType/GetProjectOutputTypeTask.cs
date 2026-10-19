@@ -108,7 +108,9 @@ namespace Dhgms.QualityAssurancePack.Features.CheckProjectOutputType
                     return true;
                 }
             }
+#pragma warning disable CA1031
             catch (Exception ex)
+#pragma warning restore CA1031
             {
                 Log.LogWarning($"Could not evaluate OutputType for project '{ProjectPath}': {ex.Message}");
                 Log.LogMessage(MessageImportance.Low, $"Exception details: {ex}");

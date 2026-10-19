@@ -219,9 +219,11 @@ namespace Gripe.DotNetTool
                         break;
                 }
             }
-            catch (Exception e)
+#pragma warning disable CA1031
+            catch (Exception ex)
+#pragma warning restore CA1031
             {
-                Console.WriteLine(e);
+                Console.WriteLine(ex);
             }
         }
 
