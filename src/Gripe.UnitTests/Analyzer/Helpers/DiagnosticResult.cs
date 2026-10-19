@@ -20,10 +20,7 @@ namespace Gripe.UnitTests.Analyzer.Helpers
         {
             get
             {
-                if (_locations == null)
-                {
-                    _locations = new DiagnosticResultLocation[] { };
-                }
+                _locations ??= [];
 
                 return _locations;
             }

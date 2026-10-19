@@ -88,19 +88,20 @@ namespace Gripe.UnitTests.Analyzer.Verifiers
         /// <param name="expectedResults">Diagnostic Results that should have appeared in the code.</param>
         private static void VerifyDiagnosticResults(IEnumerable<Diagnostic> actualResults, DiagnosticAnalyzer analyzer, params DiagnosticResult[] expectedResults)
         {
-            int expectedCount = expectedResults.Count();
-            int actualCount = actualResults.Count();
+            int expectedCount = expectedResults.Length;
+            var actualResultsAsArray = actualResults.ToArray();
+            int actualCount = actualResultsAsArray.Length;
 
             if (expectedCount != actualCount)
             {
-                string diagnosticsOutput = actualResults.Any() ? FormatDiagnostics(analyzer, actualResults.ToArray()) : "    NONE.";
+                string diagnosticsOutput = actualResultsAsArray.Length > 0 ? FormatDiagnostics(analyzer, actualResultsAsArray) : "    NONE.";
 
                 Assert.Fail(string.Format("Mismatch between number of diagnostics returned, expected \"{0}\" actual \"{1}\"\r\n\r\nDiagnostics:\r\n{2}\r\n", expectedCount, actualCount, diagnosticsOutput));
             }
 
             for (int i = 0; i < expectedResults.Length; i++)
             {
-                var actual = actualResults.ElementAt(i);
+                var actual = actualResultsAsArray[i];
                 var expected = expectedResults[i];
 
                 if (expected.Line == -1 && expected.Column == -1)
@@ -274,7 +275,7 @@ namespace Gripe.UnitTests.Analyzer.Verifiers
         /// <param name="language">The language of the classes represented by the source strings.</param>
         /// <param name="analyzer">The analyzer to be run on the source code.</param>
         /// <param name="expected">DiagnosticResults that should appear after the analyzer is run on the sources.</param>
-        private void VerifyDiagnostics(string[] sources, string language, DiagnosticAnalyzer analyzer, params DiagnosticResult[] expected)
+        private static void VerifyDiagnostics(string[] sources, string language, DiagnosticAnalyzer analyzer, params DiagnosticResult[] expected)
         {
             var diagnostics = Helpers.DiagnosticVerifier.GetSortedDiagnostics(sources, language, analyzer);
             VerifyDiagnosticResults(diagnostics, analyzer, expected);

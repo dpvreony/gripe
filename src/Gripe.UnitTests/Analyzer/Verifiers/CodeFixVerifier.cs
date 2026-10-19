@@ -88,7 +88,7 @@ namespace Gripe.UnitTests.Analyzer.Verifiers
         /// <param name="newSource">A class in the form of a string after the CodeFix was applied to it.</param>
         /// <param name="codeFixIndex">Index determining which codefix to apply if there are multiple.</param>
         /// <param name="allowNewCompilerDiagnostics">A bool controlling whether or not the test will fail if the CodeFix introduces other warnings after being applied.</param>
-        private void VerifyFix(string language, DiagnosticAnalyzer analyzer, CodeFixProvider codeFixProvider, string oldSource, string newSource, int? codeFixIndex, bool allowNewCompilerDiagnostics)
+        private static void VerifyFix(string language, DiagnosticAnalyzer analyzer, CodeFixProvider codeFixProvider, string oldSource, string newSource, int? codeFixIndex, bool allowNewCompilerDiagnostics)
         {
             var document = Helpers.DiagnosticVerifier.CreateDocument(oldSource, language);
             var analyzerDiagnostics = Helpers.DiagnosticVerifier.GetSortedDiagnosticsFromDocuments(analyzer, new[] { document });
@@ -101,7 +101,7 @@ namespace Gripe.UnitTests.Analyzer.Verifiers
                 var context = new CodeFixContext(document, analyzerDiagnostics[0], (a, d) => actions.Add(a), CancellationToken.None);
                 codeFixProvider.RegisterCodeFixesAsync(context).Wait();
 
-                if (!actions.Any())
+                if (actions.Count == 0)
                 {
                     break;
                 }
@@ -131,7 +131,7 @@ namespace Gripe.UnitTests.Analyzer.Verifiers
                 }
 
                 // check if there are analyzer diagnostics left after the code fix
-                if (!analyzerDiagnostics.Any())
+                if (analyzerDiagnostics.Length == 0)
                 {
                     break;
                 }

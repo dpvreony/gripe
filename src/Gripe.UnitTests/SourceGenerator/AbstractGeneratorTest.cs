@@ -20,7 +20,7 @@ namespace Gripe.UnitTests.SourceGenerator
     /// Base class for testing generators.
     /// </summary>
     /// <typeparam name="TGenerator">The type for the source generator to test.</typeparam>
-    public abstract class AbstractGeneratorTest<TGenerator> : TestWithLoggingBase
+    public abstract partial class AbstractGeneratorTest<TGenerator> : TestWithLoggingBase
         where TGenerator : IIncrementalGenerator, new()
     {
         /// <summary>
@@ -60,22 +60,31 @@ namespace Gripe.UnitTests.SourceGenerator
                     out var generatorDiags,
                     generator.AsSourceGenerator());
 
-                Logger.LogInformation($"Generator Diagnostic count : {generatorDiags.Length}");
+                GeneratorDiagnosticCount(
+                    Logger,
+                    generatorDiags.Length);
 
                 var hasErrors = false;
                 foreach (var generatorDiag in generatorDiags)
                 {
-                    Logger.LogInformation(generatorDiag.ToString());
+#pragma warning disable CA1873
+                    LogGeneratorDiagnostic(
+                        Logger,
+                        generatorDiag.ToString());
 
                     hasErrors |= generatorDiag.Severity == DiagnosticSeverity.Error;
                 }
+#pragma warning restore CA1873
 
                 var expectedSources = GetExpectedSources();
                 var matchedFiles = newComp.SyntaxTrees.Where(x => expectedSources.Any(e => x.FilePath.EndsWith(e, StringComparison.OrdinalIgnoreCase))).ToArray();
                 foreach (var newCompSyntaxTree in matchedFiles)
                 {
-                    Logger.LogInformation("Syntax Tree:");
-                    Logger.LogInformation(newCompSyntaxTree.GetText(TestContext.Current.CancellationToken).ToString());
+#pragma warning disable CA1873
+                    LogSyntaxTree(
+                        Logger,
+                        (await newCompSyntaxTree.GetTextAsync(TestContext.Current.CancellationToken)).ToString());
+#pragma warning restore CA1873
                 }
 
                 Assert.False(hasErrors);
@@ -115,5 +124,28 @@ namespace Gripe.UnitTests.SourceGenerator
 
             return updatedCompilation;
         }
+
+        [LoggerMessage(
+            EventId = 0,
+            Level = LogLevel.Information,
+            Message = "Generator produced {DiagnosticCount} diagnostics")]
+        private static partial void GeneratorDiagnosticCount(
+            ILogger logger, int diagnosticCount);
+
+        [LoggerMessage(
+            EventId = 0,
+            Level = LogLevel.Information,
+            Message = "Generator Diagnostic: {Message}")]
+        private static partial void LogGeneratorDiagnostic(
+            ILogger logger,
+            string message);
+
+        [LoggerMessage(
+            EventId = 0,
+            Level = LogLevel.Information,
+            Message = "Generator Syntax Tree: {Message}")]
+        private static partial void LogSyntaxTree(
+            ILogger logger,
+            string message);
     }
 }
