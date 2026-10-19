@@ -78,8 +78,8 @@
       },
       "Microsoft.VisualStudio.Threading.Analyzers": {
         "type": "Transitive",
-        "resolved": "18.7.23",
-        "contentHash": "dyj6z8m+LFjpeH69hdnciCcRCmD0YgMlvuQEywiEshjqj/blgQ+PuWX8Vd5gkWQFoBN4e+TFxx6DvGNSv/gIKg=="
+        "resolved": "18.12.1",
+        "contentHash": "sQt7NpnselT1gP1a7bTfhmfHYV0jbavst/8mOoWTMSjXhXzWPssqgBoIwrxNsgJUa7XQzD2raSRMAFfmlepxNw=="
       },
       "Roslynator.Analyzers": {
         "type": "Transitive",
@@ -153,7 +153,7 @@
           "Microsoft.CodeAnalysis.Analyzers": "[5.9.0, )",
           "Microsoft.Sbom.Targets": "[4.1.13, )",
           "Microsoft.SourceLink.GitHub": "[10.0.401, )",
-          "Microsoft.VisualStudio.Threading.Analyzers": "[18.7.23, )",
+          "Microsoft.VisualStudio.Threading.Analyzers": "[18.12.1, )",
           "Roslynator.Analyzers": "[5.0.1, )",
           "SecurityCodeScan.VS2019": "[5.6.7, )",
           "SonarAnalyzer.CSharp": "[10.35.0.4138, )",
