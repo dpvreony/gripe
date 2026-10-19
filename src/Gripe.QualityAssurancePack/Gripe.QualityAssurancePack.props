@@ -19,6 +19,7 @@
     <GenerateSBOM>$(IsPackable)</GenerateSBOM>
     <SolutionDir Condition="'$(SolutionDir)' == ''">$(MSBuildThisFileDirectory)</SolutionDir>
     <GitVersionBaseDirectory>$(SolutionDir)/..</GitVersionBaseDirectory>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
 
   <ItemGroup>

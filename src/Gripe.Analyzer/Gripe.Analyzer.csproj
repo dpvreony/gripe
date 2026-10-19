@@ -10,6 +10,7 @@
     <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <LangVersion>latest</LangVersion>
+    <PackageDescription>Roslyn Code Analyzers to aid in software development quality and consistency.</PackageDescription>
   </PropertyGroup>
 
   <ItemGroup>

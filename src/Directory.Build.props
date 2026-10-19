@@ -1,4 +1,7 @@
 <Project>
+  <Import Project="$(MSBuildThisFileDirectory)\Gripe.QualityAssurancePack\Gripe.QualityAssurancePack.props" />
+  <Import Project="$(MSBuildThisFileDirectory)\Gripe.QualityAssurancePack\Gripe.QualityAssurancePack.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)\Gripe.QualityAssurancePack.Github\Gripe.QualityAssurancePack.Github.props" />
   <PropertyGroup>
     <Company>DPVreony and Contributors</Company>
     <StartYear>2015</StartYear>
