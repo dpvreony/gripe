@@ -49,6 +49,9 @@ namespace Gripe.DotNetTool
             VisualStudioInstance instance,
             IFileInfo solutionPath)
         {
+            ArgumentNullException.ThrowIfNull(instance);
+            ArgumentNullException.ThrowIfNull(solutionPath);
+
             LogMessageActionsWrapper.UsingMsBuildAtPath(instance.MSBuildPath);
 
             // NOTE: Be sure to register an instance with the MSBuildLocator
@@ -94,6 +97,8 @@ namespace Gripe.DotNetTool
         /// <inheritdoc/>
         protected override async Task<int> OnHandleCommandAsync(CommandLineArgModel commandLineArgModel, CancellationToken cancellationToken)
         {
+            ArgumentNullException.ThrowIfNull(commandLineArgModel);
+
             // Attempt to set the version of MSBuild.
             var visualStudioInstances = MSBuildLocator.QueryVisualStudioInstances().ToArray();
 
@@ -167,7 +172,7 @@ namespace Gripe.DotNetTool
             return !diagnostics.IsEmpty;
         }
 
-        private ImmutableArray<DiagnosticAnalyzer> GetDiagnosticAnalyzers()
+        private static ImmutableArray<DiagnosticAnalyzer> GetDiagnosticAnalyzers()
         {
             return global::Gripe.DotNetTool.DiagnosticAnalyzerCollectionFactory.EnumerateDiagnosticAnalyzers().ToImmutableArray();
         }

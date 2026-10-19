@@ -131,6 +131,7 @@ namespace Gripe.DotNetTool
         /// <param name="e">Workspace Diagnostic Event Args.</param>
         public void WorkspaceFailed(WorkspaceDiagnosticEventArgs e)
         {
+            ArgumentNullException.ThrowIfNull(e);
             _logMessageActions.WorkspaceFailed(Logger, e);
         }
 

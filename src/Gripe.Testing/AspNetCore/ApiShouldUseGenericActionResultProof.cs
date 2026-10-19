@@ -18,7 +18,7 @@ namespace Gripe.Testing.AspNetCore
         /// </example>
         public Microsoft.AspNetCore.Mvc.IActionResult? Get()
         {
-            return null;
+            return Ok();
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Gripe.Testing.AspNetCore
         /// </example>
         public Microsoft.AspNetCore.Mvc.ActionResult? ActionResultGet()
         {
-            return null;
+            return Ok();
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Gripe.Testing.AspNetCore
         /// </example>
         public Microsoft.AspNetCore.Mvc.ActionResult<int>? ActionResultGetWithInt()
         {
-            return null;
+            return Ok();
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Gripe.Testing.AspNetCore
         /// </example>
         public Microsoft.AspNetCore.Mvc.ActionResult<int> ActionResultGetWithInt(int id)
         {
-            return 1;
+            return Ok(1);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Gripe.Testing.AspNetCore
         /// </example>
         public Microsoft.AspNetCore.Mvc.ActionResult<int?> ActionResultGetWithNullableInt(int id)
         {
-            return 1;
+            return Ok(1);
         }
 
         /// <summary>
@@ -86,9 +86,9 @@ namespace Gripe.Testing.AspNetCore
         /// _ = proof.ActionResultGetAsync();
         /// </code>
         /// </example>
-        public System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.ActionResult<int>>? ActionResultGetAsync()
+        public async System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.ActionResult<int>>? ActionResultGetAsync()
         {
-            return null;
+            return await System.Threading.Tasks.Task.FromResult(Ok(1));
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Gripe.Testing.AspNetCore
         /// </example>
         public async System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.ActionResult<int>> ActionResultGetAsync(int id)
         {
-            return 1;
+            return await System.Threading.Tasks.Task.FromResult(Ok(1));
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace Gripe.Testing.AspNetCore
         /// </example>
         public async System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.ActionResult<int?>> ActionResultGetNullableIntAsync(int id)
         {
-            return 1;
+            return await System.Threading.Tasks.Task.FromResult(Ok(1));
         }
 
         private void SomeProtectedMethod(int id)

@@ -23,7 +23,11 @@ namespace Gripe.Testing.Language
         {
             var text = "Hello, World!";
             var comparison = "Hello";
+#pragma warning disable CA1307
+#pragma warning disable CA1309
             _ = text.Substring(0, 5).Equals(comparison);
+#pragma warning restore CA1309
+#pragma warning restore CA1307
         }
 
         /// <summary>

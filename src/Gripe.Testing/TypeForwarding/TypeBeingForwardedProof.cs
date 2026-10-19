@@ -43,7 +43,7 @@ namespace Gripe.Testing.TypeForwarding
         /// var p = new ForwardedType();
         /// </code>
         /// </example>
-        public void CreatesInstance()
+        public static void CreatesInstance()
         {
             var instance = new System.InvalidOperationException();
         }

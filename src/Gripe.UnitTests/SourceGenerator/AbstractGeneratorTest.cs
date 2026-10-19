@@ -97,7 +97,7 @@ namespace Gripe.UnitTests.SourceGenerator
         /// <returns>Collection of expected sources.</returns>
         protected abstract string[] GetExpectedSources();
 
-        private static GeneratorDriver CreateDriver(
+        private static CSharpGeneratorDriver CreateDriver(
             Compilation compilation,
             AnalyzerConfigOptionsProvider? analyzerConfigOptionsProvider,
             params ISourceGenerator[] generators) => CSharpGeneratorDriver.Create(

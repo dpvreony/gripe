@@ -42,11 +42,14 @@ namespace Gripe.Testing.Logging
             Exception exception,
             InvalidOperationException invalidOperationException)
         {
+            ArgumentNullException.ThrowIfNull(logger);
+            ArgumentNullException.ThrowIfNull(exception);
+            ArgumentNullException.ThrowIfNull(invalidOperationException);
             logger.LogError(exception, "Oops");
             logger.LogWarning(
                 exception: invalidOperationException,
                 message: "Oops {Arg}",
-                args: new object[] { 1 });
+                args: [ 1 ]);
             logger.Log(
                 LogLevel.Error,
                 new EventId(),
@@ -87,6 +90,10 @@ namespace Gripe.Testing.Logging
             InvalidOperationException invalidOperationException,
             bool includeNull)
         {
+            ArgumentNullException.ThrowIfNull(logger);
+            ArgumentNullException.ThrowIfNull(exception);
+            ArgumentNullException.ThrowIfNull(invalidOperationException);
+
             logger.LogError("Oops {Arg}", exception);
             logger.LogWarning(message: "Oops {Arg}", exception);
             logger.LogWarning("Oops {Arg}", invalidOperationException);

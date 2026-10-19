@@ -38,6 +38,9 @@ namespace Gripe.UnitTests.Analyzer.Helpers
         /// <returns>An IEnumerable of Diagnostics that surfaced in the source code, sorted by Location.</returns>
         public static Diagnostic[] GetSortedDiagnosticsFromDocuments(DiagnosticAnalyzer analyzer, Document[] documents)
         {
+            ArgumentNullException.ThrowIfNull(analyzer);
+            ArgumentNullException.ThrowIfNull(documents);
+
             var projects = new HashSet<Project>();
             foreach (var document in documents)
             {
@@ -95,6 +98,10 @@ namespace Gripe.UnitTests.Analyzer.Helpers
         /// <returns>An IEnumerable of Diagnostics that surfaced in the source code, sorted by Location.</returns>
         public static Diagnostic[] GetSortedDiagnostics(string[] sources, string language, DiagnosticAnalyzer analyzer)
         {
+            ArgumentNullException.ThrowIfNull(sources);
+            ArgumentNullException.ThrowIfNull(language);
+            ArgumentNullException.ThrowIfNull(analyzer);
+
             return GetSortedDiagnosticsFromDocuments(analyzer, GetDocuments(sources, language));
         }
 

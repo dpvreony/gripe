@@ -5,7 +5,7 @@
 namespace Gripe.Testing.Runtime
 {
     /// <summary>Proof source for UseSystemTextJsonInsteadOfNewtonsoftJson analyzer.</summary>
-    public sealed class UseSystemTextJsonInsteadOfNewtonsoftJsonProof
+    public static class UseSystemTextJsonInsteadOfNewtonsoftJsonProof
     {
         /// <summary>
         /// Method using Newtonsoft.Json converter.
@@ -16,7 +16,7 @@ namespace Gripe.Testing.Runtime
         /// proof.MethodName();
         /// </code>
         /// </example>
-        public void MethodName()
+        public static void MethodName()
         {
             _ = new global::Newtonsoft.Json.JsonSerializer();
         }

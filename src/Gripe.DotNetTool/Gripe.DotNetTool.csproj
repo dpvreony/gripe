@@ -9,7 +9,7 @@
     <ToolCommandName>gripe-scanner</ToolCommandName>
     <AssemblyName>gripe-scanner</AssemblyName>
     <PackageDescription>dot net tool to run Gripe Code Analysis.</PackageDescription>
-    <NoWarn>NU5104</NoWarn>
+    <NoWarn>NU5104;CA1515;$(NoWarn)</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

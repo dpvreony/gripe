@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -27,6 +28,9 @@ namespace Gripe.UnitTests.Analyzer.Helpers
         /// <returns>A Document with the changes from the CodeAction.</returns>
         public static Document ApplyFix(Document document, CodeAction codeAction)
         {
+            ArgumentNullException.ThrowIfNull(document);
+            ArgumentNullException.ThrowIfNull(codeAction);
+
             var operations = codeAction.GetOperationsAsync(CancellationToken.None).Result;
             var solution = operations.OfType<ApplyChangesOperation>().Single().ChangedSolution;
             return solution.GetDocument(document.Id)!;
@@ -42,6 +46,9 @@ namespace Gripe.UnitTests.Analyzer.Helpers
         /// <returns>A list of Diagnostics that only surfaced in the code after the CodeFix was applied.</returns>
         public static IEnumerable<Diagnostic> GetNewDiagnostics(IEnumerable<Diagnostic> diagnostics, IEnumerable<Diagnostic> newDiagnostics)
         {
+            ArgumentNullException.ThrowIfNull(diagnostics);
+            ArgumentNullException.ThrowIfNull(newDiagnostics);
+
             var oldArray = diagnostics.OrderBy(d => d.Location.SourceSpan.Start).ToArray();
             var newArray = newDiagnostics.OrderBy(d => d.Location.SourceSpan.Start).ToArray();
 
@@ -69,6 +76,7 @@ namespace Gripe.UnitTests.Analyzer.Helpers
         /// <returns>The compiler diagnostics that were found in the code.</returns>
         public static IEnumerable<Diagnostic> GetCompilerDiagnostics(Document document)
         {
+            ArgumentNullException.ThrowIfNull(document);
             return document.GetSemanticModelAsync().Result!.GetDiagnostics();
         }
 
@@ -79,6 +87,7 @@ namespace Gripe.UnitTests.Analyzer.Helpers
         /// <returns>A string containing the syntax of the Document after formatting.</returns>
         public static string GetStringFromDocument(Document document)
         {
+            ArgumentNullException.ThrowIfNull(document);
             var simplifiedDoc = Simplifier.ReduceAsync(document, Simplifier.Annotation).Result;
             var root = simplifiedDoc.GetSyntaxRootAsync().Result!;
             root = Formatter.Format(root, Formatter.Annotation, simplifiedDoc.Project.Solution.Workspace);

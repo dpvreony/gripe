@@ -2,7 +2,9 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Gripe.UnitTests.Analyzer.Helpers;
@@ -96,7 +98,7 @@ namespace Gripe.UnitTests.Analyzer.Verifiers
             {
                 string diagnosticsOutput = actualResultsAsArray.Length > 0 ? FormatDiagnostics(analyzer, actualResultsAsArray) : "    NONE.";
 
-                Assert.Fail(string.Format("Mismatch between number of diagnostics returned, expected \"{0}\" actual \"{1}\"\r\n\r\nDiagnostics:\r\n{2}\r\n", expectedCount, actualCount, diagnosticsOutput));
+                Assert.Fail($"Mismatch between number of diagnostics returned, expected \"{expectedCount}\" actual \"{actualCount}\"\r\n\r\nDiagnostics:\r\n{diagnosticsOutput}\r\n");
             }
 
             for (int i = 0; i < expectedResults.Length; i++)
@@ -108,9 +110,7 @@ namespace Gripe.UnitTests.Analyzer.Verifiers
                 {
                     if (actual.Location != Location.None)
                     {
-                        Assert.Fail(string.Format(
-                                "Expected:\nA project diagnostic with No location\nActual:\n{0}",
-                                FormatDiagnostics(analyzer, actual)));
+                        Assert.Fail($"Expected:\nA project diagnostic with No location\nActual:\n{FormatDiagnostics(analyzer, actual)}");
                     }
                 }
                 else
@@ -120,11 +120,7 @@ namespace Gripe.UnitTests.Analyzer.Verifiers
 
                     if (additionalLocations.Length != expected.Locations.Length - 1)
                     {
-                        Assert.Fail(string.Format(
-                                "Expected {0} additional locations but got {1} for Diagnostic:\r\n    {2}\r\n",
-                                expected.Locations.Length - 1,
-                                additionalLocations.Length,
-                                FormatDiagnostics(analyzer, actual)));
+                        Assert.Fail($"Expected {expected.Locations.Length - 1} additional locations but got {additionalLocations.Length} for Diagnostic:\r\n    {FormatDiagnostics(analyzer, actual)}\r\n");
                     }
 
                     for (int j = 0; j < additionalLocations.Length; ++j)
@@ -135,29 +131,17 @@ namespace Gripe.UnitTests.Analyzer.Verifiers
 
                 if (actual.Id != expected.Id)
                 {
-                    Assert.Fail(string.Format(
-                            "Expected diagnostic id to be \"{0}\" was \"{1}\"\r\n\r\nDiagnostic:\r\n    {2}\r\n",
-                            expected.Id,
-                            actual.Id,
-                            FormatDiagnostics(analyzer, actual)));
+                    Assert.Fail($"Expected diagnostic id to be \"{expected.Id}\" was \"{actual.Id}\"\r\n\r\nDiagnostic:\r\n    {FormatDiagnostics(analyzer, actual)}\r\n");
                 }
 
                 if (actual.Severity != expected.Severity)
                 {
-                    Assert.Fail(string.Format(
-                            "Expected diagnostic severity to be \"{0}\" was \"{1}\"\r\n\r\nDiagnostic:\r\n    {2}\r\n",
-                            expected.Severity,
-                            actual.Severity,
-                            FormatDiagnostics(analyzer, actual)));
+                    Assert.Fail($"Expected diagnostic severity to be \"{expected.Severity}\" was \"{actual.Severity}\"\r\n\r\nDiagnostic:\r\n    {FormatDiagnostics(analyzer, actual)}\r\n");
                 }
 
-                if (actual.GetMessage() != expected.Message)
+                if (!actual.GetMessage(CultureInfo.InvariantCulture).Equals(expected.Message, StringComparison.Ordinal))
                 {
-                    Assert.Fail(string.Format(
-                            "Expected diagnostic message to be \"{0}\" was \"{1}\"\r\n\r\nDiagnostic:\r\n    {2}\r\n",
-                            expected.Message,
-                            actual.GetMessage(),
-                            FormatDiagnostics(analyzer, actual)));
+                    Assert.Fail($"Expected diagnostic message to be \"{expected.Message}\" was \"{actual.GetMessage(CultureInfo.InvariantCulture)}\"\r\n\r\nDiagnostic:\r\n    {FormatDiagnostics(analyzer, actual)}\r\n");
                 }
             }
         }
@@ -174,12 +158,8 @@ namespace Gripe.UnitTests.Analyzer.Verifiers
             var actualSpan = actual.GetLineSpan();
 
             Assert.True(
-                actualSpan.Path == expected.Path || (actualSpan.Path != null && actualSpan.Path.Contains("Test0.") && expected.Path.Contains("Test.")),
-                string.Format(
-                    "Expected diagnostic to be in file \"{0}\" was actually in file \"{1}\"\r\n\r\nDiagnostic:\r\n    {2}\r\n",
-                    expected.Path,
-                    actualSpan.Path,
-                    FormatDiagnostics(analyzer, diagnostic)));
+                actualSpan.Path == expected.Path || (actualSpan.Path != null && actualSpan.Path.Contains("Test0.", StringComparison.Ordinal) && expected.Path.Contains("Test.", StringComparison.Ordinal)),
+                $"Expected diagnostic to be in file \"{expected.Path}\" was actually in file \"{actualSpan.Path}\"\r\n\r\nDiagnostic:\r\n    {FormatDiagnostics(analyzer, diagnostic)}\r\n");
 
             var actualLinePosition = actualSpan.StartLinePosition;
 
@@ -188,11 +168,7 @@ namespace Gripe.UnitTests.Analyzer.Verifiers
             {
                 if (actualLinePosition.Line + 1 != expected.Line)
                 {
-                    Assert.Fail(string.Format(
-                            "Expected diagnostic to be on line \"{0}\" was actually on line \"{1}\"\r\n\r\nDiagnostic:\r\n    {2}\r\n",
-                            expected.Line,
-                            actualLinePosition.Line + 1,
-                            FormatDiagnostics(analyzer, diagnostic)));
+                    Assert.Fail($"Expected diagnostic to be on line \"{expected.Line}\" was actually on line \"{actualLinePosition.Line + 1}\"\r\n\r\nDiagnostic:\r\n    {FormatDiagnostics(analyzer, diagnostic)}\r\n");
                 }
             }
 
@@ -201,11 +177,8 @@ namespace Gripe.UnitTests.Analyzer.Verifiers
             {
                 if (actualLinePosition.Character + 1 != expected.Column)
                 {
-                    Assert.Fail(string.Format(
-                            "Expected diagnostic to start at column \"{0}\" was actually at column \"{1}\"\r\n\r\nDiagnostic:\r\n    {2}\r\n",
-                            expected.Column,
-                            actualLinePosition.Character + 1,
-                            FormatDiagnostics(analyzer, diagnostic)));
+                    Assert.Fail(
+                        $"Expected diagnostic to start at column \"{expected.Column}\" was actually at column \"{actualLinePosition.Character + 1}\"\r\n\r\nDiagnostic:\r\n    {FormatDiagnostics(analyzer, diagnostic)}\r\n");
                 }
             }
         }
@@ -233,7 +206,7 @@ namespace Gripe.UnitTests.Analyzer.Verifiers
                         var location = diagnostics[i].Location;
                         if (location == Location.None)
                         {
-                            builder.AppendFormat("GetGlobalResult({0}.{1})", analyzerType.Name, rule.Id);
+                            builder.AppendFormat(CultureInfo.InvariantCulture, "GetGlobalResult({0}.{1})", analyzerType.Name, rule.Id);
                         }
                         else
                         {
@@ -241,10 +214,11 @@ namespace Gripe.UnitTests.Analyzer.Verifiers
                                 location.IsInSource,
                                 $"Test base does not currently handle diagnostics in metadata locations. Diagnostic in metadata: {diagnostics[i]}\r\n");
 
-                            string resultMethodName = diagnostics[i].Location.SourceTree!.FilePath.EndsWith(".cs") ? "GetCSharpResultAt" : "GetBasicResultAt";
+                            string resultMethodName = diagnostics[i].Location.SourceTree!.FilePath.EndsWith(".cs", StringComparison.Ordinal) ? "GetCSharpResultAt" : "GetBasicResultAt";
                             var linePosition = diagnostics[i].Location.GetLineSpan().StartLinePosition;
 
                             builder.AppendFormat(
+                                CultureInfo.InvariantCulture,
                                 "{0}({1}, {2}, {3}.{4})",
                                 resultMethodName,
                                 linePosition.Line + 1,
