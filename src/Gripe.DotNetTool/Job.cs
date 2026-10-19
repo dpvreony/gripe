@@ -232,7 +232,7 @@ namespace Gripe.DotNetTool
             }
         }
 
-        private class ConsoleProgressReporter : IProgress<ProjectLoadProgress>
+        private sealed class ConsoleProgressReporter : IProgress<ProjectLoadProgress>
         {
             public void Report(ProjectLoadProgress loadProgress)
             {

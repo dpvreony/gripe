@@ -44,8 +44,10 @@ namespace DvResearch.MsBuild
         /// <summary>
         /// Gets or sets the package references to check.
         /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
         [Required]
         public ITaskItem[]? PackageReferences { get; set; }
+#pragma warning restore CA1819 // Properties should not return arrays
 
         /// <inheritdoc/>
         public override bool Execute()

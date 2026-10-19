@@ -50,34 +50,21 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.AppCenter
         }
     }";
 
-            var ctor = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.MicrosoftAppCenterShouldNotBeUsed,
-                Message = "Microsoft AppCenter is end of life so should not be used.",
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 22, 32)
-                    }
-            };
-
-            var methodInvoke = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.MicrosoftAppCenterShouldNotBeUsed,
-                Message = "Microsoft AppCenter is end of life so should not be used.",
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 23, 17)
-                    }
-            };
+            var diagnosticResult = new DiagnosticResult(
+                DiagnosticIdsHelper.MicrosoftAppCenterShouldNotBeUsed,
+                "Microsoft AppCenter is end of life so should not be used.",
+                DiagnosticSeverity.Warning,
+                [
+                new DiagnosticResultFileLocation(
+                    "Test0.cs",
+                    [
+                        new DiagnosticResultLineDetail(22 ,32),
+                        new DiagnosticResultLineDetail(23 ,17)
+                        ])]);
 
             VerifyCSharpDiagnostic(
                 test,
-                ctor,
-                methodInvoke);
+                diagnosticResult);
         }
 
         /// <inheritdoc />

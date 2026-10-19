@@ -35,17 +35,17 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
             }
         }
     }";
-            var expected = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.UseTypeofInsteadOfSystemTypeGetType,
-                Message = "Consider usage of typeof(x) instead of System.Type.GetType.",
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 10, 17)
-                    }
-            };
+            var expected = new DiagnosticResult(
+                DiagnosticIdsHelper.UseTypeofInsteadOfSystemTypeGetType,
+                "Consider usage of typeof(x) instead of System.Type.GetType.",
+                DiagnosticSeverity.Warning,
+                [
+                    new DiagnosticResultFileLocation(
+                        "Test0.cs",
+                        [
+                            new DiagnosticResultLineDetail(
+                                10,
+                                17)])]);
 
             VerifyCSharpDiagnostic(test, expected);
         }

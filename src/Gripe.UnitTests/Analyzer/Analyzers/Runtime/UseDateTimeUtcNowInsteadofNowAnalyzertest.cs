@@ -35,17 +35,19 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
             }
         }
     }";
-            var expected = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.UseDateTimeUtcNowInsteadofNow,
-                Message = UseDateTimeUtcNowInsteadofNowAnalyzer.Title,
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 10, 24)
-                    }
-            };
+            var expected = new DiagnosticResult(
+                DiagnosticIdsHelper.UseDateTimeUtcNowInsteadofNow,
+                UseDateTimeUtcNowInsteadofNowAnalyzer.Title,
+                DiagnosticSeverity.Warning,
+                [
+                    new DiagnosticResultFileLocation(
+                        "Test0.cs",
+                        [
+                            new DiagnosticResultLineDetail(
+                                10,
+                                24)
+                        ])
+                ]);
 
             VerifyCSharpDiagnostic(test, expected);
         }

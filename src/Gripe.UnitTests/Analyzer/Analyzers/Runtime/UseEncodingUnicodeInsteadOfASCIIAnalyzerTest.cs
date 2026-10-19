@@ -36,17 +36,19 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
             }
         }
     }";
-            var expected = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.UseEncodingUnicodeInsteadOfAscii,
-                Message = "Consider usage of Unicode Encoding instead of ASCII.",
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 11, 17)
-                    }
-            };
+            var expected = new DiagnosticResult(
+                DiagnosticIdsHelper.UseEncodingUnicodeInsteadOfAscii,
+                "Consider usage of Unicode Encoding instead of ASCII.",
+                DiagnosticSeverity.Warning,
+                [
+                    new DiagnosticResultFileLocation(
+                        "Test0.cs",
+                        [
+                            new DiagnosticResultLineDetail(
+                                11,
+                                17)
+                        ])
+                ]);
 
             VerifyCSharpDiagnostic(test, expected);
         }
