@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for full license information.
 
 using Gripe.Analyzer;
+using Gripe.Analyzer.Analyzers.MediatR;
 using Gripe.Analyzer.Analyzers.ReactiveUi;
 using Gripe.UnitTests.Analyzer.Helpers;
 using Microsoft.CodeAnalysis;
@@ -34,17 +35,19 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.ReactiveUi
         }
     }";
 
-            var expected = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.ReactiveObjectClassShouldHaveViewModelSuffix,
-                Message = NameOfReactiveObjectBasedClassShouldEndWithViewModelAnalyzer.Title,
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 8, 22)
-                    }
-            };
+            var expected = new DiagnosticResult(
+                DiagnosticIdsHelper.ReactiveObjectClassShouldHaveViewModelSuffix,
+                NameOfReactiveObjectBasedClassShouldEndWithViewModelAnalyzer.Title,
+                DiagnosticSeverity.Warning,
+                [
+                    new DiagnosticResultFileLocation(
+                        "Test0.cs",
+                        [
+                            new DiagnosticResultLineDetail(
+                                7,
+                                21)
+                        ])
+                ]);
 
             VerifyCSharpDiagnostic(test, expected);
         }

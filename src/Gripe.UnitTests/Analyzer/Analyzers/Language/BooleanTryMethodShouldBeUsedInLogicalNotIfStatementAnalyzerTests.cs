@@ -28,7 +28,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
                 new ExpectedDiagnosticModel(
                     @"Language\BooleanTryMethodShouldBeUsedInLogicalNotIfStatementProof.cs",
                     DiagnosticSeverity.Warning,
-                    20,
+                    21,
                     12)
             ];
         }

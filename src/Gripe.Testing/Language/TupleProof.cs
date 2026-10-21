@@ -20,10 +20,11 @@ namespace Gripe.Testing.Language
         /// TupleProof.GetTuple();
         /// </code>
         /// </example>
+        /// <param name="lookupValue">The value to look up.</param>
         /// <returns>A <see cref="Tuple"/>.</returns>
-        public static (int Number, string Name) GetTuple()
+        public static (int Number, string Name) GetTuple(int lookupValue)
         {
-            return (1, "Hello");
+            return (lookupValue, "Hello");
         }
     }
 }

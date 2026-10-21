@@ -15,8 +15,10 @@ namespace Gripe.MsBuild.NugetUnicodeChecks
         /// <summary>
         /// Gets or sets the path to the project file to evaluate.
         /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
         [Required]
         public ITaskItem[]? PackageReferences { get; set; }
+#pragma warning restore CA1819 // Properties should not return arrays
 
         /// <summary>
         /// Executes the task.

@@ -38,17 +38,19 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.MediatR
         }
     }";
 
-            var expected = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.MediatRResponseShouldHaveCommandResponseOrQueryResponseSuffix,
-                Message = RequestResponseTypeShouldHaveSpecificNameAnalyzer.Title,
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 12, 38)
-                    }
-            };
+            var expected = new DiagnosticResult(
+                DiagnosticIdsHelper.MediatRResponseShouldHaveCommandResponseOrQueryResponseSuffix,
+                RequestResponseTypeShouldHaveSpecificNameAnalyzer.Title,
+                DiagnosticSeverity.Warning,
+                [
+                    new DiagnosticResultFileLocation(
+                        "Test0.cs",
+                        [
+                            new DiagnosticResultLineDetail(
+                                11,
+                                37)
+                        ])
+                ]);
 
             VerifyCSharpDiagnostic(test, expected);
         }

@@ -48,34 +48,27 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
             }
         }
     }";
-            var ctor = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.DoNotUseGdiPlus,
-                Message = DoNotUseGdiPlusAnalyzer.Title,
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 22, 30)
-                    }
-            };
 
-            var methodInvoke = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.DoNotUseGdiPlus,
-                Message = DoNotUseGdiPlusAnalyzer.Title,
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 23, 17)
-                    }
-            };
+            var expected = new DiagnosticResult(
+                DiagnosticIdsHelper.DoNotUseGdiPlus,
+                DoNotUseGdiPlusAnalyzer.Title,
+                DiagnosticSeverity.Warning,
+                [
+                    new DiagnosticResultFileLocation(
+                        "Test0.cs",
+                        [
+                            new DiagnosticResultLineDetail(
+                                21,
+                                29),
+                            new DiagnosticResultLineDetail(
+                                22,
+                                16),
+                        ])
+                ]);
 
             VerifyCSharpDiagnostic(
                 test,
-                ctor,
-                methodInvoke);
+                expected);
         }
 
         /// <inheritdoc />

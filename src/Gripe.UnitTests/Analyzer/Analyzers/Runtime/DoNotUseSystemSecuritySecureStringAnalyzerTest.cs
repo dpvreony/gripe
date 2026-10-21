@@ -44,17 +44,19 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
             }
         }
     }";
-            var methodInvoke = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.DoNotUseSystemSecuritySecureString,
-                Message = DoNotUseSystemSecuritySecureStringAnalyzer.Title,
-                Severity = DiagnosticSeverity.Error,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 19, 17)
-                    }
-            };
+            var methodInvoke = new DiagnosticResult(
+                DiagnosticIdsHelper.DoNotUseSystemSecuritySecureString,
+                DoNotUseSystemSecuritySecureStringAnalyzer.Title,
+                DiagnosticSeverity.Error,
+                [
+                    new DiagnosticResultFileLocation(
+                        "Test0.cs",
+                        [
+                            new DiagnosticResultLineDetail(
+                                18,
+                                16)
+                        ])
+                ]);
 
             VerifyCSharpDiagnostic(
                 test,

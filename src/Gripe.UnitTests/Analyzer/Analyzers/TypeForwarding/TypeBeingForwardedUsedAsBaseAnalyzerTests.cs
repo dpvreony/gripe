@@ -23,7 +23,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.TypeForwarding
                 new ExpectedDiagnosticModel(
                     "TypeForwarding\\TypeBeingForwardedProof.cs",
                     Microsoft.CodeAnalysis.DiagnosticSeverity.Warning,
-                    19,
+                    20,
                     31),
             ];
         }

@@ -2,9 +2,10 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
-using System.Linq;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 
 namespace Gripe.Testing.EfCore
 {
@@ -32,6 +33,7 @@ namespace Gripe.Testing.EfCore
         /// </remarks>
         public static void CallsQueryMethods(IdentityDbContext dbContext)
         {
+            ArgumentNullException.ThrowIfNull(dbContext);
             _ = dbContext.Users.Select(x => x.Id).ToList();
             _ = dbContext.Users.OrderBy(x => x.UserName).ToList();
             _ = dbContext.Users.OrderByDescending(x => x.UserName).ToList();

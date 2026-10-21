@@ -14,7 +14,9 @@
         /// window.ShowChildWindow();
         /// </code>
         /// </example>
+#pragma warning disable CA1822 // Mark members as static
         public void ShowChildWindow()
+#pragma warning restore CA1822 // Mark members as static
         {
             var child = new SimpleWindow();
             child.Show();

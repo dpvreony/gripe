@@ -1,6 +1,7 @@
 // Copyright (c) 2019 DHGMS Solutions and Contributors. All rights reserved.
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
+#pragma warning disable CA1848
 
 using System;
 using Microsoft.Extensions.Logging;
@@ -41,11 +42,14 @@ namespace Gripe.Testing.Logging
             Exception exception,
             InvalidOperationException invalidOperationException)
         {
+            ArgumentNullException.ThrowIfNull(logger);
+            ArgumentNullException.ThrowIfNull(exception);
+            ArgumentNullException.ThrowIfNull(invalidOperationException);
             logger.LogError(exception, "Oops");
             logger.LogWarning(
                 exception: invalidOperationException,
                 message: "Oops {Arg}",
-                args: new object[] { 1 });
+                args: [ 1 ]);
             logger.Log(
                 LogLevel.Error,
                 new EventId(),
@@ -86,6 +90,10 @@ namespace Gripe.Testing.Logging
             InvalidOperationException invalidOperationException,
             bool includeNull)
         {
+            ArgumentNullException.ThrowIfNull(logger);
+            ArgumentNullException.ThrowIfNull(exception);
+            ArgumentNullException.ThrowIfNull(invalidOperationException);
+
             logger.LogError("Oops {Arg}", exception);
             logger.LogWarning(message: "Oops {Arg}", exception);
             logger.LogWarning("Oops {Arg}", invalidOperationException);
@@ -104,19 +112,25 @@ namespace Gripe.Testing.Logging
             return state.ToString() ?? string.Empty;
         }
 
-        private sealed class ProofLogger : ILogger
+        /// <summary>
+        /// Fake logger implementation for testing purposes.
+        /// </summary>
+        public sealed class ProofLogger : ILogger
         {
+            /// <inheritdoc />
             public IDisposable? BeginScope<TState>(TState state)
                 where TState : notnull
             {
                 return null;
             }
 
+            /// <inheritdoc />
             public bool IsEnabled(LogLevel logLevel)
             {
                 return true;
             }
 
+            /// <inheritdoc />
             public void Log<TState>(
                 LogLevel logLevel,
                 EventId eventId,

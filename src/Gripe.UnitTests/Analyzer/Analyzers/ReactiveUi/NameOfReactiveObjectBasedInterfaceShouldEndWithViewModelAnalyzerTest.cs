@@ -33,17 +33,20 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.ReactiveUi
         {
         }
     }";
-            var expected = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.ReactiveObjectInterfaceShouldHaveViewModelSuffix,
-                Message = NameOfReactiveObjectBasedInterfaceShouldEndWithViewModelAnalyzer.Title,
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 8, 26)
-                    }
-            };
+
+            var expected = new DiagnosticResult(
+                DiagnosticIdsHelper.ReactiveObjectInterfaceShouldHaveViewModelSuffix,
+                NameOfReactiveObjectBasedInterfaceShouldEndWithViewModelAnalyzer.Title,
+                DiagnosticSeverity.Warning,
+                [
+                    new DiagnosticResultFileLocation(
+                        "Test0.cs",
+                        [
+                            new DiagnosticResultLineDetail(
+                                7,
+                                25)
+                        ])
+                ]);
 
             VerifyCSharpDiagnostic(test, expected);
         }

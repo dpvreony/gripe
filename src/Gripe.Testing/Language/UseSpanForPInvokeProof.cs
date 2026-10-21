@@ -38,6 +38,7 @@ namespace Gripe.Testing.Language
             /// <param name="length">The length of data to read.</param>
             /// <returns>The number of bytes read.</returns>
             [DllImport("kernel32.dll")]
+            [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
             internal static extern int ReadData(byte[] buffer, int length);
         }
     }

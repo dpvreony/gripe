@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.CompilerServices;
 
 [assembly: TypeForwardedTo(typeof(global::System.InvalidOperationException))]
@@ -7,7 +8,7 @@ namespace Gripe.Testing.TypeForwarding
     /// <summary>
     /// Proofs for type forwarding usages.
     /// </summary>
-    public class TypeBeingForwardedProof
+    public static class TypeBeingForwardedProof
     {
         /// <summary>
         /// Demonstrates a forwarded type used as a base type.
@@ -19,6 +20,23 @@ namespace Gripe.Testing.TypeForwarding
         /// </example>
         public class Derived : System.InvalidOperationException
         {
+            /// <inheritdoc />
+            public Derived()
+            {
+            }
+
+            /// <inheritdoc />
+            public Derived(string message) : base(message)
+            {
+                // Add any type-specific logic.
+            }
+
+            /// <inheritdoc />
+            public Derived(string message, Exception innerException) :
+                base(message, innerException)
+            {
+                // Add any type-specific logic for inner exceptions.
+            }
         }
 
         /// <summary>
@@ -43,7 +61,7 @@ namespace Gripe.Testing.TypeForwarding
         /// var p = new ForwardedType();
         /// </code>
         /// </example>
-        public void CreatesInstance()
+        public static void CreatesInstance()
         {
             var instance = new System.InvalidOperationException();
         }

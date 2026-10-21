@@ -4,14 +4,6 @@
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)..\LICENSE" Pack="true" PackagePath="LICENSE" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="readme.md" Pack="true" PackagePath="\"/>
-  </ItemGroup>
-
   <!-- Net Analyzers config taken from : https://docs.microsoft.com/en-gb/visualstudio/code-quality/migrate-from-fxcop-analyzers-to-net-analyzers?view=vs-2019 -->
   <PropertyGroup>
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>

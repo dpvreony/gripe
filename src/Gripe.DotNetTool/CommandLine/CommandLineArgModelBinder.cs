@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
+using System;
 using System.CommandLine;
 using System.IO.Abstractions;
 using Whipstaff.CommandLine;
@@ -25,6 +26,9 @@ namespace Gripe.DotNetTool.CommandLine
             Argument<IFileInfo> solutionArgument,
             Option<string> msBuildInstanceNameArgument)
         {
+            ArgumentNullException.ThrowIfNull(solutionArgument);
+            ArgumentNullException.ThrowIfNull(msBuildInstanceNameArgument);
+
             _solutionArgument = solutionArgument;
             _msBuildInstanceNameOption = msBuildInstanceNameArgument;
         }
@@ -32,6 +36,8 @@ namespace Gripe.DotNetTool.CommandLine
         /// <inheritdoc/>
         public CommandLineArgModel GetBoundValue(ParseResult parseResult)
         {
+            ArgumentNullException.ThrowIfNull(parseResult);
+
             var solution = parseResult.GetRequiredValue(_solutionArgument);
             var msBuildInstanceName = parseResult.GetValue(_msBuildInstanceNameOption);
             return new CommandLineArgModel(solution, msBuildInstanceName);

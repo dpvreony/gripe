@@ -37,17 +37,19 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.ReactiveUi
         {
         }
     }";
-            var expected = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.ViewModelClassShouldInheritFromViewModelInterface,
-                Message = "ViewModel classes should inherit from ViewModel interface: .ITestViewModel",
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 12, 22)
-                    }
-            };
+            var expected = new DiagnosticResult(
+                DiagnosticIdsHelper.ViewModelClassShouldInheritFromViewModelInterface,
+                "ViewModel classes should inherit from ViewModel interface: .ITestViewModel",
+                DiagnosticSeverity.Warning,
+                [
+                    new DiagnosticResultFileLocation(
+                        "Test0.cs",
+                        [
+                            new DiagnosticResultLineDetail(
+                                11,
+                                21)
+                        ])
+                ]);
 
             VerifyCSharpDiagnostic(test, expected);
         }

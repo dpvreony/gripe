@@ -8,6 +8,7 @@
     <UseWindowsForms>True</UseWindowsForms>
     <UseWpf>True</UseWpf>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoWarn>CA1034,CA1822,$(NoWarn)</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

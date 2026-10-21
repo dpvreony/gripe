@@ -1,4 +1,7 @@
 <Project>
+  <Import Project="$(MSBuildThisFileDirectory)\Gripe.QualityAssurancePack\Gripe.QualityAssurancePack.props" />
+  <Import Project="$(MSBuildThisFileDirectory)\Gripe.QualityAssurancePack\Gripe.QualityAssurancePack.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)\Gripe.QualityAssurancePack.Github\Gripe.QualityAssurancePack.Github.props" />
   <PropertyGroup>
     <Company>DPVreony and Contributors</Company>
     <StartYear>2015</StartYear>
@@ -14,7 +17,6 @@
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)analyzers.ruleset</CodeAnalysisRuleSet>
     <IsTestProject>$(MSBuildProjectName.EndsWith('Tests'))</IsTestProject>
     <IsWasmProject>$(MSBuildProjectName.Contains('Wasm'))</IsWasmProject>
-    <DebugType>Embedded</DebugType>
     <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
@@ -25,8 +27,6 @@
     <!--<EnableSourceLink Condition=" '$(OS)' != 'Windows_NT' AND '$(MSBuildRuntimeType)' != 'Core' ">false</EnableSourceLink>-->
     <EnableSourceLink>false</EnableSourceLink>
     <EnableSourceControlManagerQueries>$(EnableSourceLink)</EnableSourceControlManagerQueries>
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-    <WarningsAsErrors />
   </PropertyGroup>
 
   <ItemGroup Condition="$(IsTestProject)">
@@ -34,10 +34,6 @@
     <PackageReference Include="Microsoft.Testing.Extensions.GitHubActionsReport" Version="2.5.1" />
   </ItemGroup>
   <Import Project="$(MSBuildThisFileDirectory)\Gripe.TestAssurancePack.XUnit\Gripe.TestAssurancePack.XUnit.targets" Condition="$(IsTestProject)" />
-
-  <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)..\LICENSE" Pack="true" PackagePath="LICENSE" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Nerdbank.GitVersioning" Version="3.10.94" PrivateAssets="all" />

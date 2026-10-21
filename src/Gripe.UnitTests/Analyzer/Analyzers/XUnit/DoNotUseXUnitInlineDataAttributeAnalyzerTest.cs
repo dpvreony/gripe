@@ -43,17 +43,19 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.XUnit
             }
         }
     }";
-            var expected = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.DoNotUseXUnitInlineDataAttribute,
-                Message = "Do not use the XUnit Attribute InlineData",
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 16, 14)
-                    }
-            };
+            var expected = new DiagnosticResult(
+                DiagnosticIdsHelper.DoNotUseXUnitInlineDataAttribute,
+                "Do not use the XUnit Attribute InlineData",
+                DiagnosticSeverity.Warning,
+                [
+                    new DiagnosticResultFileLocation(
+                        "Test0.cs",
+                        [
+                            new DiagnosticResultLineDetail(
+                                15,
+                                13)
+                        ])
+                ]);
 
             VerifyCSharpDiagnostic(test, expected);
         }

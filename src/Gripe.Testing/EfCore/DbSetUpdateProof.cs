@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
+using System;
 using System.Linq;
 using Gripe.Analyzer.Analyzers.EfCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -27,6 +28,7 @@ namespace Gripe.Testing.EfCore
         /// </remarks>
         public static void CallsUpdate(IdentityDbContext dbContext)
         {
+            ArgumentNullException.ThrowIfNull(dbContext);
             var firstRecord = dbContext.Users.First();
             dbContext.Users.Update(firstRecord);
         }
@@ -50,6 +52,7 @@ namespace Gripe.Testing.EfCore
         /// </remarks>
         public static void CallsUpdateRange(IdentityDbContext dbContext)
         {
+            ArgumentNullException.ThrowIfNull(dbContext);
             var allRecords = dbContext.Users.ToArray();
             dbContext.Users.UpdateRange(allRecords);
         }

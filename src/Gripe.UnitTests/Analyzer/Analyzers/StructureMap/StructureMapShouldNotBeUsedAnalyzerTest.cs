@@ -49,34 +49,26 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.StructureMap
         }
     }";
 
-            var ctor = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.StructureMapShouldNotBeUsed,
-                Message = "StructureMap is end of life so should not be used.",
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 22, 32)
-                    }
-            };
-
-            var methodInvoke = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.StructureMapShouldNotBeUsed,
-                Message = "StructureMap is end of life so should not be used.",
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 23, 17)
-                    }
-            };
+            var diagnostics = new DiagnosticResult(
+                DiagnosticIdsHelper.StructureMapShouldNotBeUsed,
+                "StructureMap is end of life so should not be used.",
+                DiagnosticSeverity.Warning,
+                [
+                    new DiagnosticResultFileLocation(
+                        "Test0.cs",
+                        [
+                            new DiagnosticResultLineDetail(
+                                21,
+                                31),
+                            new DiagnosticResultLineDetail(
+                                22,
+                                16)
+                        ])
+                ]);
 
             VerifyCSharpDiagnostic(
                 test,
-                ctor,
-                methodInvoke);
+                diagnostics);
         }
 
         /// <inheritdoc />

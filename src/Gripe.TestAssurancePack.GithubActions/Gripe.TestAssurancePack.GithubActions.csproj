@@ -23,6 +23,5 @@
 
   <ItemGroup>
     <None Include="*.targets" Pack="true" PackagePath="build" />
-    <None Include="readme.md" />
   </ItemGroup>
 </Project>
