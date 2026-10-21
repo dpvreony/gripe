@@ -58,11 +58,11 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.StructureMap
                         "Test0.cs",
                         [
                             new DiagnosticResultLineDetail(
-                                22,
-                                32),
+                                21,
+                                31),
                             new DiagnosticResultLineDetail(
-                                23,
-                                17)
+                                22,
+                                16)
                         ])
                 ]);
 

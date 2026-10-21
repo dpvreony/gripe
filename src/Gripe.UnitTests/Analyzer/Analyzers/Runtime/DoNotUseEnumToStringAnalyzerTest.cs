@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for full license information.
 
 using Gripe.Analyzer;
+using Gripe.Analyzer.Analyzers.ReactiveUi;
 using Gripe.Analyzer.Analyzers.Runtime;
 using Gripe.UnitTests.Analyzer.Helpers;
 using Microsoft.CodeAnalysis;
@@ -39,17 +40,20 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
             }
         }
     }";
-            var expected = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.DoNotUseEnumToString,
-                Message = DoNotUseEnumToStringAnalyzer.Title,
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 14, 28)
-                    }
-            };
+
+            var expected = new DiagnosticResult(
+                DiagnosticIdsHelper.DoNotUseEnumToString,
+                DoNotUseEnumToStringAnalyzer.Title,
+                DiagnosticSeverity.Warning,
+                [
+                    new DiagnosticResultFileLocation(
+                        "Test0.cs",
+                        [
+                            new DiagnosticResultLineDetail(
+                                13,
+                                27)
+                        ])
+                ]);
 
             VerifyCSharpDiagnostic(
                 test,

@@ -24,7 +24,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Winforms
                 new ExpectedDiagnosticModel(
                     "Winforms\\SimpleForm.cs",
                     DiagnosticSeverity.Warning,
-                    31,
+                    32,
                     12)
             ];
         }

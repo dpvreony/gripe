@@ -4,6 +4,7 @@
 
 using Gripe.Analyzer;
 using Gripe.Analyzer.Analyzers.Language;
+using Gripe.Analyzer.Analyzers.Runtime;
 using Gripe.UnitTests.Analyzer.Helpers;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
@@ -36,17 +37,19 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
         }
     }";
 
-            var expected = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.UseTypeofInsteadOfMethodBaseGetCurrentMethodDeclaringType,
-                Message = "Consider usage of typeof(x) instead of MethodBase.GetCurrentMethod().DeclaringType.",
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 10, 17)
-                    }
-            };
+            var expected = new DiagnosticResult(
+                DiagnosticIdsHelper.UseTypeofInsteadOfMethodBaseGetCurrentMethodDeclaringType,
+                "Consider usage of typeof(x) instead of MethodBase.GetCurrentMethod().DeclaringType.",
+                DiagnosticSeverity.Warning,
+                [
+                    new DiagnosticResultFileLocation(
+                        "Test0.cs",
+                        [
+                            new DiagnosticResultLineDetail(
+                                9,
+                                16)
+                        ])
+                ]);
 
             VerifyCSharpDiagnostic(test, expected);
         }

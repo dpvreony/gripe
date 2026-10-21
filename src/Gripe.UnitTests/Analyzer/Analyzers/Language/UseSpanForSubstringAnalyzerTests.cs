@@ -31,13 +31,13 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
                 new ExpectedDiagnosticModel(
                     UseSpanForStringComparisonProof,
                     DiagnosticSeverity.Warning,
-                    25,
+                    27,
                     16),
 
                 new ExpectedDiagnosticModel(
                     UseSpanForStringComparisonProof,
                     DiagnosticSeverity.Warning,
-                    40,
+                    44,
                     16),
 
                 new ExpectedDiagnosticModel(

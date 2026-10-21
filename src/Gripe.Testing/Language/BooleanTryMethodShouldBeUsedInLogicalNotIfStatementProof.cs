@@ -18,7 +18,9 @@ namespace Gripe.Testing.Language
         /// </example>
         public void MethodName()
         {
+#pragma warning disable CA1806 // CA1806 was added in net10, it will supercede the analyzer in net10 and later, but not removing it yet.
             int.TryParse("x", out var result);
+#pragma warning restore CA1806
         }
     }
 }

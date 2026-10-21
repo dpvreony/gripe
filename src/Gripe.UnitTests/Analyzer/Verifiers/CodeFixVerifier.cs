@@ -90,53 +90,56 @@ namespace Gripe.UnitTests.Analyzer.Verifiers
         /// <param name="allowNewCompilerDiagnostics">A bool controlling whether or not the test will fail if the CodeFix introduces other warnings after being applied.</param>
         private static void VerifyFix(string language, DiagnosticAnalyzer analyzer, CodeFixProvider codeFixProvider, string oldSource, string newSource, int? codeFixIndex, bool allowNewCompilerDiagnostics)
         {
-            var document = Helpers.DiagnosticVerifier.CreateDocument(oldSource, language);
-            var analyzerDiagnostics = Helpers.DiagnosticVerifier.GetSortedDiagnosticsFromDocuments(analyzer, new[] { document });
-            var compilerDiagnostics = Helpers.CodeFixVerifier.GetCompilerDiagnostics(document);
-            var attempts = analyzerDiagnostics.Length;
-
-            for (int i = 0; i < attempts; ++i)
+            using (var workspace = new AdhocWorkspace())
             {
-                var actions = new List<CodeAction>();
-                var context = new CodeFixContext(document, analyzerDiagnostics[0], (a, d) => actions.Add(a), CancellationToken.None);
-                codeFixProvider.RegisterCodeFixesAsync(context).Wait();
+                var document = Helpers.DiagnosticVerifier.CreateDocument(workspace, oldSource, language);
+                var analyzerDiagnostics = Helpers.DiagnosticVerifier.GetSortedDiagnosticsFromDocuments(analyzer, new[] { document });
+                var compilerDiagnostics = Helpers.CodeFixVerifier.GetCompilerDiagnostics(document);
+                var attempts = analyzerDiagnostics.Length;
 
-                if (actions.Count == 0)
+                for (int i = 0; i < attempts; ++i)
                 {
-                    break;
+                    var actions = new List<CodeAction>();
+                    var context = new CodeFixContext(document, analyzerDiagnostics[0], (a, d) => actions.Add(a), CancellationToken.None);
+                    codeFixProvider.RegisterCodeFixesAsync(context).Wait();
+
+                    if (actions.Count == 0)
+                    {
+                        break;
+                    }
+
+                    if (codeFixIndex != null)
+                    {
+                        document = Helpers.CodeFixVerifier.ApplyFix(document, actions.ElementAt((int)codeFixIndex));
+                        break;
+                    }
+
+                    document = Helpers.CodeFixVerifier.ApplyFix(document, actions.ElementAt(0));
+                    analyzerDiagnostics = Helpers.DiagnosticVerifier.GetSortedDiagnosticsFromDocuments(analyzer, new[] { document });
+
+                    var newCompilerDiagnostics = Helpers.CodeFixVerifier.GetNewDiagnostics(compilerDiagnostics, Helpers.CodeFixVerifier.GetCompilerDiagnostics(document));
+
+                    // check if applying the code fix introduced any new compiler diagnostics
+                    if (!allowNewCompilerDiagnostics && newCompilerDiagnostics.Any())
+                    {
+                        // Format and get the compiler diagnostics again so that the locations make sense in the output
+                        document = document.WithSyntaxRoot(Formatter.Format(document.GetSyntaxRootAsync().Result!, Formatter.Annotation, document.Project.Solution.Workspace));
+                        newCompilerDiagnostics = Helpers.CodeFixVerifier.GetNewDiagnostics(compilerDiagnostics, Helpers.CodeFixVerifier.GetCompilerDiagnostics(document));
+
+                        Assert.Fail($"Fix introduced new compiler diagnostics:\r\n{string.Join("\r\n", newCompilerDiagnostics.Select(d => d.ToString()))}\r\n\r\nNew document:\r\n{document.GetSyntaxRootAsync().Result!.ToFullString()}\r\n");
+                    }
+
+                    // check if there are analyzer diagnostics left after the code fix
+                    if (analyzerDiagnostics.Length == 0)
+                    {
+                        break;
+                    }
                 }
 
-                if (codeFixIndex != null)
-                {
-                    document = Helpers.CodeFixVerifier.ApplyFix(document, actions.ElementAt((int)codeFixIndex));
-                    break;
-                }
-
-                document = Helpers.CodeFixVerifier.ApplyFix(document, actions.ElementAt(0));
-                analyzerDiagnostics = Helpers.DiagnosticVerifier.GetSortedDiagnosticsFromDocuments(analyzer, new[] { document });
-
-                var newCompilerDiagnostics = Helpers.CodeFixVerifier.GetNewDiagnostics(compilerDiagnostics, Helpers.CodeFixVerifier.GetCompilerDiagnostics(document));
-
-                // check if applying the code fix introduced any new compiler diagnostics
-                if (!allowNewCompilerDiagnostics && newCompilerDiagnostics.Any())
-                {
-                    // Format and get the compiler diagnostics again so that the locations make sense in the output
-                    document = document.WithSyntaxRoot(Formatter.Format(document.GetSyntaxRootAsync().Result!, Formatter.Annotation, document.Project.Solution.Workspace));
-                    newCompilerDiagnostics = Helpers.CodeFixVerifier.GetNewDiagnostics(compilerDiagnostics, Helpers.CodeFixVerifier.GetCompilerDiagnostics(document));
-
-                    Assert.Fail($"Fix introduced new compiler diagnostics:\r\n{string.Join("\r\n", newCompilerDiagnostics.Select(d => d.ToString()))}\r\n\r\nNew document:\r\n{document.GetSyntaxRootAsync().Result!.ToFullString()}\r\n");
-                }
-
-                // check if there are analyzer diagnostics left after the code fix
-                if (analyzerDiagnostics.Length == 0)
-                {
-                    break;
-                }
+                // after applying all of the code fixes, compare the resulting string to the inputted one
+                var actual = Helpers.CodeFixVerifier.GetStringFromDocument(document);
+                Assert.Equal(newSource, actual);
             }
-
-            // after applying all of the code fixes, compare the resulting string to the inputted one
-            var actual = Helpers.CodeFixVerifier.GetStringFromDocument(document);
-            Assert.Equal(newSource, actual);
         }
     }
 }

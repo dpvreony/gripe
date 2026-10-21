@@ -234,86 +234,37 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Logging
         }
     }";
 
-            var expected = new[]
-            {
-                new DiagnosticResult
-                {
-                    Id = DiagnosticIdsHelper.ConstructorShouldAcceptLoggingFrameworkArgument,
-                    Message = DiagnosticResultTitleFactory.ConstructorShouldAcceptLoggingFrameworkArgument(),
-                    Severity = DiagnosticSeverity.Warning,
-                    Locations =
-                        new[]
-                        {
-                            new DiagnosticResultLocation("Test0.cs", 15, 13),
-                        }
-                },
-                new DiagnosticResult
-                {
-                    Id = DiagnosticIdsHelper.ConstructorShouldAcceptLoggingFrameworkArgument,
-                    Message = DiagnosticResultTitleFactory.ConstructorShouldAcceptLoggingFrameworkArgument(),
-                    Severity = DiagnosticSeverity.Warning,
-                    Locations =
-                        new[]
-                        {
-                            new DiagnosticResultLocation("Test0.cs", 26, 13),
-                        }
-                },
-                new DiagnosticResult
-                {
-                    Id = DiagnosticIdsHelper.ConstructorShouldAcceptLoggingFrameworkArgument,
-                    Message = DiagnosticResultTitleFactory.ConstructorShouldAcceptLoggingFrameworkArgument(),
-                    Severity = DiagnosticSeverity.Warning,
-                    Locations =
-                        new[]
-                        {
-                            new DiagnosticResultLocation("Test0.cs", 37, 13),
-                        }
-                },
-                new DiagnosticResult
-                {
-                    Id = DiagnosticIdsHelper.ConstructorShouldAcceptLoggingFrameworkArgument,
-                    Message = DiagnosticResultTitleFactory.ConstructorShouldAcceptLoggingFrameworkArgument(),
-                    Severity = DiagnosticSeverity.Warning,
-                    Locations =
-                        new[]
-                        {
-                            new DiagnosticResultLocation("Test0.cs", 48, 13),
-                        }
-                },
-                new DiagnosticResult
-                {
-                    Id = DiagnosticIdsHelper.ConstructorShouldAcceptLoggingFrameworkArgument,
-                    Message = DiagnosticResultTitleFactory.ConstructorShouldAcceptLoggingFrameworkArgument(),
-                    Severity = DiagnosticSeverity.Warning,
-                    Locations =
-                        new[]
-                        {
-                            new DiagnosticResultLocation("Test0.cs", 62, 13),
-                        }
-                },
-                new DiagnosticResult
-                {
-                    Id = DiagnosticIdsHelper.ConstructorShouldAcceptLoggingFrameworkArgument,
-                    Message = DiagnosticResultTitleFactory.ConstructorShouldAcceptLoggingFrameworkArgument(),
-                    Severity = DiagnosticSeverity.Warning,
-                    Locations =
-                        new[]
-                        {
-                            new DiagnosticResultLocation("Test0.cs", 73, 13)
-                        }
-                },
-                new DiagnosticResult
-                {
-                    Id = DiagnosticIdsHelper.ConstructorShouldAcceptLoggingFrameworkArgument,
-                    Message = DiagnosticResultTitleFactory.ConstructorShouldAcceptLoggingFrameworkArgument(),
-                    Severity = DiagnosticSeverity.Warning,
-                    Locations =
-                        new[]
-                        {
-                            new DiagnosticResultLocation("Test0.cs", 91, 13)
-                        }
-                },
-            };
+            var expected = new DiagnosticResult(
+                DiagnosticIdsHelper.ConstructorShouldAcceptLoggingFrameworkArgument,
+                DiagnosticResultTitleFactory.ConstructorShouldAcceptLoggingFrameworkArgument(),
+                DiagnosticSeverity.Warning,
+                [
+                    new DiagnosticResultFileLocation(
+                        "Test0.cs",
+                        [
+                            new DiagnosticResultLineDetail(
+                                14,
+                                12),
+                            new DiagnosticResultLineDetail(
+                                25,
+                                12),
+                            new DiagnosticResultLineDetail(
+                                36,
+                                12),
+                            new DiagnosticResultLineDetail(
+                                47,
+                                12),
+                            new DiagnosticResultLineDetail(
+                                61,
+                                12),
+                            new DiagnosticResultLineDetail(
+                                72,
+                                12),
+                            new DiagnosticResultLineDetail(
+                                90,
+                                12),
+                        ])
+                ]);
 
             VerifyCSharpDiagnostic(test, expected);
         }

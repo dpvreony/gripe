@@ -110,35 +110,41 @@ namespace Gripe.UnitTests.Analyzer.Verifiers
                             {
                                 var actualSpan = diagnostic.Location.GetLineSpan();
 
-                                if (!actualSpan.HasMappedPath)
+                                if (!actualSpan.IsValid)
                                 {
                                     return;
                                 }
 
-                                var matchedFile = matchedDiagnostic.FileLocations.FirstOrDefault(fl => fl.Path == actualSpan.Path);
+                                var matchedFile = matchedDiagnostic.FileLocations.FirstOrDefault(fl => actualSpan.Path.EndsWith(fl.Path, StringComparison.Ordinal));
 
-                                Assert.NotNull(matchedFile);
+                                if (matchedFile == null)
+                                {
+                                    Assert.Fail($"Unexpected diagnostic in file: {actualSpan.Path}\n{FormatDiagnostics(analyzer, diagnostic)}");
+                                }
 
                                 var lines = matchedFile.LineDetails;
 
                                 var lineMatch = lines.SingleOrDefault(ld => ld.Line == actualSpan.StartLinePosition.Line && ld.Column == actualSpan.StartLinePosition.Character);
 
-                                Assert.NotNull(lineMatch);
+                                if (lineMatch == null)
+                                {
+                                    Assert.Fail($"Unexpected diagnostic at {actualSpan.StartLinePosition.Line},{actualSpan.StartLinePosition.Character} in file: {actualSpan.Path}\n{FormatDiagnostics(analyzer, diagnostic)}");
+                                }
 
-                                lineMatch.MatchCount.Increment();
+                                lineMatch.IncrementMatchCount();
                             }
                         );
                     }),
 
                 () =>
                     {
-                        var unmatched = expectedResults.Where(er => er.FileLocations.All(fl => fl.LineDetails.All(ld => ld.MatchCount.Value == 0)));
+                        var unmatched = expectedResults.Where(er => er.FileLocations.All(fl => fl.LineDetails.All(ld => ld.MatchCount == 0))).ToArray();
                         Assert.Empty(unmatched);
                     },
 
                 () =>
                     {
-                        var duplicates = expectedResults.Where(er => er.FileLocations.All(fl => fl.LineDetails.All(ld => ld.MatchCount.Value > 1)));
+                        var duplicates = expectedResults.Where(er => er.FileLocations.All(fl => fl.LineDetails.All(ld => ld.MatchCount > 1))).ToArray();
                         Assert.Empty(duplicates);
                     }
                 );

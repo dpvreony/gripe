@@ -81,12 +81,15 @@ namespace Gripe.UnitTests.Analyzer.Helpers
         /// <summary>
         /// Create a Document from a string through creating a project that contains it.
         /// </summary>
+        /// <param name="workspace">The workspace to create the document in.</param>
         /// <param name="source">Classes in the form of a string.</param>
         /// <param name="language">The language the source code is in.</param>
         /// <returns>A Document created from the source string.</returns>
-        public static Document CreateDocument(string source, string language = LanguageNames.CSharp)
+        public static Document CreateDocument(AdhocWorkspace workspace, string source, string language = LanguageNames.CSharp)
         {
-            return CreateProject(new[] { source }, language).Documents.First();
+            ArgumentNullException.ThrowIfNull(workspace);
+
+            return CreateProject(workspace, new[] { source }, language).Documents.First();
         }
 
         /// <summary>
@@ -102,7 +105,10 @@ namespace Gripe.UnitTests.Analyzer.Helpers
             ArgumentNullException.ThrowIfNull(language);
             ArgumentNullException.ThrowIfNull(analyzer);
 
-            return GetSortedDiagnosticsFromDocuments(analyzer, GetDocuments(sources, language));
+            using (var workspace = new AdhocWorkspace())
+            {
+                return GetSortedDiagnosticsFromDocuments(analyzer, GetDocuments(workspace, sources, language));
+            }
         }
 
         /// <summary>
@@ -118,17 +124,18 @@ namespace Gripe.UnitTests.Analyzer.Helpers
         /// <summary>
         /// Given an array of strings as sources and a language, turn them into a project and return the documents and spans of it.
         /// </summary>
+        /// <param name="workspace">The workspace to create the documents in.</param>
         /// <param name="sources">Classes in the form of strings.</param>
         /// <param name="language">The language the source code is in.</param>
         /// <returns>A Tuple containing the Documents produced from the sources and their TextSpans if relevant.</returns>
-        private static Document[] GetDocuments(string[] sources, string language)
+        private static Document[] GetDocuments(AdhocWorkspace workspace, string[] sources, string language)
         {
             if (language != LanguageNames.CSharp && language != LanguageNames.VisualBasic)
             {
                 throw new ArgumentException("Unsupported Language");
             }
 
-            var project = CreateProject(sources, language);
+            var project = CreateProject(workspace, sources, language);
             var documents = project.Documents.ToArray();
 
             if (sources.Length != documents.Length)
@@ -142,17 +149,18 @@ namespace Gripe.UnitTests.Analyzer.Helpers
         /// <summary>
         /// Create a project using the inputted strings as sources.
         /// </summary>
+        /// <param name="workspace">The workspace to create the document in.</param>
         /// <param name="sources">Classes in the form of strings.</param>
         /// <param name="language">The language the source code is in.</param>
         /// <returns>A Project created out of the Documents created from the source strings.</returns>
-        private static Project CreateProject(string[] sources, string language = LanguageNames.CSharp)
+        private static Project CreateProject(AdhocWorkspace workspace, string[] sources, string language = LanguageNames.CSharp)
         {
             string fileNamePrefix = DefaultFilePathPrefix;
             string fileExt = language == LanguageNames.CSharp ? CSharpDefaultFileExt : VisualBasicDefaultExt;
 
             var projectId = ProjectId.CreateNewId(debugName: TestProjectName);
 
-            var solution = new AdhocWorkspace()
+            var solution = workspace
                 .CurrentSolution
                 .AddProject(projectId, TestProjectName, TestProjectName, language)
                 .AddMetadataReference(projectId, CorlibReference)

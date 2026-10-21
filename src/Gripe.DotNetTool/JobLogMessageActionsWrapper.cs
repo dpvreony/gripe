@@ -177,7 +177,7 @@ namespace Gripe.DotNetTool
         /// <param name="diagnosticCount">Count model for what diagnostics were reported.</param>
         public void DiagnosticCount(DiagnosticCountModel diagnosticCount)
         {
-            _logMessageActions.DiagnosticCount(Logger, diagnosticCount);
+            _logMessageActions.DiagnosticCount(Logger, diagnosticCount ?? new DiagnosticCountModel());
         }
 
         /// <summary>

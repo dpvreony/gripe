@@ -45,8 +45,8 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
                         "Test0.cs",
                         [
                             new DiagnosticResultLineDetail(
-                                11,
-                                17)
+                                10,
+                                16)
                         ])
                 ]);
 

@@ -54,17 +54,19 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
             }
         }
     }";
-            var methodInvoke = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.DoNotUseSystemNetServicePointManager,
-                Message = DoNotUseSystemNetServicePointManagerAnalyzer.Title,
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 29, 17)
-                    }
-            };
+
+            var methodInvoke = new DiagnosticResult(
+                DiagnosticIdsHelper.DoNotUseSystemNetServicePointManager,
+                DoNotUseSystemNetServicePointManagerAnalyzer.Title,
+                DiagnosticSeverity.Warning,
+                [
+                    new (
+                        "Test0.cs",
+                        [
+                            new (
+                                28,
+                                16)]
+                        )]);
 
             VerifyCSharpDiagnostic(
                 test,
@@ -112,17 +114,19 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
             }
         }
     }";
-            var methodInvoke = new DiagnosticResult
-            {
-                Id = DiagnosticIdsHelper.DoNotUseSystemNetServicePointManager,
-                Message = DoNotUseSystemNetServicePointManagerAnalyzer.Title,
-                Severity = DiagnosticSeverity.Warning,
-                Locations =
-                    new[]
-                    {
-                        new DiagnosticResultLocation("Test0.cs", 32, 59)
-                    }
-            };
+            var methodInvoke = new DiagnosticResult(
+                DiagnosticIdsHelper.DoNotUseSystemNetServicePointManager,
+                DoNotUseSystemNetServicePointManagerAnalyzer.Title,
+                DiagnosticSeverity.Warning,
+                [
+                    new DiagnosticResultFileLocation(
+                        "Test0.cs",
+                        [
+                            new DiagnosticResultLineDetail(
+                                31,
+                                58)
+                        ])
+                ]);
 
             VerifyCSharpDiagnostic(
                 test,

@@ -112,19 +112,25 @@ namespace Gripe.Testing.Logging
             return state.ToString() ?? string.Empty;
         }
 
-        private sealed class ProofLogger : ILogger
+        /// <summary>
+        /// Fake logger implementation for testing purposes.
+        /// </summary>
+        public sealed class ProofLogger : ILogger
         {
+            /// <inheritdoc />
             public IDisposable? BeginScope<TState>(TState state)
                 where TState : notnull
             {
                 return null;
             }
 
+            /// <inheritdoc />
             public bool IsEnabled(LogLevel logLevel)
             {
                 return true;
             }
 
+            /// <inheritdoc />
             public void Log<TState>(
                 LogLevel logLevel,
                 EventId eventId,

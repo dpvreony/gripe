@@ -12,6 +12,8 @@ namespace Gripe.UnitTests.Analyzer.Helpers
     /// </summary>
     public sealed class DiagnosticResultLineDetail
     {
+        private IncrementOnlyInt matchCount = new ();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DiagnosticResultLineDetail"/> class with the specified line and
         /// column.
@@ -45,6 +47,14 @@ namespace Gripe.UnitTests.Analyzer.Helpers
         /// <summary>
         /// Gets the match count for the diagnostic.
         /// </summary>
-        public IncrementOnlyInt MatchCount { get; } = new ();
+        public int MatchCount => matchCount.Value;
+
+        /// <summary>
+        /// Increments the match count.
+        /// </summary>
+        public void IncrementMatchCount()
+        {
+            matchCount.Increment();
+        }
     }
 }

@@ -43,7 +43,7 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Runtime
                 new ExpectedDiagnosticModel(
                     "Logging\\DoNotPassExceptionIntoNonExceptionLoggingArgumentProof.cs",
                     DiagnosticSeverity.Warning,
-                    100,
+                    108,
                     42),
             ];
         }

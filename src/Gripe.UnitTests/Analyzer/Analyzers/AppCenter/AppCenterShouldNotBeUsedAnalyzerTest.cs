@@ -13,7 +13,7 @@ using Xunit;
 namespace Gripe.UnitTests.Analyzer.Analyzers.AppCenter
 {
     /// <summary>
-    /// Unit Tests for <see cref="StructureMapShouldNotBeUsedAnalyzer"/>.
+    /// Unit Tests for <see cref="AppCenterShouldNotBeUsedAnalyzer"/>.
     /// </summary>
     public class AppCenterShouldNotBeUsedAnalyzerTest : CodeFixVerifier
     {
@@ -58,8 +58,8 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.AppCenter
                 new DiagnosticResultFileLocation(
                     "Test0.cs",
                     [
-                        new DiagnosticResultLineDetail(22 ,32),
-                        new DiagnosticResultLineDetail(23 ,17)
+                        new DiagnosticResultLineDetail(21 ,31),
+                        new DiagnosticResultLineDetail(22 ,16)
                         ])]);
 
             VerifyCSharpDiagnostic(

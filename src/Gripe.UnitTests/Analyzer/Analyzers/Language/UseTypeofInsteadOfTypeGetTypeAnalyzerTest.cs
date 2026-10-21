@@ -44,8 +44,8 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.Language
                         "Test0.cs",
                         [
                             new DiagnosticResultLineDetail(
-                                10,
-                                17)])]);
+                                9,
+                                16)])]);
 
             VerifyCSharpDiagnostic(test, expected);
         }

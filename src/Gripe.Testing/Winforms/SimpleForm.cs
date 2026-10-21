@@ -6,7 +6,7 @@
     public sealed class SimpleForm : System.Windows.Forms.Form
     {
         /// <summary>
-        /// Calls a message box from a non-member method. Used to ensure GR0052 is NOT triggered.
+        /// Calls a message box from a member method. Used to ensure GR0052 is NOT triggered.
         /// </summary>
         /// <example>
         /// <code>
@@ -16,7 +16,8 @@
         /// </example>
         public void CallMessageBoxAsMember()
         {
-            System.Windows.Forms.MessageBox.Show("This is a message box NOT called from a UI element member.");
+
+            System.Windows.Forms.MessageBox.Show("This is a message box called from a UI element member.");
         }
 
         /// <summary>
