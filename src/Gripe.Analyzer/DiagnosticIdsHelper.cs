@@ -155,5 +155,7 @@ namespace Gripe.Analyzer
         internal const string TypeBeingForwardedUsedAsInstance = "GR0074";
 
         internal const string UseTimeProviderForDateTime = "GR0075";
+
+        internal const string MethodShouldNotReturnEntityFrameworkCoreEntity = "GR0076";
     }
 }
