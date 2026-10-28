@@ -14,7 +14,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace Gripe.Analyzer.Analyzers.EfCore
 {
     /// <summary>
-    /// Analyzer for checking a method does not return an Entity Framework Core entity, a projection should be used instead.
+    /// Analyzer for checking a method that queries an Entity Framework Core DbContext does not return an entity, a projection should be used instead.
     /// </summary>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class MethodShouldNotReturnEntityFrameworkCoreEntityAnalyzer : DiagnosticAnalyzer
@@ -131,6 +131,38 @@ namespace Gripe.Analyzer.Analyzers.EfCore
             return false;
         }
 
+        private static bool UsesDbContext(MethodDeclarationSyntax method, SemanticModel semanticModel, INamedTypeSymbol dbContext, System.Threading.CancellationToken cancellationToken)
+        {
+            SyntaxNode? body = method.Body;
+            body ??= method.ExpressionBody;
+            if (body == null)
+            {
+                return false;
+            }
+
+            foreach (var node in body.DescendantNodes())
+            {
+                if (node is not ExpressionSyntax expression)
+                {
+                    continue;
+                }
+
+                if (semanticModel.GetTypeInfo(expression, cancellationToken).Type is not INamedTypeSymbol type)
+                {
+                    continue;
+                }
+
+                if (IsDbSet(type)
+                    || SymbolEqualityComparer.Default.Equals(type.OriginalDefinition, dbContext)
+                    || InheritsFrom(type, dbContext))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private static bool ReturnsEntity(ITypeSymbol type, HashSet<ITypeSymbol> entities, int depth)
         {
             if (depth > 4)
@@ -191,11 +223,11 @@ namespace Gripe.Analyzer.Analyzers.EfCore
                 true);
 
             context.RegisterSyntaxNodeAction(
-                nodeContext => AnalyzeMethod(nodeContext, entities.Value),
+                nodeContext => AnalyzeMethod(nodeContext, entities.Value, dbContext),
                 SyntaxKind.MethodDeclaration);
         }
 
-        private void AnalyzeMethod(SyntaxNodeAnalysisContext context, HashSet<ITypeSymbol> entities)
+        private void AnalyzeMethod(SyntaxNodeAnalysisContext context, HashSet<ITypeSymbol> entities, INamedTypeSymbol dbContext)
         {
             if (entities.Count == 0)
             {
@@ -208,7 +240,8 @@ namespace Gripe.Analyzer.Analyzers.EfCore
                 return;
             }
 
-            if (ReturnsEntity(methodSymbol.ReturnType, entities, 0))
+            if (ReturnsEntity(methodSymbol.ReturnType, entities, 0)
+                && UsesDbContext(methodDeclaration, context.SemanticModel, dbContext, context.CancellationToken))
             {
                 context.ReportDiagnostic(Diagnostic.Create(_rule, methodDeclaration.ReturnType.GetLocation()));
             }

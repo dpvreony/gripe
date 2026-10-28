@@ -85,5 +85,27 @@ namespace Gripe.Testing.EfCore
         {
             return dbContext.Users.Select(static x => x.UserName).ToList();
         }
+
+        /// <summary>
+        /// Proof of a factory method returning an entity without using a db context, which should not trigger the analyzer.
+        /// </summary>
+        /// <param name="userName">The user name.</param>
+        /// <returns>An entity.</returns>
+        /// <example>
+        /// <code>
+        /// ReturnsEntityProof.CreateEntity("name");
+        /// </code>
+        /// </example>
+        /// <remarks>
+        /// This code is just a proof for
+        /// 1) making sure the code builds
+        /// 2) making sure the analyzer does not trigger
+        ///
+        /// It is in no way meant to be regarded as usable code.
+        /// </remarks>
+        public static IdentityUser CreateEntity(string userName)
+        {
+            return new IdentityUser(userName);
+        }
     }
 }
