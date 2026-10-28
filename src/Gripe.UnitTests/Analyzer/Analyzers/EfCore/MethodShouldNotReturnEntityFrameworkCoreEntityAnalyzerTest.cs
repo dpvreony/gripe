@@ -27,12 +27,12 @@ namespace Gripe.UnitTests.Analyzer.Analyzers.EfCore
                 new ExpectedDiagnosticModel(
                     "EfCore\\ReturnsEntityProof.cs",
                     DiagnosticSeverity.Warning,
-                    38,
+                    39,
                     23),
                 new ExpectedDiagnosticModel(
                     "EfCore\\ReturnsEntityProof.cs",
                     DiagnosticSeverity.Warning,
-                    61,
+                    63,
                     23)
             ];
         }

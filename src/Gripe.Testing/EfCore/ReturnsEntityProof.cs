@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,6 +38,7 @@ namespace Gripe.Testing.EfCore
         /// </remarks>
         public static IdentityUser ReturnsEntity(IdentityDbContext dbContext)
         {
+            ArgumentNullException.ThrowIfNull(dbContext);
             return dbContext.Users.First();
         }
 
@@ -60,6 +62,7 @@ namespace Gripe.Testing.EfCore
         /// </remarks>
         public static Task<List<IdentityUser>> ReturnsTaskOfEntityList(IdentityDbContext dbContext)
         {
+            ArgumentNullException.ThrowIfNull(dbContext);
             return dbContext.Users.ToListAsync();
         }
 
@@ -81,8 +84,9 @@ namespace Gripe.Testing.EfCore
         ///
         /// It is in no way meant to be regarded as usable code.
         /// </remarks>
-        public static List<string?> ReturnsProjection(IdentityDbContext dbContext)
+        public static IReadOnlyList<string?> ReturnsProjection(IdentityDbContext dbContext)
         {
+            ArgumentNullException.ThrowIfNull(dbContext);
             return dbContext.Users.Select(static x => x.UserName).ToList();
         }
 
