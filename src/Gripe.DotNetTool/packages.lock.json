@@ -406,11 +406,6 @@
         "resolved": "10.0.8",
         "contentHash": "/ldVgSfImIBp6fLWS7sLH0BnmtFj0ZwGlZo4Xx2q0K3ZhJNDbW45kj2f6zPoC+L+BTINuHdMzTsopuwmkbgcNA=="
       },
-      "System.Text.Encodings.Web": {
-        "type": "Transitive",
-        "resolved": "10.0.13",
-        "contentHash": "rNYrJlPi22TM3PhkWdgB0jPYw/umbURQWlu1kg1nbsu3wP6LHsCBdG7NOG3Jf/8/CaC7WjE7tSH+TiQepPbOVQ=="
-      },
       "TestableIO.System.IO.Abstractions.Wrappers": {
         "type": "Transitive",
         "resolved": "22.2.0",
@@ -446,8 +441,7 @@
       "gripe.analyzer": {
         "type": "Project",
         "dependencies": {
-          "Microsoft.CodeAnalysis.CSharp": "[5.9.0, )",
-          "System.Text.Encodings.Web": "[10.0.13, )"
+          "Microsoft.CodeAnalysis.CSharp": "[5.9.0, )"
         }
       }
     }
