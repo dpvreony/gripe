@@ -11,4 +11,5 @@
   <Import Project="QA0010-WarnOnPackageReferenceWithUnicodeIdentifier.targets" />
   <Import Project="QA0011-DotNetToolPrefix.targets" />
   <Import Project="QA0012-NugetPackageReplacement.targets" />
+  <Import Project="QA0013-ValidateLaunchSettings.targets" />
 </Project>

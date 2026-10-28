@@ -112,6 +112,7 @@ Use this when the question is not "what failed" but "what kinds of failures domi
 | `QA0010` | Warn on Unicode package identifiers | Runs a custom task to flag package references that contain Unicode identifiers. |
 | `QA0011` | Check dotnet tool assembly prefix | Errors when `PackAsTool=true` and `AssemblyName` does not start with `dotnettool-`. |
 | `QA0012` | NuGet package replacement rules | Runs a custom task that can apply replacement guidance from `Gripe.MsBuild.NugetReplacementPackages.json`. |
+| `QA0013` | Validate launchSettings.json | For web projects, errors when `Properties/launchSettings.json` is missing, has no `profiles` section, or a profile has a missing/empty `applicationUrl`. |
 
 Install it directly when you want the build rules without the broader aggregate package:
 

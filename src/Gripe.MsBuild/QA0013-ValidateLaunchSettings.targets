@@ -1,0 +1,17 @@
+<Project>
+  <PropertyGroup>
+    <QualityAssurancePackTasks_TFM Condition=" '$(MSBuildRuntimeType)' != 'Core' ">net472</QualityAssurancePackTasks_TFM>
+    <QualityAssurancePackTasks_TFM Condition=" '$(MSBuildRuntimeType)' == 'Core' ">net10.0</QualityAssurancePackTasks_TFM>
+    <QualityAssurancePackTasks_Assembly Condition="'$(QualityAssurancePackTasks_Assembly)' == ''">$(MSBuildThisFileDirectory)../tasks/$(QualityAssurancePackTasks_TFM)/Gripe.MsBuild.dll</QualityAssurancePackTasks_Assembly>
+  </PropertyGroup>
+
+  <UsingTask TaskName="Gripe.MsBuild.LaunchSettingsValidation.ValidateLaunchSettingsTask"
+             AssemblyFile="$(QualityAssurancePackTasks_Assembly)"
+             Condition="Exists('$(QualityAssurancePackTasks_Assembly)')" />
+
+  <Target Name="ValidateLaunchSettings"
+          BeforeTargets="Build"
+          Condition="'$(UsingMicrosoftNETSdkWeb)' == 'true' and Exists('$(QualityAssurancePackTasks_Assembly)')">
+    <ValidateLaunchSettingsTask LaunchSettingsFile="$(MSBuildProjectDirectory)/Properties/launchSettings.json" />
+  </Target>
+</Project>
