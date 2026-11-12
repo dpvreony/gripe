@@ -93,8 +93,8 @@
       },
       "SonarAnalyzer.CSharp": {
         "type": "Transitive",
-        "resolved": "10.35.0.4138",
-        "contentHash": "T5o/tuyPw9pHRkyWxW07TkSri4I4pLpqwH922JuhphDjHAM7BUHaGE67h/w+65evHsIar8mYB2Ey6OmOLj9QDw=="
+        "resolved": "10.36.0.15337",
+        "contentHash": "jGLAZUjheSURfe0T/dJYGUrMOrLt1fxaInpChq75YJvrywsxFoUKK/EM6PSfTjkt4pbaq2ywIQjgQzhrmmj5Ow=="
       },
       "StyleCop.Analyzers": {
         "type": "Transitive",
@@ -148,7 +148,7 @@
           "Microsoft.VisualStudio.Threading.Analyzers": "[18.12.1, )",
           "Roslynator.Analyzers": "[5.0.1, )",
           "SecurityCodeScan.VS2019": "[5.6.7, )",
-          "SonarAnalyzer.CSharp": "[10.35.0.4138, )",
+          "SonarAnalyzer.CSharp": "[10.36.0.15337, )",
           "StyleCop.Analyzers": "[1.3.180, )"
         }
       }
