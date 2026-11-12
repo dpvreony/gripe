@@ -62,11 +62,11 @@
       },
       "Microsoft.Testing.Extensions.GitHubActionsReport": {
         "type": "Direct",
-        "requested": "[2.5.2, )",
-        "resolved": "2.5.2",
-        "contentHash": "ObAmHg/k9CpQNCGeT9s3Y5wpJIaPBh488KFkJj4dcZkzFJ6TkL+XXqqHn9OShNTgswbslb+QEQd/q1OxCoambQ==",
+        "requested": "[2.5.3, )",
+        "resolved": "2.5.3",
+        "contentHash": "UzfbxVAatjrq/mCI9gd3WikXaLE0Xv3uZWs1Wr/eCGF/msQM/Fp6qFIqpDuecq8HmISN5Kb9HSRdqDISe9UQNw==",
         "dependencies": {
-          "Microsoft.Testing.Platform": "[2.5.2, 3.0.0)"
+          "Microsoft.Testing.Platform": "[2.5.3, 3.0.0)"
         }
       },
       "Nerdbank.GitVersioning": {
@@ -367,8 +367,8 @@
       },
       "Microsoft.Testing.Platform": {
         "type": "Transitive",
-        "resolved": "2.5.2",
-        "contentHash": "ocX0rgGY78dKfmZlZe4hB0/dvlh7wJgUAWS+KfwrqxB9DpNsjshnne9dppCKnFNEOkX4QYsrdUU++NInFPiCBw=="
+        "resolved": "2.5.3",
+        "contentHash": "JG78yapjF3r3GUj5UWv3m6r4L5hhdusumlhSoO+bkUakMW4kAInn4q3ulnNy1tqNLiwfumFoukdd+NVGbC3A7g=="
       },
       "Microsoft.Testing.Platform.MSBuild": {
         "type": "Transitive",
@@ -711,7 +711,7 @@
           "GitHubActionsTestLogger": "[3.0.5, )",
           "Microsoft.NET.Test.Sdk": "[18.11.0, )",
           "Microsoft.Testing.Extensions.CodeCoverage": "[18.12.0, )",
-          "Microsoft.Testing.Platform": "[2.5.2, )",
+          "Microsoft.Testing.Platform": "[2.5.3, )",
           "NetTestRegimentation": "[2.0.126, )",
           "NetTestRegimentation.Xunit": "[2.0.126, )",
           "TestableIO.System.IO.Abstractions.TestingHelpers": "[22.3.0, )",
