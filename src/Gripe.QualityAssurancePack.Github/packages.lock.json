@@ -58,8 +58,8 @@
       },
       "Microsoft.CodeAnalysis.Analyzers": {
         "type": "Transitive",
-        "resolved": "5.9.0",
-        "contentHash": "jMNOo+uoBGiWbZ6Wx0dqU93r5WD4P5WnIRZdoz67RP5N09OUetHgAbo4L7hihOH1NHdD2TgW5/l+SP4gQukwww=="
+        "resolved": "5.12.0",
+        "contentHash": "9tqr42A8A0CdhIJylAW9/Ca6Bd+kZPXQbWVBxl5CaklvUIdjdN1jYKsmCNvW1GsvnJalug4kfvFPsW17wjhCGA=="
       },
       "Microsoft.NETCore.Platforms": {
         "type": "Transitive",
@@ -142,7 +142,7 @@
           "InclusivenessAnalyzer": "[1.3.0, )",
           "JetBrains.Annotations": "[2026.2.0, )",
           "MemoryAnalyzers": "[0.1.0-beta.5, )",
-          "Microsoft.CodeAnalysis.Analyzers": "[5.9.0, )",
+          "Microsoft.CodeAnalysis.Analyzers": "[5.12.0, )",
           "Microsoft.Sbom.Targets": "[4.1.13, )",
           "Microsoft.SourceLink.GitHub": "[10.0.404, )",
           "Microsoft.VisualStudio.Threading.Analyzers": "[18.12.1, )",
