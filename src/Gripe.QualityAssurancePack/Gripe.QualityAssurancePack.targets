@@ -6,4 +6,21 @@
   <Target Name="ValidateNugetProperties" Condition="$(IsPackable)" BeforeTargets="Compile">
     <Error Condition="$(PackageDescription) == '' or $(PackageDescription) == 'Package Description'" Text="The Nuget PackageDescription property needs to be set for the project. Currently : '$(PackageDescription)'" />
   </Target>
+
+  <PropertyGroup>
+    <NpmInstallStamp>$(ProjectDir)node_modules\.msbuild-npm-install.stamp</NpmInstallStamp>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <NpmInstallInputs Include="$(ProjectDir)\package.json" />
+    <NpmInstallInputs Include="$(ProjectDir)\package-lock.json" />
+  </ItemGroup>
+
+  <Target Name="NpmInstallIncremental" Inputs="@(NpmInstallInputs)" Outputs="$(NpmInstallStamp)" Condition="Exists('$(ProjectDir)\package.json') AND (!Exists('$(ProjectDir)\node_modules\') OR !Exists('$(NpmInstallStamp)'))">
+    <Message Text="Running npm install (inputs changed or stamp missing)..." Importance="high" />
+    <Exec WorkingDirectory="$(ProjectDir)" Command="npm install" />
+
+    <!-- Update/create the stamp so incremental build can compare timestamps next time -->
+    <Touch Files="$(NpmInstallStamp)" AlwaysCreate="true" />
+  </Target>
 </Project>
