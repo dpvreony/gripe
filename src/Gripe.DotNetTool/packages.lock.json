@@ -155,15 +155,16 @@
       },
       "Whipstaff.CommandLine": {
         "type": "Direct",
-        "requested": "[9.2.66, )",
-        "resolved": "9.2.66",
-        "contentHash": "KmY+wrdHNhu2jhwev/+Ngv3Dd5tg3Ng31OsZLhPfBXt68448wyEKLisRRl72cqEIoE48WbEMaiGBeSCBVAWcbQ==",
+        "requested": "[9.3.13, )",
+        "resolved": "9.3.13",
+        "contentHash": "AcU0KJqcX6wFEnmBGfvaCObRh7cpf5evMUocdaQWpOTl37g+AvmklGC6LR24Lz9Kfwfbp3anbf3qkrxSji6iVg==",
         "dependencies": {
-          "Microsoft.Extensions.Logging.Console": "10.0.12",
-          "System.CommandLine": "2.0.12",
-          "TestableIO.System.IO.Abstractions.Wrappers": "22.2.0",
-          "Whipstaff.Core": "9.2.66",
-          "Whipstaff.Runtime": "9.2.66"
+          "Microsoft.Extensions.Logging.Console": "10.0.15",
+          "System.CommandLine": "3.0.0",
+          "TestableIO.System.IO.Abstractions.Wrappers": "23.0.1",
+          "TextCopy": "6.2.1",
+          "Whipstaff.Core": "9.3.13",
+          "Whipstaff.Runtime": "9.3.13"
         }
       },
       "Humanizer.Core": {
@@ -313,8 +314,8 @@
       },
       "System.CommandLine": {
         "type": "Transitive",
-        "resolved": "2.0.12",
-        "contentHash": "FpW672e6qqrTd1EfKqsvUtFZaJWlTlszUR1o8tdakXhkzKbnEZVndtpfd4K3fUPCFcIs9UmcswMyYGJP1zp/rg=="
+        "resolved": "3.0.0",
+        "contentHash": "swNpSTl0iYJeBuvYYfaY+VxzZ5YC8wklwkqDCNOq2aTQqJzjauJfh/O3Zw93nwxspWrxvZTjT45f8VPR0ParEA=="
       },
       "System.Composition": {
         "type": "Transitive",
@@ -408,34 +409,42 @@
       },
       "TestableIO.System.IO.Abstractions.Wrappers": {
         "type": "Transitive",
-        "resolved": "22.2.0",
-        "contentHash": "0GW9i46ozm687WGAWsBHWMhLR7l1HmKwhiSU2hQrbFnI5m2YRfqXwqTQNjnOwT8BdbvcGqwMr97/zlnPWa1u1Q==",
+        "resolved": "23.0.1",
+        "contentHash": "9lqN5ITRYWqu54eqgobIuFSFUKIqfNedI3+9LuxVBETqGht+UTvk8aQcfUQX2z2fL2WCHGUbTHuBWbZaIV8AGg==",
         "dependencies": {
-          "Testably.Abstractions.FileSystem.Interface": "10.3.0"
+          "Testably.Abstractions.FileSystem.Interface": "11.0.0"
         }
       },
       "Testably.Abstractions.FileSystem.Interface": {
         "type": "Transitive",
-        "resolved": "10.3.0",
-        "contentHash": "5ebMaoADkzjfW7GnZYKaUebV8XmUn++C/4sKk1PTzCiddEgbSKBq3pW4EWEi70rYJAK0gA1yDWrYFeHq18FvHQ=="
+        "resolved": "11.0.0",
+        "contentHash": "bHE3UgieMizRsrzHYsWOLGMVjDmy0yx1PTv4QMgoAi3GU+vw2tJZ/jR5woIZ6Et6H0Hvhwriv6XSgwoZV9bU0A=="
+      },
+      "TextCopy": {
+        "type": "Transitive",
+        "resolved": "6.2.1",
+        "contentHash": "ryejViUBmHQ2XMie2AiRBn7KVKu2Gh/hqrctGSAUf1BufwfPjr+MWuACNBaiG+40TMbWRDJZgV73Tpl9hggeRw==",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0"
+        }
       },
       "Whipstaff.Core": {
         "type": "Transitive",
-        "resolved": "9.2.66",
-        "contentHash": "0zjRx/a8ysb0odBRxNXQ957B4BiRGdiA6qcmAmnAYvBBkHFoOItQ9tpERuRYRYnPPkfBgPC4NSJEJAeBYLtMpg==",
+        "resolved": "9.3.13",
+        "contentHash": "iks30PFORyF6Sz9VVtei6l7z1gEcwCv51ETCHhU5C1/hUxpKQoK1CACsHS/NezO5UNYVElBNRHC1mtLp0y5saA==",
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.12",
-          "Microsoft.Extensions.Logging.Abstractions": "10.0.12",
-          "Microsoft.Extensions.Options.ConfigurationExtensions": "10.0.12",
-          "Whipstaff.Runtime": "9.2.66"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.15",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.15",
+          "Microsoft.Extensions.Options.ConfigurationExtensions": "10.0.15",
+          "Whipstaff.Runtime": "9.3.13"
         }
       },
       "Whipstaff.Runtime": {
         "type": "Transitive",
-        "resolved": "9.2.66",
-        "contentHash": "LMI0m/lICDaVWcv9SOhrNpFIyFQ4dhP51ra8qDqU1inrRbo+Lvl+COH2+VmC7wgAvoE2LreFKJjeK4GN73fBbw==",
+        "resolved": "9.3.13",
+        "contentHash": "fwleG23M7dSreBsHeXdSB0e7gM2SQEh/7FryFzUp0Mx6XoD9HOZ/232ZYzmCPr4HEo1CjVn2hKPs3hFa8M2uxQ==",
         "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "10.0.12"
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.15"
         }
       },
       "gripe.analyzer": {
